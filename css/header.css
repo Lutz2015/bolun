@@ -1,0 +1,84 @@
+
+/*header 头部*/
+#header {
+    width: 100%;
+    background: #fff;
+}
+
+.header-content {
+    width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.header-top {
+    width: 100%;
+    height: 10px;
+    background: #4c994f;
+    text-indent: -9999px;
+}
+.header-main {
+    width: 1000px;
+    height: 80px;
+    margin: 0 auto;
+    padding: 18px 0 16px 0;
+}
+
+.header-left {
+    /*text-align: left;*/
+    float: left;
+
+}
+
+.header-left .logo-img {
+    float: left;
+    /*display: inline-block;*/
+    width: 81px;
+}
+.header-left .logo-text {
+    float: left;
+    /*display: inline-block;*/
+    margin-left: 10px;
+    height: 80px;
+    width: 432px;
+}
+.header-left .logo-img img,  .header-left .logo-img img {
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.header-right {
+    position: relative;
+    height: 80px;
+    min-width: 240px;
+}
+.header-right-info {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.header-right-info {
+    float: left;
+}
+
+.header-right-info a {
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+    margin-left: 17px;
+}
+
+.header-right-info .web-change {
+    padding-left: 10px;
+}
+
+.web-relogin {
+    padding: 6px 0 6px 10px;
+
+}
+.web-quit {
+    margin-left: 8px;
+    color: #006dcc;
+    cursor: pointer;
+}

@@ -1,0 +1,230 @@
+html, body,
+h1, h2, h3, h4, h5, h6,
+p, blockquote, pre, address, img,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td, div, span, section {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+}
+
+html {
+    min-width: 320px;
+}
+
+body {
+    font-family: "microsoft yahei", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #666;
+    overflow-x: hidden;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    outline: 0;
+}
+
+em, i {
+    font-style: normal;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    background: #f2f2f2;
+}
+
+.hide {
+    display: none;
+}
+
+.fl {
+    float: left;
+}
+.fr {
+    float: right;
+}
+
+.clearfloat {
+    display: block;
+    content: '';
+    height: 0;
+    clear: both;
+    overflow: hidden;
+}
+
+/*tab css*/
+.mt-tab {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin-top: 30px;
+    width: 100%;
+    text-align: center;
+}
+
+
+.tab-thead {
+    display: table-header-group;
+}
+.tab-thead  th {
+    border: 1px solid #ccc;
+    background-color: #ccc;
+}
+.tab-thead  th span {
+    display: block;
+    padding: 8px;
+}
+
+
+
+
+.tab-tbody {
+    display: table-header-group;
+}
+
+.tab-tbody td {
+    min-width: 44px;
+    border: 1px solid #ccc;
+    max-width: 300px;
+    font-size: 12px;
+    background-color: #fff;
+}
+
+.tab-tbody td  span{
+    display: -webkit-inline-box;
+    padding: 6px 8px;
+}
+
+
+/*poup*/
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+    background: rgba(51, 51, 51, 0.8);
+    /*background-color: #000;*/
+    /*opacity: 0.6;*/
+    /*filter:alpha(opacity:60);*/
+}
+.popup .container {
+    border-radius: 5px;
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    z-index: 1000;
+    width: 500px;
+    height: auto;
+    background: #fff;
+    border: 1px solid #ccc;
+    color: #666;
+    margin-left: -250px;
+}
+.popup-header {
+    padding: 0 15px;
+    background-color: #006dcc;
+    position: relative;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+}
+.popup-header .popup-close {
+    float: right;
+    font-size: 24px;
+    width: 30px;
+    text-align: right;
+    font-weight: 500;
+    color: #666;
+    text-shadow: 0 1px 0 #fff;
+    cursor: pointer;
+}
+
+.popup-title {
+    color: #eee;
+}
+.popup-edit {
+    margin: 10px;
+    position: relative;
+    /*width: 100%;*/
+    overflow: hidden;
+}
+
+.record-time {
+
+    background: #eee;
+    border: none;
+    border-radius: 3px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -webkit-transition: border linear .2s,box-shadow linear .2s;
+    -moz-transition: border linear .2s,box-shadow linear .2s;
+    -o-transition: border linear .2s,box-shadow linear .2s;
+    transition: border linear .2s,box-shadow linear .2s;
+}
+
+.popup-footer {
+    padding: 0 20px 15px 20px;
+    margin-top: 10px;
+    text-align: center;
+}
+.popup-footer .popup-confirm, .popup-footer .popup-cancel {
+    display: inline-block;
+    width: 80px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+}
+.popup-confirm {
+    margin-right: 20px;
+    background: #20c2d2;
+}
+.confirming {
+    background: #ccc;
+    pointer-events:none
+}
+.popup-cancel {
+    margin-left: 20px;
+    background: #ccc;
+}
+
+.contri-more, .home-more {
+    float: right;
+    font-size: 14px;
+    color: #006dcc;
+    cursor: pointer;
+}
+
+
+.edit-btn-confirm,
+.edit-btn-cancel,
+.edit-btn-temprorary{
+    padding: 5px 20px;
+    background: #006dcc;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-btn-temprorary {
+    margin-right: 20px;
+    background: #4c994f;
+
+}
+.edit-btn-cancel {
+    margin-right: 20px;
+    background: #ccc;
+}

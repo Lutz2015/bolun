@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>第十一届全国博士生学术会议</title>
+    <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/datetimepicker.css" />
+    <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/login.css" />
+</head>
+<body>
+<div class="login-bg">
+    <div id="res-login">
+        <div class="doc-logo"><img src="/app/Tpl/Form/images/logo_img.png" alt=""></div>
+        <div class="doc-title">第十一届全国博士生学术会议</div>
+        <div class="doc-content">
+            <p class="doc-content-title">
+                <a href="#register" class="title-btn doc-content-title-res" data-tab="0">注册</a>
+                <a href="#login" class="title-btn doc-content-title-login active" data-tab="1">登录</a>
+            </p>
+            <form class="doc-content-res doc-content-res-info">
+                <p class="doc-content-res-list"><i class="res-notice">*</i><input type="text" placeholder="用户名" class="doc-content-res-username"/>
+                    <span class="onerror res-username-error"></span>
+                </p>
+                <p class="doc-content-res-list"><input type="text" placeholder="账号（电子邮箱）" class="doc-content-res-email"/><i class="res-notice">*</i>
+                    <span class="onerror res-email-error"></span>
+                </p>
+                <p class="doc-content-res-list">
+                    <input type="password" placeholder="密码（不小于6位）" class="doc-content-res-pwd" name="password"/>
+                    <i class="res-notice">*</i>
+                    <span class="onerror res-pwd-error"></span>
+                </p>
+                <p class="doc-content-res-list">
+                    <input type="password" placeholder="请确认密码" class="doc-content-res-dpwd"  name="password"/>
+                    <i class="res-notice">*</i>
+                    <span class="onerror res-dpwd-error"></span>
+                </p>
+                <p class="doc-content-res-list">
+                    <input type="text" placeholder="姓名" class="doc-content-res-name"/>
+                    <select type="text" class="doc-content-res-sex">
+                        <option value="0" selected="selected">男</option>
+                        <option value="1">女</option>
+                    </select>
+                    <i class="res-notice">*</i>
+                    <span class="onerror res-name-error"></span>
+                </p>
+                <p class="doc-content-res-list input-append">
+                    <input size="16" type="text" class="date form_datetime doc-content-res-date"  placeholder="出生年月" readonly>
+                    <i class="res-notice">*</i>
+                    <span class="onerror res-date-error"></span>
+                </p>
+                <p class="doc-content-res-list">
+                    <select class="doc-content-res-school">
+                        <option value="0" selected="selected">清华大学</option>
+                        <option value="1">北京大学</option>
+                    </select>
+                    <i class="res-notice">*</i>
+                    <span class="onerror res-school-error"></span>
+                </p>
+                <p class="doc-content-res-list"><input type="text" placeholder="学号" class="doc-content-res-stuid"/><i class="res-notice"></i></p>
+                <p class="doc-content-res-list"><input type="text" placeholder="导师姓名" class="doc-content-res-docname"/><i class="res-notice">*</i>
+                    <span class="onerror res-docname-error"></span></p>
+                <p  class="doc-content-res-list"><input type="text" placeholder="请输入11位数字的手机号" class="doc-content-res-phone"/><i class="res-notice">*</i>
+                    <span class="onerror res-phone-error"></span></p>
+                <div class="doc-content-res-address doc-content-res-list">
+                    <div class="doc-content-res-link">
+                        <div>
+                            <select id="s_province" class="res-province" name="s_province"></select>  
+                            <select id="s_city" class="res-city" name="s_city" ></select>  
+                            <select id="s_county" class="res-county" name="s_county"></select>
+                        </div>
+                        <div id="show"></div>
+                    </div>
+                    <p class="doc-content-res-textarea"><textarea type="text" placeholder="选择省市区后请填写详细地址" class="doc-content-res-text"></textarea>
+                        <i class="res-notice">*</i>
+                        <span class="onerror res-addressText-error"></span>
+                    </p>
+                    <i class="res-notice">*</i>
+                </div>
+                <p class="doc-content-btn doc-content-restext">注册</p>
+            </form>
+            <form class="doc-content-res doc-content-login-info hide">
+                <p><input type="text" placeholder="账号（电子邮箱）" class="doc-content-login-username"/></p>
+                <p>
+                    <input type="password" placeholder="密码" class="doc-content-login-pwd" name="password"/>
+
+                </p>
+                <p class="login-error-text"></p>
+                <p class="doc-content-btn doc-content-logintext">登录</p>
+                <p class="doc-content-forget"><span class="doc-content-forget-pwd">忘记密码?</span></p>
+            </form>
+        </div>
+    </div>
+    <footer id="footer">
+        <div  class="login-footer">
+        <p>联系我们&nbsp;|&nbsp;邮箱：ndac@tsinghua.edu.cn &nbsp;&nbsp;电话：010-62781331 &nbsp;地址：清华大学环境学院&nbsp;&nbsp;邮编：100084 <br><span class="login-footer-min">Copyright © 2006-2011 Tsinghua Inc. All rights reserved. 清华大学环境学院 版权所有  京ICP 09100705号</span></p>
+        </div>
+    </footer>
+</div>
+    <div class="q-popup"></div>
+<script src="/app/Tpl/Form/js/jquery.js"></script>
+<script src="/app/Tpl/Form/js/cookie.js"></script>
+<script src="/app/Tpl/Form/js/datetimepicker.min.js"></script>
+<script class="resources library" src="/app/Tpl/Form/js/popup.js"></script>
+<script class="resources library" src="/app/Tpl/Form/js/area.js"></script>
+<script src="/app/Tpl/Form/js/login.js"></script>
+</body>
+</html>

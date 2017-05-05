@@ -1,0 +1,437 @@
+.user-content {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+.user-contain {
+    width: 1000px;
+    height: auto;
+    margin: 0 auto;
+    position: relative;
+}
+
+.user-title {
+    width: 100%;
+    height: 40px;
+    /*background: #c9c9c9;*/
+    margin: 20px 0;
+}
+.user-callback-home {
+    float: left;
+    padding: 10px 20px;
+}
+.user-title-list {
+    float: right;
+    overflow: hidden;
+}
+.user-title-list li {
+    float: left;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 20px;
+    margin-left: 5px;
+    background: #666;
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+}
+.user-title-list li.active {
+    background: #4c994f;
+    color: #fff;
+}
+
+.user-detail {
+    width: 100%;
+    height: auto;
+    position: relative;
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.user-detail-left {
+    float: left;
+    width: 200px;
+    min-height: 540px;
+    background: #fff;
+    -moz-box-shadow:0 3px 3px 0 #ccc;
+    -webkit-box-shadow:0 3px 3px 0 #ccc;
+    box-shadow:0 3px 3px 0 #ccc;
+}
+.user-detail-menu {
+    margin: 20px;
+    border: 1px solid #666;
+}
+.user-detail-menu li {
+    padding: 0 10px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+.user-detail-menu li a{
+    display: block;
+    color: #666;
+    border-bottom: 1px solid #ccc;
+}
+.user-detail-menu li.on a{
+    color: #4c994f;
+}
+.user-detail-menu li.last a{
+    border-bottom: none;
+}
+
+
+/*右边*/
+.user-detail-right {
+    float: left;
+    width: 740px;
+    min-height: 500px;
+    background: #fff;
+    -moz-box-shadow:0 3px 3px 0 #ccc;
+    -webkit-box-shadow:0 3px 3px 0 #ccc;
+    box-shadow:0 3px 3px 0 #ccc;
+    margin-left: 20px;
+    padding: 20px;
+    display: none;
+}
+.user-detail-right.active {
+    display: block;
+}
+
+
+/*摘要投稿*/
+
+.detail-right-title {
+    width: 100%;
+    height: 102px;
+}
+.detail-right-title-img {
+    position: relative;
+    float: left;
+    /*display: inline-block;*/
+    width: 100px;
+    height: 100px;
+    border: 1px solid #666;
+    background-color: #ccc;
+    margin-right: 8px;
+    /*background: url("/app/Tpl/Form/images/pic_bg.png") no-repeat 0 0;*/
+    background-size: cover;
+    overflow: hidden;
+}
+.detail-right-title-img .upload-img{
+    position: absolute;
+    z-index: 3;
+    display: block;
+    width: 100px;
+    height: 100px;
+    border: none;
+    opacity: 0;
+    filter:alpha(opacity:0);
+}
+.right-title-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    z-index: 1;
+}
+
+.detail-right-title-img span {
+    position: absolute;
+    bottom: 0;
+    width: 100px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    color: #ccc;
+    z-index: 2;
+}
+.detail-right-title-text {
+    /*display: inline-block;*/
+    float: left;
+    margin-left: 6px;
+}
+.detail-right-title-name{
+    margin-top: 50px;
+}
+.detail-right-title-school {
+    margin-top: 16px;
+}
+.detail-right-content {
+    margin-top: 30px;
+}
+
+.detail-right-content-menu {
+    float: left;
+    width: 360px;
+    min-height: 200px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    -moz-box-shadow:0 3px 3px 0 #ccc;
+    -webkit-box-shadow:0 3px 3px 0 #ccc;
+    box-shadow:0 3px 3px 0 #ccc;
+}
+.nowight {
+    margin-left: 0;
+}
+.detail-right-content-menu h3 {
+    font-weight: 600;
+    padding: 8px;
+    background-color: #e5e5e5;
+}
+.content-menu-contribution {
+    padding: 4px 8px;
+
+}
+.content-menu-contribution-item{
+    padding: 6px 5px 6px 10px;
+}
+.content-menu-contribution-item a {
+    display: block;
+    color: #666;
+}
+
+.contribution-title {
+    /*display: ;*/
+    width: 230px;
+    font-size: 15px;
+    line-height: 14px;
+    display:-webkit-inline-box;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    margin-right: 5px;
+}
+
+
+
+
+
+.user-detail-pwd p input{
+    display: inline-block;
+    width: 300px;
+    height: 30px;
+    padding: 0 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+
+/*稿件详细信息*/
+.contribute-upload {
+    /*margin-top: 20px;*/
+}
+
+.upload-on {
+    display: inline-block;
+    height: 26px;
+    line-height: 26px;
+    width: 130px;
+    text-align: center;
+    margin-right: 20px;
+
+}
+.upload-on .upload-icon{
+    /*display: inline-block;*/
+    float: left;
+    height: 26px;
+    width: 26px;
+    /*margin-right: 5px;*/
+    background: url("/app/Tpl/Form/images/upload_icon.png") no-repeat 0 0;
+}
+
+.upload-on em {
+    display: inline-block;
+    height: 26px;
+    line-height: 26px;
+}
+.user-contribute-list {
+    margin-top: 10px;
+    width: 100%;
+    border: 1px solid #999;
+}
+.user-contribute-list p {
+    height: 30px;
+    border-bottom:1px solid #ccc;
+}
+
+.user-contribute-list-title {
+    display: inline-block;
+    width: 120px;
+    height: 30px;
+    line-height: 30px;
+    background: #dcedc8;
+    text-align: center;
+    margin-right: 8px;
+}
+
+
+.date-info-common {
+    padding:  0 10px;
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px solid #ccc;
+    color: #666;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    word-break: break-all;
+    overflow: hidden;
+}
+
+.date-info-common .date-info-span {
+    color: #5c2f7c;
+}
+
+
+/*列表里*/
+.contri-title, .contri-see {
+    color: #006dcc;
+}
+
+
+/*个人信息*/
+
+.user-person-info .user-person-info-list {
+    margin: 10px 20px;
+    /*height: 30px;*/
+    /*line-height: 30px;*/
+}
+
+.user-person-info-list label {
+    display: inline-block;
+    text-align: right;
+    width: 140px;
+}
+
+.user-person-info-val  {
+    margin-left: 20px;
+    display: inline-block;
+    padding: 5px;
+    min-width: 220px;
+}
+
+.val-sex {
+    width: 236px;
+}
+.label-address {
+    float: left;
+}
+.val-address {
+    width: 224px;
+    margin-left: 23px;
+}
+
+
+
+.per-edit-btn, .pwd-edit-btn, .apply-edit-btn{
+    margin-top: 20px;
+    width: 430px;
+    text-align: right;
+}
+
+
+
+/*修改密码*/
+.user-detail-pwd {
+    margin: 30px;
+}
+.user-detail-pwd p{
+    height: 32px;
+    /*line-height: 30px;*/
+    margin-top: 10px;
+}
+
+.user-detail-pwd label {
+    display: inline-block;
+    width: 100px;
+    margin-right: 20px;
+    text-align: right;
+    /*background: #ccc;*/
+}
+
+.pwd-error {
+   padding-left: 10px;
+    color: #f00;
+}
+
+
+
+/*公有方法*/
+.user-person-apply-list {
+    margin: 10px 20px;
+    /*height: 30px;*/
+}
+
+.user-person-apply-list label {
+    display: inline-block;
+    /*float: left;*/
+    text-align: right;
+    width: 120px;
+    padding: 5px 0;
+    margin-bottom: 10px;
+}
+
+.user-person-apply-val  {
+    margin-left: 20px;
+    display: inline-block;
+    padding: 5px;
+    width: 280px;
+}
+.val-direction, .val-gain {
+    margin-left: 23px;
+
+}
+.val-field, .val-positio {
+    width: 284px;
+}
+
+.val-education, .val-field {
+    width: 294px;
+}
+
+
+/*申请成为审稿人 apply*/
+
+.apply-keyword {
+    width: 86px;
+    margin-top: 5px;
+}
+
+
+.more-author, .more-author-item {
+    padding: 5px 20px;
+    background: blue;
+    font-size: 16px;
+    color: #fff;
+}
+
+.user-person-apply-list .add-author-label {
+    width: 80px;
+}
+
+.more-author-list {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.more-author-item {
+    background: #ccc;
+    margin-right: 5px;
+}
+
+.contri-edit-upload{
+    display: inline-block;
+    width: 150px;
+}
+
+.user-contribute-list {
+    margin-top: 20px;
+}
