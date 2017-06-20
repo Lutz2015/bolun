@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>第十一届全国博士生学术会议</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/app/Tpl/Form/images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/font/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/datetimepicker.css" />
+    <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/header.css" />
+    <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/footer.css" />
+    <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/user.css" />
+
+</head>
+<body>
+<header id="header">
+    <div class="header-content">
+        <div class="header-top">第十一届全国博士生会议</div>
+        <div class="header-main">
+            <div class="header-left fl">
+                <div class="logo-img"><img src="/app/Tpl/Form/images/logo_img.png" alt=""></div>
+                <div class="logo-text"><img src="/app/Tpl/Form/images/logo_text.png" alt=""></div>
+            </div>
+            <div class="header-right fr">
+                <div class="header-right-info">
+                    <p class="web-nologin hide">
+                        <a href="/app/Tpl/Form/login.html#register" class="web-register">[注册]</a>
+                        <a href="/app/Tpl/Form/login.html#login" class="web-login">[登录]</a>
+                    </p>
+                    <p class="web-relogin">
+                        <i class="name_logo"></i>
+                        <i class="web-nametext"></i>
+                        <i class="web-quit">退出</i>
+                    </p>
+                    <div class="web-change">English Version</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="user-content">
+    <div class="user-contain">
+
+        <div class="user-title">
+            <a class="user-callback-home" href="../Form/home.html"><i class="icon-homeback iconfont icon-shouye-shouye"></i>返回首页</a>
+            <ul class="user-title-list">
+                <li class="active">作者中心</li>
+                <li>审稿中心</li>
+                <li>编辑中心</li>
+            </ul>
+        </div>
+        <div class="user-detail">
+            <div class="user-detail-left">
+                <ul class="user-detail-menu">
+                    <li class="user-menu-one on" data-id="0"><a href="#abstract">投稿摘要</a></li>
+                    <li class="user-menu-two" data-id="1"><a href="#submission">投稿</a></li>
+                    <li class="user-menu-three" data-id="2"><a href="#allcontri">稿件查询</a></li>
+                    <li class="user-menu-four" data-id="3"><a href="#doingcontri">待修改稿件</a></li>
+                    <li class="user-menu-five" data-id="4"><a href="#info">个人信息</a></li>
+                    <li class="user-menu-six" data-id="5"><a href="#modify">修改密码</a></li>
+                    <li class="user-menu-seven" data-id="6"><a href="#apply">申请成为审稿人</a></li>
+                    <li class="user-menu-eight" class="last" data-id="7"><a href="#">住宿登记</a></li>
+            </ul>
+            </div>
+            <div class="user-detail-right active">
+                <div class="user-detail-extra"></div>
+                <div class="detail-right-title">
+                    <div class="detail-right-title-img">
+                        <input type="file" value="" class="upload-img" id="upload-img" accept="image/jpg, image/png, image/gif, image/bmp, image/jpeg" name="uploading">
+                        <img src="/app/Tpl/Form/images/pic_bg.png" class="right-title-img" title="请上传不要超过2M的头像">
+                        <span class="upload-notice hide">请上传不超过4M的图片</span>
+                    </div>
+                    <div class="detail-right-title-text">
+                        <p class="detail-right-title-name">姓名：<span class="right-title-name"></span></p>
+                        <p class="detail-right-title-school">院校：<span class="right-title-school"></span></p>
+                    </div>
+                </div>
+                <div class="detail-right-content">
+                    <div class="detail-right-content-menu nowight">
+                        <h3>稿件查询</h3>
+                        <ul class="content-menu-contribution al-contribution">
+
+                        </ul>
+                    </div>
+                    <div class="detail-right-content-menu">
+                        <h3>待修改稿件查询</h3>
+                        <ul class="content-menu-contribution no-contribution">
+
+                        </ul>
+                    </div>
+                    <div class="detail-right-content-menu nowight">
+                        <h3>重要日期 <a class="contri-more news-more hide" href="javascript:void(0);">更多</a></h3>
+                        <ul class="content-menu-contribution">
+                            <li class="date-info-common"><span class="date-info-span">论文摘要截止：</span><span class="date-paper-end"></span></li>
+                            <li class="date-info-common"><span class="date-info-span">论文摘要录用：</span><span class="date-paper-hire"></span></li>
+                            <li class="date-info-common"><span class="date-info-span">论文全文截止日期：</span><span class="date-allpaper-end"></span></li>
+                            <li class="date-info-common"><span  class="date-info-span">会议日期：</span><span class="date-allpaper-day"></span></li>
+                        </ul>
+                    </div>
+                    <div class="detail-right-content-menu">
+                        <h3>最新消息 <a class="contri-more news-more" href="/app/Tpl/Form/introduce.html">更多</a></h3>
+                        <ul class=" content-menu-contribution-news">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="user-detail-right">
+                <div class="user-detail-apply">
+                    <form class="user-contribute-deliver" enctype="multipart/form-data">
+                        <div class="user-person-apply-list">
+                            <label class="">摘要上传：</label>
+                            <input type="file" placeholder="" class="user-person-apply-val val-apply-file" name="fileString"  accept=".doc,.docx"/>
+                            <span class="pwd-error upload-error"></span>
+                        </div>
+                        <div class="user-person-apply-list">
+                            <label>中文标题：</label>
+                            <input type="text" class="user-person-apply-val val-chinese-tit" />
+                            <span class="pwd-error chinese-tit-error"></span>
+                        </div>
+                        <div class="user-person-apply-list">
+                            <label >英文标题：</label>
+                            <input type="text" placeholder="" class="user-person-apply-val val-english-tit"/>
+                            <span class="pwd-error english-tit-error"></span>
+                        </div>
+                        <div class="user-person-apply-list">
+                            <label class="label-chinese">中文关键字：</label>
+                            <input type="text" class="key-words chinese-keywords user-person-apply-val" placeholder="关键字以逗号隔开"/>
+                            <span class="pwd-error chinese-keywords-error"></span>
+                        </div>
+                        <div class="user-person-apply-list">
+                            <label class="label-english">英文关键字：</label>
+                            <input type="text" class="key-words english-keywords user-person-apply-val" placeholder="关键字以逗号隔开"/>
+                            <span class="pwd-error english-keywords-error"></span>
+                        </div>
+                        <div class="user-person-apply-list">
+                            <label>主题：</label>
+                            <select class="user-person-apply-val val-apply-theme">
+                                <option selected="selected">水污染控制与资源化</option>
+                                <option>大气污染与控制</option>
+                                <option>固体废物污染控制与资源化</option>
+                                <option>环境化学</option>
+                                <option>环境经济、管理与政策</option>
+                                <option>环境生态健康</option>
+                                <option>能源与气候变化</option>
+
+                            </select>
+                            <span class="pwd-error apply-theme-error"></span>
+                        </div>
+                        <div class="user-person-apply-list">
+                            <label>作者姓名：</label>
+                            <input type="text" class="user-person-apply-val val-apply-name" />
+                            <span class="pwd-error apply-name-error"></span>
+                        </div>
+                        <div class="user-person-apply-list">
+                            <label>作者拼音：</label>
+                            <input placeholder="" class="user-person-apply-val val-apply-ping"/>
+                            <span class="pwd-error apply-ping-error"></span>
+                        </div>
+                        <div class="user-person-apply-list">
+                            <label>邮箱地址：</label>
+                            <input placeholder="" class="user-person-apply-val val-apply-email"/>
+                            <span class="pwd-error apply-email-error"></span>
+                        </div>
+                        <div class="user-person-apply-list">
+                            <label>作者单位：</label>
+                            <textarea class="user-person-apply-val val-apply-company" rows="3" cols="30"></textarea>
+                            <span class="pwd-error apply-company-error"></span>
+                        </div>
+                        <div class="user-person-apply-list">
+                            <label>更多作者：</label>
+                            <div class="user-person-apply-val val-more-author">
+                                <p class="more-author-list"></p>
+                                <span class="more-author">+</span>
+                            </div>
+                        </div>
+                        <div class="user-person-apply-list">
+                            <label>备注：</label>
+                            <textarea class="user-person-apply-val val-apply-remarks" rows="3" cols="30"></textarea>
+                        </div>
+
+                        <div class="user-person-apply-list apply-edit-btn">
+                            <span class="edit-btn-temprorary save-btn-confirm">暂存</span>
+                            <span class="edit-btn-confirm upload-btn-confirm">提交</span>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+            <div class="user-detail-right">
+                <div class="user-detail-contribution"></div>
+                <div class="user-detail-contribution-person hide">
+                    <div class="contribute-upload"></div>
+                    <div class="user-contribute-list"></div>
+                    <div class="user-contribute-author"></div>
+                    <div class="user-contribute-abstract"></div>
+                    <div class="user-contribute-full"></div>
+                </div>
+            </div>
+            <div class="user-detail-right">
+                <div class="user-detail-contribution-modify hide"></div>
+                <div class="user-detail-contribution-modify-person hide">
+                    <div class="contribute-upload"></div>
+                    <div class="user-contribute-list"></div>
+                    <div class="user-contribute-author"></div>
+                    <div class="user-contribute-abstract"></div>
+                    <div class="user-contribute-full"></div>
+                </div>
+            </div>
+            <div class="user-detail-right">
+                <div class="user-detail-person ">
+                    <div class="user-person-info"></div>
+                </div>
+            </div>
+            <div class="user-detail-right">
+                <form class="user-detail-pwd">
+                    <div class="user-detail-pwd-list">
+                        <p>
+                            <label>旧密码</label>
+                            <input type="password" class="user-old-pwd"/>
+                            <span class="old-pwd-error pwd-error"></span>
+                        </p>
+                        <p>
+                            <label>新密码</label>
+                            <input type="password"  class="user-new-pwd"/>
+                            <span class="new-pwd-error pwd-error"></span>
+                        </p>
+                        <p>
+                            <label>确认密码</label>
+                            <input type="password"  class="user-confirm-pwd"/>
+                            <span class="confirm-pwd-error pwd-error"></span>
+                        </p>
+                    </div>
+                    <div class="pwd-edit-btn">
+                        <span class="edit-btn-cancel">取消</span>
+                        <span class="edit-btn-confirm pwd-confirm">提交</span>
+                    </div>
+                </form>
+            </div>
+            <div class="user-detail-right">
+                <div class="user-detail-apply">
+                    <form class="user-person-apply">
+                        <div class="user-person-apply-list">
+                            <label class="label-major">专业：</label>
+                            <input type="text" placeholder="" class="user-person-apply-val val-major"/>
+                            <span class="pwd-error major-error"></span>
+                        </div>
+                        <div class="user-person-apply-list">
+                            <label class="label-education">学历：</label>
+                            <select class="user-person-apply-val val-education">
+                                <option value="0" selected="selected">本科</option>
+                                <option value="1">硕士</option>
+                                <option value="2">博士</option>
+                                <option value="3">其他</option>
+                            </select>
+                        </div>
+                        <div class="user-person-apply-list">
+                            <label class="label-positio">职称：</label>
+                            <input type="text" placeholder="" class="user-person-apply-val
+val-positio"/>
+                            <span class="pwd-error positio-error"></span>
+                        </div>
+                        <div class="user-person-apply-list">
+                            <label class="label-field">研究领域：</label>
+                            <select type="text" class="user-person-apply-val val-field">
+                                <option selected="selected">水污染控制与资源化</option>
+                                <option>大气污染与控制</option>
+                                <option>固体废物污染控制与资源化</option>
+                                <option>环境化学</option>
+                                <option>环境经济、管理与政策</option>
+                                <option>环境生态健康</option>
+                                <option>能源与气候变化</option>
+                            </select>
+                        </div>
+                        <div class="user-person-apply-list">
+                            <label class="label-direction fl">研究方向：</label>
+                            <textarea placeholder="" class="user-person-apply-val val-direction" rows='3' cols='30'></textarea>
+                            <span class="pwd-error direction-error"></span>
+                        </div>
+                        <div class="user-person-apply-list">
+                            <label class="label-gain fl">研究成果：</label>
+                            <textarea placeholder="" class="user-person-apply-val val-gain"  rows='3' cols='30'></textarea><span class="pwd-error gain-error"></span>
+
+                        </div>
+                        <div class="user-person-apply-list">
+                            <label class="label-name">持卡人姓名：</label>
+                            <input placeholder="" class="user-person-apply-val val-name"/>
+                            <span class="pwd-error name-error"></span>
+                        </div>
+                        <div class="user-person-apply-list">
+                            <label class="label-bank">开户银行：</label>
+                            <input placeholder="" class="user-person-apply-val val-bank"/>
+                            <span class="pwd-error bank-error"></span>
+                        </div>
+                        <div class="user-person-apply-list">
+                            <label class="label-account">银行账号：</label>
+                            <input placeholder="" class="user-person-apply-val val-account"/><span class="pwd-error account-error"></span>
+
+                        </div>
+                        <div class="apply-edit-btn">
+                            <span class="edit-btn-cancel">取消</span>
+                            <span class="edit-btn-confirm apply-btn-confirm">提交</span>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <div class="user-detail-right"></div>
+            <div class="user-detail-right"></div>
+        </div>
+    </div>
+</div>
+<div class="q-popup"></div>
+<footer id="home-footer">
+    <div class="footer-top">
+        <div class="footer-contain">
+            <div class="footer-info-list">
+                <h3 class="footer-info-list-title">主办单位</h3>
+                <ul class="footer-info-list-menu">
+                    <li><a href="http://www.tsinghua.edu.cn">清华大学</a></li>
+                    <li><a href="http://www.chinacses.org/">中国环境科学学会</a></li>
+                    <li><a href="http://www.2011-cicreq.com/">区域环境质量协同创新中心</a></li>
+                    <li><a href="http://www.skjlespc.net/">环境模拟与污染控制国家重点联合实验室</a></li>
+                </ul>
+            </div>
+            <div class="footer-info-list">
+                <h3 class="footer-info-list-title">协同单位赞助单位</h3>
+                <ul class="footer-info-list-menu">
+                    <li><a href="http://www.xauat.edu.cn">西安建筑科学大学</a></li>
+                    <li><a href="http://www.springer.com/environment/journal/11783">Frontiers of Environmental Science & Engineering</a></li>
+                </ul>
+            </div>
+            <div class="footer-info-list">
+                <h3 class="footer-info-list-title">联系我们</h3>
+                <ul class="footer-info-list-menu">
+                    <li>邮箱：ndac@tsinghua.edu.cn</li>
+                    <li>电话：010-62781331</li>
+                    <li>地址：清华大学环境学院全国博士生学术会议组委会(收)</li>
+                    <li>邮编：100084</li>
+                </ul>
+            </div>
+            <div class="footer-info-list-last"><img src="/app/Tpl/Form/images/footer_so.jpg" alt=""></div>
+        </div>
+    </div>
+    <div class="footer-mid">
+        <div class="footer-contain">
+            <span class="footer-mid-logo"><img src="/app/Tpl/Form/images/footer01.png" alt=""> </span>
+            <span class="footer-mid-logo"><img src="/app/Tpl/Form/images/footer02.png" alt=""></span>
+            <span class="footer-mid-logo"><img src="/app/Tpl/Form/images/footer03.png" alt=""></span>
+            <span class="footer-mid-logo"><img src="/app/Tpl/Form/images/footer04.png" alt=""></span>
+            <span class="footer-mid-logo"><img src="/app/Tpl/Form/images/footer05.png" alt=""></span>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="footer-contain">
+            <p class="footer-bottom-text">Copyright © 2006-2011 Tsinghua Inc. All rights reserved. 清华大学环境学院 版权所有  京ICP 09100705号</p>
+        </div>
+    </div>
+</footer>
+
+
+
+<script src="/app/Tpl/Form/js/jquery.js"></script>
+<script src="/app/Tpl/Form/js/cookie.js"></script>
+<script src="/app/Tpl/Form/js/datetimepicker.min.js"></script>
+<script src="/app/Tpl/Form/js/header.js"></script>
+<script src="/app/Tpl/Form/js/createTable.js"></script>
+<script src="/app/Tpl/Form/js/popup.js"></script>
+<script src="/app/Tpl/Form/js/user.js"></script>
+
+</body>
+</html>

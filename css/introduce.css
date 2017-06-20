@@ -1,0 +1,77 @@
+
+.about-meeting {
+    width: 1000px;
+    margin: 0 auto;
+}
+.meeting-top {
+    margin-top: 10px;
+    height: 42px;
+    border-bottom: 2px solid #388e3b;
+}
+.meeting-top-title {
+    float: left;
+    width: 120px;
+    height: 42px;
+    line-height: 42px;
+    background: #388e3b;
+    color: #fff;
+    text-align: center;
+    font-size: 18px;
+}
+
+.meeting-top-list {
+    float: left;
+    padding: 0 20px;
+}
+.meeting-top-list li {
+    float: left;
+    height: 42px;
+    line-height: 42px;
+    padding: 0 16px;
+}
+.meeting-top-list li a {
+    display: block;
+
+    color: #333;
+}
+
+.meeting-top-list li.active a {
+    height: 39px;
+    border-bottom: 3px solid #5c307d;
+}
+
+.meeting-content {
+    display: none;
+    margin-top: 30px;
+    padding: 20px 50px;
+    -moz-box-shadow:1px 1px 5px 1px #ccc;
+    -webkit-box-shadow:1px 1px 5px 1px #ccc;
+    box-shadow:1px 1px 5px 1px #ccc;
+    box-sizing: border-box;
+    min-height: 500px;
+    background: #fff;
+}
+.about-meeting .active {
+    display: block;
+}
+.meeting-content-title {
+    height: 39px;
+    line-height: 39px;
+    border-bottom: 1px solid #ccc;
+}
+
+.meeting-content-title span{
+    display: block;
+    width: 80px;
+    font-size: 16px;
+    height: 37px;
+    border-bottom: 2px solid #4c994f;
+    color: #333;
+}
+
+.meeting-content-detail {
+    margin-top: 20px;
+    text-indent: 20px;
+    color: #000;
+    overflow: hidden;
+}
