@@ -3,18 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>博士生学术会议</title>
-    <meta name="keywords" content=""/>
-    <meta name="description" content="第十一届全国博士生会议"/>
     <link rel="shortcut icon" type="image/x-icon" href="/app/Tpl/Form/images/favicon.ico">
-    <!--<link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/datetimepicker.css" />-->
-    <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/font/iconfont.css" />
     <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/common.css" />
     <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/header.css" />
-    <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/adv.css" />
     <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/nav.css" />
+    <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/adv.css" />
     <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/footer.css" />
-    <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/home.css" />
-
+    <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/introduce.css" />
+    <style>
+        .meeting-list-title {
+            height: 30px;
+            font-weight: 600;
+            line-height: 30px;
+        }
+        .meeting-info-list-menu li {
+            height: 24px;
+            line-height: 24px;
+            padding-left: 20px;
+        }
+    </style>
 </head>
 <body>
 <header id="header">
@@ -46,33 +53,36 @@
 <nav id="nav">
     <div class="nav-contain">
         <ul class="nav-menu">
-            <li class="nav-menu-list nav-first active" data-index="1"><a href="/app/Tpl/Form/home.html">首页</a></li>
+            <li class="nav-menu-list nav-first" data-index="1"><a href="/app/Tpl/Form/home.html">首页</a></li>
             <li class="nav-menu-list" data-index="2"><a href="/app/Tpl/Form/introduce.html">关于会议</a></li>
-            <li class="nav-menu-list nav-menu-meeting" data-index="3"><a href="/app/Tpl/Form/content.html" class="list-meeting-conent">会议内容</a></li>
+            <li class="nav-menu-list nav-menu-meeting" data-index="3">
+                <a href="/app/Tpl/Form/content.html" class="list-meeting-conent">会议内容</a>
+
+            </li>
             <li class="nav-menu-list" data-index="4"><a href="/app/Tpl/Form/attend.html">参会注册</a></li>
             <li class="nav-menu-list" data-index="5"><a href="/app/Tpl/Form/upload.html">文件下载</a></li>
             <li class="nav-menu-list" data-index="6"><a href="/app/Tpl/Form/all.html">摘要全文</a></li>
-            <li class="nav-menu-list" data-index="7"><a href="/app/Tpl/Form/unit.html">举办单位</a></li>
+            <li class="nav-menu-list active" data-index="7"><a href="/app/Tpl/Form/unit.html">举办单位</a></li>
             <li class="nav-menu-list nav-last" data-index="8"><a href="/app/Tpl/Form/contact.html">联系我们</a></li>
 
         </ul>
     </div>
 </nav>
 <div class="adv-wrapper">
-        <div class="adv-banner">
-            <ul class="adv-images">
-                <!--<li class="adv-images-item" style="background: red"></li>-->
-                <!--<li class="adv-images-item" style="background: yellow"></li>-->
-                <!--<li class="adv-images-item" style="background: green"></li>-->
-                <!--<li class="adv-images-item" style="background: blue"></li>-->
-            </ul>
-            <ul class="tip-text hide">
-                <!--<li class="tip-text-item active">1111111111111111</li>-->
-                <!--<li class="tip-text-item">222222222222222</li>-->
-                <!--<li class="tip-text-item">3333333333333333333</li>-->
-                <!--<li class="tip-text-item">444444444444444444</li>-->
-            </ul>
-            <div class="tip-list-inner">
+    <div class="adv-banner">
+        <ul class="adv-images">
+            <!--<li class="adv-images-item" style="background: red"></li>-->
+            <!--<li class="adv-images-item" style="background: yellow"></li>-->
+            <!--<li class="adv-images-item" style="background: green"></li>-->
+            <!--<li class="adv-images-item" style="background: blue"></li>-->
+        </ul>
+        <ul class="tip-text hide">
+            <!--<li class="tip-text-item active">1111111111111111</li>-->
+            <!--<li class="tip-text-item">222222222222222</li>-->
+            <!--<li class="tip-text-item">3333333333333333333</li>-->
+            <!--<li class="tip-text-item">444444444444444444</li>-->
+        </ul>
+        <div class="tip-list-inner">
             <ul class="tip-list">
                 <!--<ul>-->
                 <!--<li class="tip-list-item active"></li>-->
@@ -82,73 +92,33 @@
                 <!--</ul>-->
             </ul></div>
 
-            <a href="javascript:void(0);" class="tip-btn tip-left"><</a>
-            <a href="javascript:void(0);" class="tip-btn tip-right">></a>
-        </div>
+        <a href="javascript:void(0);" class="tip-btn tip-left"><</a>
+        <a href="javascript:void(0);" class="tip-btn tip-right">></a>
     </div>
-<div class="home-center">
-        <div class="home-box home-operation">
-            <h2 class="center-title home-operation-center"><span>操作中心</span></h2>
-            <ul class="operation-list">
-                <li class="operation-item active">
-                    <a href="/app/Tpl/Form/user.html">
-                        <div class="operation-item-img"><img src="/app/Tpl/Form/images/home_user.png" alt=""></div>
-                        <h3 class="operation-item-text"><span>用户中心</span></h3>
-                    </a>
-                </li>
-                <li class="operation-item">
-                    <a href="/app/Tpl/Form/user.html#submission">
-                        <div class="operation-item-img"><img src="/app/Tpl/Form/images/home_abstract.png" alt=""></div>
-                        <h3 class="operation-item-text"><span>摘要提交</span></h3>
-                    </a>
-                </li>
-                <li class="operation-item">
-                    <a href="#">
-                        <div class="operation-item-img"><img src="/app/Tpl/Form/images/home_fulltext.png" alt=""></div>
+</div>
+<div class="about-meeting">
 
-                        <h3 class="operation-item-text"><span>全文提交</span></h3>
-                    </a>
-                </li>
-                <li class="operation-item">
-                    <a href="#">
-                        <div class="operation-item-img"><img src="/app/Tpl/Form/images/home_hotel.png" alt=""></div>
-
-                        <h3 class="operation-item-text"><span>住宿登记</span></h3>
-                    </a>
-                </li>
+    <div class="meeting-content active">
+        <div class="meeting-info-list">
+            <h3 class="meeting-list-title">主办单位</h3>
+            <ul class="meeting-info-list-menu">
+                <li><a href="http://www.tsinghua.edu.cn" target="_blank">清华大学</a></li>
+                <li><a href="http://www.chinacses.org/" target="_blank">中国环境科学学会</a></li>
+                <li><a href="http://www.2011-cicreq.com/" target="_blank">区域环境质量协同创新中心</a></li>
+                <li><a href="http://www.skjlespc.net/" target="_blank">环境模拟与污染控制国家重点联合实验室</a></li>
             </ul>
         </div>
-        <div class="home-info home-box">
-            <h2 class="center-title home-info-center"><span>信息中心</span></h2>
-            <ul class="home-info-list">
-                <li class="home-info-item home-info-item-fir">
-                    <h3><i class="info-icon iconfont icon-riqi"></i>重要日期<a class="home-more hide " href="/app/Tpl/Form/introduce.html">更多</a></h3>
-                    <div>
-                        <p class="date-info-common"><span class="date-info-span">论文摘要截止日期：</span><span class="date-paper-end"></span></p>
-                        <p class="date-info-common"><span class="date-info-span">论文摘要录用日期：</span><span class="date-paper-hire"></span></p>
-                        <p class="date-info-common"><span class="date-info-span">论文全文截止日期：</span><span class="date-allpaper-end"></span></p>
-                        <p class="date-info-common"><span  class="date-info-span">会议日期：</span><span class="date-allpaper-day"></span></p>
-                    </div>
-                </li>
-                <li  class="home-info-item">
-                    <h3><i class="info-icon iconfont icon-news_icon"></i>最新消息<a class="home-more" href="/app/Tpl/Form/introduce.html">更多</a></h3>
-                    <div class="news-info-list"></div>
-                </li>
-                <li class="home-info-item">
-                    <h3><i class="info-icon iconfont icon-classify_icon"></i>主题<a class="home-more hide" href="javascript:void(0);">更多</a></h3>
-                    <div>
-                        <p>水污染控制与资源化</p>
-                        <p>大气污染控制</p>
-                        <p>固体废物污染控制与资源化</p>
-                        <p>环境经济、管理与政策</p>
-                        <p>环境化学与材料</p>
-                        <p>环境生态与健康</p>
-                        <p>能源与气候变化</p>
-                    </div>
-                </li>
+        <div class="meeting-info-list">
+            <h3 class="meeting-list-title">协同单位赞助单位</h3>
+            <ul class="meeting-info-list-menu">
+                <li><a href="http://www.xauat.edu.cn" target="_blank">西安建筑科学大学</a></li>
+                <li><a href="http://www.springer.com/environment/journal/11783" target="_blank">Frontiers of Environmental Science & Engineering</a></li>
             </ul>
         </div>
     </div>
+
+</div>
+
 <footer id="home-footer">
     <div class="footer-top">
         <div class="footer-contain">
@@ -195,6 +165,8 @@
         </div>
     </div>
 </footer>
+
+
 <script src="/app/Tpl/Form/js/jquery.js"></script>
 <script src="/app/Tpl/Form/js/cookie.js"></script>
 <!--<script src="/app/Tpl/Form/js/datetimepicker.min.js"></script>-->
@@ -202,7 +174,16 @@
 <script src="/app/Tpl/Form/js/header.js"></script>
 <script src="/app/Tpl/Form/js/nav.js"></script>
 <script src="/app/Tpl/Form/js/adv.js"></script>
-<script src="/app/Tpl/Form/js/index.js"></script>
+<!--<script src="/app/Tpl/Form/js/index.js"></script>-->
 
+<script>
+    $('.meeting-top-list li').hover(function () {
+        var _this = $(this);
+        var index = _this.index();
+        _this.addClass('active').siblings().removeClass('active');
+        $('.meeting-content').eq(index).addClass('active').siblings().removeClass('active')
+    });
+
+</script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 /*nav 导航条*/
 #nav {
     width: 100%;
-    height: 54px;
+    height: 44px;
     background: #dcdcdc;
 }
 
@@ -16,8 +16,8 @@
 
 .nav-menu-list {
     width: 125px;
-    height: 54px;
-    line-height: 54px;
+    height: 44px;
+    line-height: 44px;
     float: left;
     text-align: center;
 }
@@ -42,7 +42,7 @@
     position: absolute;
     z-index: 30;
     background: #ccc;
-    padding: 5px 0;
+    /*padding: 5px 0;*/
 }
 
 .nav-menu-list-content li {
@@ -50,4 +50,8 @@
     height: 30px;
     line-height: 30px;
     text-align: center;
+}
+
+.nav-menu-list-content li.active{
+    background: #ccc;
 }

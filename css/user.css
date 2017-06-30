@@ -19,34 +19,52 @@
 }
 .user-callback-home {
     float: left;
-    padding: 10px 20px;
+    padding: 5px 20px;
 }
 .user-title-list {
     float: right;
     overflow: hidden;
 }
-.user-title-list li {
+.user-title-list a {
     float: left;
-    height: 40px;
-    line-height: 40px;
-    padding: 0 20px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 15px;
     margin-left: 5px;
     background: #666;
+    cursor: pointer;
+    color: #fff;
+    text-align: center;
+}
+
+.user-title-list .on {
+    background: #4c994f;
+}
+
+
+.manage-center {
+    float: right;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 15px;
+    margin-left: 5px;
+    background: #4c994f;
     color: #fff;
     cursor: pointer;
     text-align: center;
 }
-.user-title-list li.active {
-    background: #4c994f;
-    color: #fff;
-}
+
 
 .user-detail {
     width: 100%;
     height: auto;
     position: relative;
     margin-top: 20px;
+    display: none;
     overflow: hidden;
+}
+.user-detail.active {
+    display: block;
 }
 
 .user-detail-left {
@@ -116,7 +134,7 @@
     margin-right: 8px;
     /*background: url("/app/Tpl/Form/images/pic_bg.png") no-repeat 0 0;*/
     background-size: cover;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 .detail-right-title-img .upload-img{
     position: absolute;
@@ -137,15 +155,16 @@
     z-index: 1;
 }
 
-.detail-right-title-img span {
+.upload-notice {
     position: absolute;
-    bottom: 0;
-    width: 100px;
+    top: -2px;
+    right: -162px;
+    width: 150px;
     height: 24px;
     line-height: 24px;
     text-align: center;
     color: #ccc;
-    z-index: 2;
+    z-index: 10;
 }
 .detail-right-title-text {
     /*display: inline-block;*/
@@ -225,33 +244,7 @@
 
 
 /*稿件详细信息*/
-.contribute-upload {
-    /*margin-top: 20px;*/
-}
 
-.upload-on {
-    display: inline-block;
-    height: 26px;
-    line-height: 26px;
-    width: 130px;
-    text-align: center;
-    margin-right: 20px;
-
-}
-.upload-on .upload-icon{
-    /*display: inline-block;*/
-    float: left;
-    height: 26px;
-    width: 26px;
-    /*margin-right: 5px;*/
-    background: url("/app/Tpl/Form/images/upload_icon.png") no-repeat 0 0;
-}
-
-.upload-on em {
-    display: inline-block;
-    height: 26px;
-    line-height: 26px;
-}
 .user-contribute-list {
     margin-top: 10px;
     width: 100%;
@@ -291,15 +284,17 @@
 }
 
 
+
 /*列表里*/
 .contri-title, .contri-see {
+    cursor: pointer;
     color: #006dcc;
 }
 
 
 /*个人信息*/
 
-.user-person-info .user-person-info-list {
+ .user-person-info-list {
     margin: 10px 20px;
     /*height: 30px;*/
     /*line-height: 30px;*/
@@ -358,7 +353,7 @@
 }
 
 .pwd-error {
-   padding-left: 10px;
+    padding-left: 10px;
     color: #f00;
 }
 
@@ -435,3 +430,127 @@
 .user-contribute-list {
     margin-top: 20px;
 }
+
+.icon-homeback {
+    padding-right: 5px;
+}
+
+.upload-icon {
+    color: #4c994f;
+    padding-right: 5px;
+}
+.contri-callback {
+    cursor: pointer;
+}
+
+.upload-on {
+    margin-left: 10px;
+    color: #006dcc;
+    cursor: pointer;
+}
+
+.edit-upload-btn {
+    color: #006dcc;
+}
+
+/*住宿登记*/
+
+.hotel-res-date {
+    padding: 20px;
+}
+
+.closing-date  {
+    color: #f00;
+    padding: 0 10px;
+}
+
+.hotel-confirm-error {
+    color: #f00;
+}
+
+/*审稿中心*/
+
+.review-center-menu {
+    margin: 20px;
+    border: 1px solid #666;
+}
+
+.review-center-menu li {
+    padding: 0 10px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+
+.review-center-menu li a {
+    display: block;
+    color: #666;
+    border-bottom: 1px solid #ccc;
+}
+.review-center-menu li.on a{
+    color: #4c994f;
+}
+
+
+.review-center-right {
+    float: left;
+    width: 740px;
+    min-height: 500px;
+    background: #fff;
+    -moz-box-shadow: 0 3px 3px 0 #ccc;
+    -webkit-box-shadow: 0 3px 3px 0 #ccc;
+    box-shadow: 0 3px 3px 0 #ccc;
+    margin-left: 20px;
+    padding: 20px;
+    display: none;
+}
+
+.review-center-right.active {
+    display: block;
+}
+
+.review-news li a {
+    color: #00f;
+}
+
+
+/*编辑中心*/
+.edit-center-menu {
+    margin: 20px;
+    border: 1px solid #666;
+}
+
+.edit-center-menu li {
+    padding: 0 10px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+
+.edit-center-menu li a {
+    display: block;
+    color: #666;
+    border-bottom: 1px solid #ccc;
+}
+.edit-center-menu li.on a{
+    color: #4c994f;
+}
+
+
+.edit-center-right {
+    float: left;
+    width: 740px;
+    min-height: 500px;
+    background: #fff;
+    -moz-box-shadow: 0 3px 3px 0 #ccc;
+    -webkit-box-shadow: 0 3px 3px 0 #ccc;
+    box-shadow: 0 3px 3px 0 #ccc;
+    margin-left: 20px;
+    padding: 20px;
+    display: none;
+}
+
+.edit-center-right.active {
+    display: block;
+}
+

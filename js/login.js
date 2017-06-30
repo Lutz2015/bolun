@@ -6,7 +6,8 @@
 //登录 注册逻辑
 $(function() {
     //tab切换
-    var url = "http://cq01-rdqa-dev064.cq01.baidu.com:8099/app/index.php/";
+    var url = "http://yf-rdqa-dev064-sunxuebin.epc.baidu.com:8099/app/index.php/";
+    // var url = "http://ndac.env.tsinghua.edu.cn/app/index.php/";
     function loginTab() {
         var hash;
         //没有锚点默认为-->登录项
@@ -58,7 +59,53 @@ $(function() {
     var ok8=false;
     var ok9=false;
     var ok10=false;
+    var schoolData =[
+        '清华大学','北京大学', '北京工业大学', '北京航空航天大学',
+        '北京化工大学', '北京交通大学', '北京科技大学', '北京理工大学', '北京林业大学', '北京师范大学', '成都理工大学',
+        '大连大学', '大连工业大学', '大连海事大学', '大连交通大学', '大连理工大学', '大连理工大学盘锦校区',
+        '电子科技大学', '东北大学', '东北大学秦皇岛分校', '东北林业大学', '东北农业大学', '东北师范大学', '东华大学', '东南大学',
+        '福州大学', '复旦大学', '广西大学', '广西师范大学', '广州大学', '贵州大学', '桂林理工大学', '哈尔滨工程大学',
+        '哈尔滨工业大学', '哈尔滨工业大学(威海)', '海南大学', '合肥工业大学', '河北工业大学',
+        '河北科技大学', '河海大学', '河南大学', '湖南大学', '湖南师范大学', '华北电力大学(保定)', '华北电力大学(北京)',
+        '华东理工大学', '华东师范大学', '华南理工大学', '华南师范大学', '华中科技大学', '华中农业大学', '华中师范大学',
+        '吉林大学', '暨南大学', '江南大学',
+        '江苏大学', '解放军防化学院', '昆明理工大学', '兰州大学',
+        '兰州交通大学', '辽宁大学', '辽宁工程技术大学', '辽宁石油化工大学', '南昌大学',
+        '南京大学', '南京工业大学', '南京理工大学', '南京林业大学', '南京农业大学', '南京师范大学',
+        '南开大学', '内蒙古大学', '内蒙古科技大学',
+        '宁夏大学', '青岛大学', '青海大学', '厦门大学', '山东大学', '山东大学威海分校',
+        '山西大学', '陕西师范大学', '上海大学', '上海交通大学', '上海理工大学', '沈阳大学',
+        '沈阳化工大学', '沈阳建筑大学', '沈阳理工大学', '沈阳农业大学', '石河子大学', '四川大学', '四川农业大学',
+        '苏州大学', '苏州科技学院', '太原理工大学', '天津城市建设学院',
+        '天津大学', '天津工业大学', '同济大学', '武汉大学', '武汉纺织大学', '武汉工程大学', '武汉理工大学',
+        '西安建筑科技大学', '西安交通大学', '西北大学', '西北工业大学', '西北农林科技大学', '西藏大学', '西南大学',
+        '西南交通大学', '新疆大学', '延边大学', '云南大学', '长安大学', '长江大学',
+        '浙江大学', '浙江工商大学', '浙江工业大学', '郑州大学', '中国地质大学(北京)', '中国地质大学(武汉)',
+        '中国海洋大学', '中国环境科学研究院', '中国科学技术大学', '中国科学院成都山地灾害与环境研究所',
+        '中国科学院城市环境研究所', '中国科学院大气物理研究所', '中国科学院地理科学与资源研究所', '中国科学院地球化学研究所',
+        '中国科学院地球化学研究所', '中国科学院东北地理与农业生态研究所',
+        '中国科学院广州地球化学研究所', '中国科学院广州能源研究所', '中国科学院海洋研究所',
+        '中国科学院南海海洋研究所', '中国科学院南京地理与湖泊研究所',
+        '中国科学院南京土壤研究所', '中国科学院上海高等研究院', '中国科学院沈阳应用生态研究所',
+        '中国科学院生态环境研究中心', '中国科学院水生生物研究所',
+        '中国科学院西北高原生物研究所', '中国科学院西北生态环境资源研究院',
+        '中国科学院新疆生态与地理研究所', '中国矿业大学', '中国矿业大学(北京)', '中国农业大学',
+        '中国农业科学院', '中国人民大学',
+        '中国石油大学(北京)', '中国石油大学(华东)', '中国药科大学',
+        '中南财经政法大学', '中南大学', '中山大学', '中央财经大学', '中央民族大学', '重庆大学', '重庆工商大学',
+        '中国林业研究院'
+    ];
+    initData(schoolData);
+    function initData(data) {
+        var str='';
+        for(var i=0;i<data.length;i++){
+            // str+='<option  selected="selected">'+data[0]+'</option>';
+            str+='<option>'+data[i]+'</option>';
 
+        }
+        $('.doc-content-res-school').html(str);
+
+    }
     function bindEvent() {
         //注册
 
@@ -179,7 +226,8 @@ $(function() {
                 var email = $.trim($('.doc-content-res-email').val());
                 var password = $('.doc-content-res-pwd').val();
                 var sex = $('.doc-content-res-sex option:selected').val();//选中的值;
-                var birthDate = ($('.doc-content-res-date').val()).replace(/-/g,"");
+                // var birthDate = ($('.doc-content-res-date').val()).replace(/-/g,"");
+                var birthDate = $('.doc-content-res-date').val();
                 var school = $('.doc-content-res-school  option:selected').val();
                 var userId = $.trim($('.doc-content-res-stuid').val());
                 var stuName = $.trim($('.doc-content-res-name').val());
@@ -217,16 +265,25 @@ $(function() {
                             address: address
                         },
                         dataType: 'json',
+                        beforeSend: function () {
+                            $('.doc-content-restext a').attr('disabled', 'disabled');
+                            $('.doc-content-restext').css({"background": "#388e3c"});
+                        },
                         success: function (data) {
                             if (data.status == 1) {
-                                window.location.href = "../Form/login.html#login";
                                 alert('注册成功，请进入到邮箱进行激活');
+                                window.location.href = "../Form/login.html#login";
+
                             } else {
                                 alert(data.info);
                                 return false;
 
                             }
 
+                        },
+                        complete: function () {
+                            $('.doc-content-restext a').removeAttr('disabled');
+                            $('.doc-content-restext').css({"background": "#388e3c"});
                         },
                         error: function () {
                             alert('对不起，当前服务器开小差，请稍候再试')
@@ -250,6 +307,10 @@ $(function() {
                         username: uname,
                         password: upwd,
                     },
+                    beforeSend: function () {
+                        $('.doc-content-logintext a').attr('disabled', 'disabled');
+                        $('.doc-content-logintext').css({"background": "#ccc"});
+                    },
                     dataType: 'json',
                     success: function (data) {
                         if (data.status == 1) {
@@ -261,8 +322,11 @@ $(function() {
                             return false;
 
                         }
-
-                    }
+                    },
+                    complete: function () {
+                        $('.doc-content-logintext a').removeAttr('disabled');
+                        $('.doc-content-logintext').css({"background": "#388e3c"});
+                    },
 
                 })
 
@@ -339,7 +403,8 @@ $(function() {
             }
 
         });
-        $('.btn-step-one').on('click', function () {
+        var oneStep = $('.btn-step-one');
+        oneStep.on('click', function () {
             var email =$.trim($('.edit-form-email').val());
             var emailReg=/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
             if(!(emailReg.test(email)) || email == ''){
@@ -353,6 +418,10 @@ $(function() {
                 },
                 url: url + "Form/resetPassword",
                 dataType: 'json',
+                beforeSend: function () {
+                    oneStep.attr('disabled', 'disabled');
+                    oneStep.css({"background": "#ccc"});
+                },
                 success: function (data) {
                     if (data.status == 1) {
                         $('.form-step-two').addClass('active').siblings().removeClass('active');
@@ -363,6 +432,10 @@ $(function() {
                         return false;
                     }
 
+                },
+                complete: function () {
+                    oneStep.removeAttr('disabled');
+                    oneStep.css({"background": "#0275d8"});
                 },
                 error: function () {
                     alert('对不起，当前服务器开小差，请稍候再试')
@@ -388,6 +461,7 @@ $(function() {
             return str;
         }
         function bindTwoEvent(email) {
+            var twoStep = $('.btn-step-two');
             $('.btn-step-two').on('click', function () {
                 var code=$.trim($('.verify-code-confirm').val());
                 var pwd=$('.form-new-pwd').val();
@@ -401,10 +475,14 @@ $(function() {
                     data: {
                         email: email,
                         code: code,
-                        password: '939393'
+                        password: pwd
                     },
                     url: url + "Form/confirmReset",
                     dataType: 'json',
+                    beforeSend: function () {
+                        twoStep.attr('disabled', 'disabled');
+                        twoStep.css({"background": "#ccc"});
+                    },
                     success: function (data) {
                         if (data.status == 1) {
                             $('.form-step-three').addClass('active').siblings().removeClass('active');
@@ -418,6 +496,10 @@ $(function() {
 
                         }
 
+                    },
+                    complete: function () {
+                        twoStep.removeAttr('disabled');
+                        twoStep.css({"background": "#0275d8"});
                     },
                     error: function () {
                         alert('对不起，当前服务器开小差，请稍候再试')

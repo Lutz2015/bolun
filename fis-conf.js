@@ -141,7 +141,7 @@ fis.media('rd').match('**', {
             // 
             {
                 // receiver: 'http://cp01-rdqa-dev428.cp01.baidu.com:8778/static/receiver.php',
-                receiver: 'http://cq01-rdqa-dev064.cq01.baidu.com:8099/receiver.php',
+                receiver: 'http://yf-rdqa-dev064-sunxuebin.epc.baidu.com:8099/receiver.php',
                 // to: '/home/users/guxuxin/odp/webroot/static/qstore'
                 to: '/home/users/sunxuebin/sunxuebin/thinkphp/ThinkPHP/app/Tpl/Form'
             }

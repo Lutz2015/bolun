@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>第十一届全国博士生学术会议</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/app/Tpl/Form/images/favicon.ico">
     <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/common.css" />
     <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/datetimepicker.css" />
     <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/login.css" />
@@ -17,51 +18,64 @@
                 <a href="#register" class="title-btn doc-content-title-res" data-tab="0">注册</a>
                 <a href="#login" class="title-btn doc-content-title-login active" data-tab="1">登录</a>
             </p>
-            <form class="doc-content-res doc-content-res-info">
-                <p class="doc-content-res-list"><i class="res-notice">*</i><input type="text" placeholder="用户名" class="doc-content-res-username"/>
+            <div class="doc-content-res doc-content-res-info">
+                <p class="doc-content-res-list">
+                    <label class="content-label"><i class="res-notice">*</i>用户名：</label>
+                    <input type="text"class="doc-content-res-username"/>
                     <span class="onerror res-username-error"></span>
                 </p>
-                <p class="doc-content-res-list"><input type="text" placeholder="账号（电子邮箱）" class="doc-content-res-email"/><i class="res-notice">*</i>
+                <p class="doc-content-res-list">
+                    <label class="content-label"><i class="res-notice">*</i>邮箱地址：</label>
+                    <input type="text" class="doc-content-res-email"/>
                     <span class="onerror res-email-error"></span>
                 </p>
                 <p class="doc-content-res-list">
-                    <input type="password" placeholder="密码（不小于6位）" class="doc-content-res-pwd" name="password"/>
-                    <i class="res-notice">*</i>
+                    <label class="content-label"><i class="res-notice">*</i>密码：</label>
+                    <input type="password" class="doc-content-res-pwd" name="password"/>
                     <span class="onerror res-pwd-error"></span>
                 </p>
                 <p class="doc-content-res-list">
-                    <input type="password" placeholder="请确认密码" class="doc-content-res-dpwd"  name="password"/>
-                    <i class="res-notice">*</i>
+                    <label class="content-label"><i class="res-notice">*</i>确认密码：</label>
+                    <input type="password" class="doc-content-res-dpwd"  name="password"/>
                     <span class="onerror res-dpwd-error"></span>
                 </p>
                 <p class="doc-content-res-list">
-                    <input type="text" placeholder="姓名" class="doc-content-res-name"/>
+                    <label class="content-label"><i class="res-notice">*</i>姓名：</label>
+                    <input type="text" class="doc-content-res-name"/>
+                    <span class="onerror res-name-error"></span>
+                </p>
+                <p class="doc-content-res-list">
+                    <label class="content-label"><i class="res-notice">*</i>性别：</label>
                     <select type="text" class="doc-content-res-sex">
                         <option value="0" selected="selected">男</option>
                         <option value="1">女</option>
                     </select>
-                    <i class="res-notice">*</i>
-                    <span class="onerror res-name-error"></span>
                 </p>
-                <p class="doc-content-res-list input-append">
+                <p class="doc-content-res-list">
+                    <label class="content-label"><i class="res-notice">*</i>出生年月：</label>
                     <input size="16" type="text" class="date form_datetime doc-content-res-date"  placeholder="出生年月" readonly>
-                    <i class="res-notice">*</i>
                     <span class="onerror res-date-error"></span>
                 </p>
                 <p class="doc-content-res-list">
-                    <select class="doc-content-res-school">
-                        <option value="0" selected="selected">清华大学</option>
-                        <option value="1">北京大学</option>
-                    </select>
-                    <i class="res-notice">*</i>
+                    <label class="content-label"><i class="res-notice">*</i>院校：</label>
+                    <select class="doc-content-res-school"></select>
                     <span class="onerror res-school-error"></span>
                 </p>
-                <p class="doc-content-res-list"><input type="text" placeholder="学号" class="doc-content-res-stuid"/><i class="res-notice"></i></p>
-                <p class="doc-content-res-list"><input type="text" placeholder="导师姓名" class="doc-content-res-docname"/><i class="res-notice">*</i>
+                <p class="doc-content-res-list">
+                    <label class="content-label">学号：</label>
+                    <input type="text" placeholder="" class="doc-content-res-stuid"/>
+                </p>
+                <p class="doc-content-res-list">
+                    <label class="content-label"><i class="res-notice">*</i>导师姓名：</label>
+                    <input type="text" placeholder="" class="doc-content-res-docname"/>
                     <span class="onerror res-docname-error"></span></p>
-                <p  class="doc-content-res-list"><input type="text" placeholder="请输入11位数字的手机号" class="doc-content-res-phone"/><i class="res-notice">*</i>
-                    <span class="onerror res-phone-error"></span></p>
+                <p  class="doc-content-res-list">
+                    <label class="content-label"><i class="res-notice">*</i>手机号：</label>
+                    <input type="text" placeholder="请输入11位数字的手机号" class="doc-content-res-phone"/>
+                    <span class="onerror res-phone-error"></span>
+                </p>
                 <div class="doc-content-res-address doc-content-res-list">
+                    <label class="content-label address-label"><i class="res-notice">*</i>地址：</label>
                     <div class="doc-content-res-link">
                         <div>
                             <select id="s_province" class="res-province" name="s_province"></select>  
@@ -69,25 +83,26 @@
                             <select id="s_county" class="res-county" name="s_county"></select>
                         </div>
                         <div id="show"></div>
+                        <textarea  placeholder="选择省市区后请填写详细地址" class="doc-content-res-text"></textarea>
                     </div>
-                    <p class="doc-content-res-textarea"><textarea type="text" placeholder="选择省市区后请填写详细地址" class="doc-content-res-text"></textarea>
-                        <i class="res-notice">*</i>
-                        <span class="onerror res-addressText-error"></span>
-                    </p>
-                    <i class="res-notice">*</i>
-                </div>
-                <p class="doc-content-btn doc-content-restext">注册</p>
-            </form>
-            <form class="doc-content-res doc-content-login-info hide">
-                <p><input type="text" placeholder="账号（电子邮箱）" class="doc-content-login-username"/></p>
-                <p>
-                    <input type="password" placeholder="密码" class="doc-content-login-pwd" name="password"/>
 
+                    <span class="onerror res-addressText-error"></span>
+                </div>
+                <p class="doc-content-btn doc-content-restext"><a href="javascript:void(0);">注册</a></p>
+            </div>
+            <div class="doc-content-res doc-content-login-info hide">
+                <p>
+                    <label class="content-label">登录账号：</label>
+                    <input type="text" placeholder="" class="doc-content-login-username"/>
+                </p>
+                <p>
+                    <label class="content-label">登录密码：</label>
+                    <input type="password" placeholder="" class="doc-content-login-pwd" name="password"/>
                 </p>
                 <p class="login-error-text"></p>
-                <p class="doc-content-btn doc-content-logintext">登录</p>
+                <p  class="doc-content-btn doc-content-logintext"><a href="javascript:void(0);">登录</a></p>
                 <p class="doc-content-forget"><span class="doc-content-forget-pwd">忘记密码?</span></p>
-            </form>
+            </div>
         </div>
     </div>
     <footer id="footer">

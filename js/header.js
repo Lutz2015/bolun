@@ -1,9 +1,10 @@
 /**
- * Created by v_zhouhui on 2017/4/24.
+ * Created by zhouhui on 2017/4/24.
  */
 $(function () {
     //判断用户是否登录
-    var url = "http://cq01-rdqa-dev064.cq01.baidu.com:8099/app/index.php/";
+    var url = "http://yf-rdqa-dev064-sunxuebin.epc.baidu.com:8099/app/index.php/";
+    // var url = "http://ndac.env.tsinghua.edu.cn/app/index.php/";
     var username= $.cookie('cookie_username');
     if(!username){
         $.ajax({

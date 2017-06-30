@@ -4,41 +4,45 @@
 
 //
 $(function () {
-    var url= "http://cq01-rdqa-dev064.cq01.baidu.com:8099/app/index.php/";
+    var url= "http://yf-rdqa-dev064-sunxuebin.epc.baidu.com:8099/app/index.php/";
+    // var url= "http://ndac.env.tsinghua.edu.cn/app/index.php/";
     var username =$.cookie('cookie_username');
+    var operations= $('.operation-item');
 
-    // if(!username){
-    //     window.location.href = "../Form/login.html#login";
-    // }else{
-    //     var cookietime = new Date();
-    //     cookietime.setTime(cookietime.getTime() + (60 * 60 * 1000));//coockie保存一小时
-    //     $.cookie('username','1',{expires:cookietime});
-    // }
+    operations.on('click',function () {
+        var _this =$(this);
+        if(!username){
+            _this.find('a').attr('href', '/app/Tpl/Form/login.html#login')
+        }
+        $(this).addClass('active').siblings().removeClass('active');
+    });
+
+
     //日期编辑
     var dateDatas = {
-        "paperEnd": "2017年4月15号",
-        "paperHire": "2017年4月16号",
-        "allPaperEnd": "2017年4月17号",
-        "allPaperDate": "2017年4月18号"
+        "paperEnd": "2017年6月30号",
+        "paperHire": "2017年8月4号",
+        "allPaperEnd": "2017年9月1号",
+        "allPaperDate": "2017年10月19日－22日"
     };
-    // $.ajax({
-    //     type: "POST",
-    //     url: url + "Manage/modify",
-    //     data: {
-    //         username: username,
-    //         content: 'date',
-    //         value: JSON.stringify(dateDatas)
-    //     },
-    //     dataType: 'json',
-    //     success: function (data) {
-    //         if(data.status==1){
-    //
-    //         }else {
-    //             console.log(data.info);
-    //         }
-    //     }
-    //
-    // });
+    $.ajax({
+        type: "POST",
+        url: url + "Manage/modify",
+        data: {
+            username: username,
+            content: 'date',
+            value: JSON.stringify(dateDatas)
+        },
+        dataType: 'json',
+        success: function (data) {
+            if(data.status==1){
+
+            }else {
+                console.log(data.info);
+            }
+        }
+
+    });
     //日期获取
     $.ajax({
         type: "POST",
@@ -64,33 +68,38 @@ $(function () {
     var newsData = [
         {
             time: '20170110',
-            text: '111',
+            text: '水污染控制与资源化',
             value: 'http://www.baidu.com'
         },
         {
             time: '20170111',
-            text: '222',
+            text: '大气污染与控制',
             value: 'http://www.jd.com'
         },
         {
             time: '20170112',
-            text: '333',
+            text: '固体废物污染控制与资源化',
             value: 'http://www.taobao.com'
         },
         {
             time: '20170113',
-            text: '444',
+            text: '环境化学',
             value: 'http://www.sina.com'
         },
         {
             time: '20170114',
-            text: '555',
-            value: 'http://www.baidu.com'
+            text: '环境经济、管理与政策',
+            value: 'http://www.taobao.com'
         },
         {
             time: '20170115',
-            text: '666',
-            value: 'http://www.baidu.com'
+            text: '环境生态健康',
+            value: 'http://www.163.com'
+        },
+        {
+            time: '20170115',
+            text: '能源与气候变化',
+            value: 'https://www.360.cn'
         }
     ];
     // $.ajax({

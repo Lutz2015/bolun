@@ -1,24 +1,20 @@
 /**
- * Created by v_zhouhui on 2017/4/21.
+ * Created by zhouhui on 2017/4/21.
  */
 
 $(function () {
-    $('.nav-menu-list').click(function () {
+    var listIndex =null;
+    var menuList=$('.nav-menu-list');
+
+    menuList.on('click',function () {
         $(this).addClass('active').siblings().removeClass('active');
     });
-    // document.body.onmouseover =function (e) {
-    //     e = e || window.event;
-    //     var tar = e.target || e.srcElement;
-    //     if(tar.id==='' || tar.id==='nav-meeting-detail'){
-    //         $('.nav-menu-list-content').removeClass('hide');
-    //     }else {
-    //         $('.nav-menu-list-content').addClass('hide');
-    //     }
-    // }
-    // }
-    $('.nav-menu-meeting').hover(function () {
-        $('.nav-menu-list-content').removeClass('hide');
+    menuList.hover(function () {
+        listIndex =$('.active').attr('data-index');
+
+        $(this).addClass('active').siblings().removeClass('active');
     },function () {
-        $('.nav-menu-list-content').addClass('hide');
-    })
+        menuList.eq(listIndex-1).addClass('active').siblings().removeClass('active');
+    });
+
 });
