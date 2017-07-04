@@ -58,10 +58,14 @@ $(function () {
     userInfo(username);
 
     contribution(username);
-    modifyPwd(username);
-    applyReview();
+    // modifyPwd(username);
+    renderPwd(username);
+    applyReview(username);
     submission(username);
+    resHotel(username);
+    // nameListData(username);
 
+    dateEdit(username);
 });
 
 //投稿
@@ -275,6 +279,7 @@ function submission(username) {
         mHtml.push('<div class="user-person-apply-val"><span class="edit-btn-cancel add-author-cancel">取消</span><span class="edit-btn-confirm add-author-confirm">确定</span> </div>');
         mHtml.push('</form>');
         $('.popup-edit').html(mHtml);
+        $('.popup-footer').html('');
         popup.popupEvent();
         $('.extra-author input').on('keydown', function () {
             $('.add-author-error').html('');
@@ -333,32 +338,33 @@ function contribution(username) {
         success: function (data) {
             if(data.status==1){
                 var data = data.data;
-                var titleData;
+                var titleData, titleEditData;
                 if(data.length>0){
 
-                    if(data.length>5){
-                        titleData=data.slice(0,5);
-                    }else {
-                        titleData=data;
-                    }
-                    var alContribution =$('.al-contribution');
-                    // var noContribution =$('.no-contribution');
-                    bindData(titleData, alContribution);
                     for(var i=0;i<data.length;i++){
                         var curData = data[i];
                         curData.audit_opinion = curData.audit_opinion || '暂无任何意见';
+
+                        curData.allocate_time = curData.allocate_time ? String(curData.allocate_time).substring(0, 10) : '—';
+                        curData.audit_time = curData.audit_time ? String(curData.audit_time).substring(0,10) : '—';
+                        curData.repair_over_time = curData.repair_over_time ? String(curData.repair_over_time).substring(0,10) : '——';
+                        curData.repair_time = curData.repair_time ? String(curData.repair_time).substring(0,10) : '—';
+
+                        curData.view = '<span class="contri-see" data-id="'+curData.docu_id+'">查看审稿意见</span>';
+                        curData.upload = '<span class="contri-upload" data-id="'+curData.docu_id+'">下载稿件</span>';
+
+                        curData.look = '<span class="contri-look" data-id="'+curData .docu_id+'" data-title="'+curData.chineseTitle+'">审稿人</span>';
+                        curData.operate = '<span class="contri-operate" data-id="'+curData .docu_id+'" data-title="'+curData.chineseTitle+'">稿件操作</span>';
+                        curData.distribution = '<span class="contri-distribution" data-id="'+curData.docu_id+'" data-title="'+curData.chineseTitle+'">稿件分配</span>';
+
                         curData.chineseTitle ='<span class="contri-title" data-id="'+curData.docu_id+'">'+curData.chineseTitle+'</span>';
-                            curData.view = '<span class="contri-see" data-id="'+curData.docu_id+'">查看</span>';
-                        curData.edit = '<input class="contri-edit-upload" type="file" name="file'+curData.id+'" value="上传修改稿"/><span class="edit-upload-btn" data-id="'+curData.docu_id+'">上传</span>';
+                        curData.edit = '<input class="contri-edit-upload" type="file" name="file'+curData.id+'" value="上传修改稿"/><button class="edit-upload-btn" data-id="'+curData.docu_id+'">上传</button>';
 
                         if(curData.status==0){
                             curData.status = '待提交';
                         }else if (curData.status==1){
                             curData.status = '已提交';
-                            noAlreadyReview.push(curData);
-                            alreadyReview.push(curData);
-                            noAlreadyAllocate.push(curData);
-                            alreadyAllocate.push(curData);
+
                         } else if (curData.status==2 || curData.status==3){
                             curData.status = '审稿中';
                         } else if (curData.status==4){
@@ -371,14 +377,42 @@ function contribution(username) {
                         }else {
                             curData.status = '已提交';
                         }
+
+                        // //未审稿件，已审稿件
+                        // if(curData.status==2||curData.status==3){
+                        //     noAlreadyReview.push(curData);
+                        // }else if(curData.status==4||curData.status==5||curData.status==6) {
+                        //     alreadyReview.push(curData);
+                        // }
+                        // //待分配稿件，已分配稿件
+                        // if(curData.status==1||curData.status==7){
+                        //     noAlreadyAllocate.push(curData);
+                        // }else if(curData.status==2||curData.status==3||curData.status==4||curData.status==5||curData.status==6) {
+                        //     alreadyAllocate.push(curData);
+                        // }
+                        noAlreadyReview.push(curData);
+                        alreadyReview.push(curData);
+                        noAlreadyAllocate.push(curData);
+                        alreadyAllocate.push(curData);
+
+
                     }
-                    if(noAlreadyEdit.length>5){
-                        var titleEditData=noAlreadyEdit.slice(0,5);
+
+                    var alContribution =$('.al-contribution');
+                    var noContribution =$('.no-contribution');
+                    if(data.length>5){
+                        titleData=data.slice(0,5);
                     }else {
-                        var titleEditData=noAlreadyEdit;
+                        titleData=data;
+                    }
+                    bindData(titleData, alContribution);
+                    if(noAlreadyEdit.length>5){
+                        titleEditData=noAlreadyEdit.slice(0,5);
+                    }else {
+                        titleEditData=noAlreadyEdit;
                     }
                     // var alContribution =$('.al-contribution');
-                    var noContribution =$('.no-contribution');
+                    // var noContribution =$('.no-contribution');
                     bindData(titleEditData, noContribution);
                     contriData(data,username);
                     contriDataModify(noAlreadyEdit,username);
@@ -387,7 +421,10 @@ function contribution(username) {
                     alreadyReviewData(alreadyReview,username);
 
                     // noAlreadyAllocateData(noAlreadyAllocate,username);
+                    nameListData(noAlreadyAllocate,username);
                     alreadyAllocateData(alreadyAllocate,username);
+
+
                 }
 
             }else {
@@ -556,41 +593,57 @@ function contriData(data,username) {
     $('.user-detail-contribution .contri-see').on('click', function () {
         var _this = $(this);
         var cid = _this.attr('data-id');
-        $.ajax({
-            type: "POST",
-            url: url + "Document/showOpinion",
-            data: {
-                docu_id: cid
-            },
-            dataType: 'json',
-            success: function (data) {
-                if(data.status==1){
+        if(cid>0){
+            $.ajax({
+                type: "POST",
+                url: url + "Document/showOpinion",
+                data: {
+                    username: username,
+                    docu_id: cid
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if(data.status==1){
 
-                    popup.init();
-                    var tHtml = [],aHtml= [];
-                    tHtml.push('<span class="popup-title">审稿意见</span><i class="popup-close">x</i>');
-                    $('.popup-header').html(tHtml.join(''));
-                    if(data.data && data.data.length>0){
-                    var aTitles = [{id: 'audit_user', title: '审批人'},
-                        {id: 'audit_opinion', title: '意见'},
-                        {id: 'version', title: '版本'}
-                    ];
-                    var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data.data, maxline: 15});
+                        popup.init();
+                        var tHtml = [],aHtml= [];
+                        tHtml.push('<span class="popup-title">审稿意见</span><i class="popup-close">x</i>');
+                        $('.popup-header').html(tHtml.join(''));
+                        if(data.data && data.data.length>0){
+                            var aTitles = [{id: 'audit_user', title: '审批人'},
+                                {id: 'audit_opinion', title: '意见'},
+                                {id: 'version', title: '版本'}
+                            ];
+                            var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data.data, maxline: 15});
 
-                    aHtml.push(oNewTable.init());
+                            aHtml.push(oNewTable.init());
+                        }else {
+                            aHtml = '暂无审稿意见';
+                        }
+                        $('.popup-edit').html(aHtml);
+                        popup.popupEvent(function () {
+                            $('.popup').remove();
+                        });
                     }else {
-                        aHtml = '暂无审稿意见';
+                        alert(data.info);
                     }
-                    $('.popup-edit').html(aHtml);
-                    popup.popupEvent();
-                }else {
-                    alert(data.info);
+                },
+                error: function () {
+                    alert('服务器开小差，请稍候再试');
                 }
-            },
-            error: function () {
-                alert('服务器开小差，请稍候再试');
-            }
-        });
+            });
+        }else {
+            popup.init();
+            var tHtml = [],aHtml= [];
+            tHtml.push('<span class="popup-title">审稿意见</span><i class="popup-close">x</i>');
+            $('.popup-header').html(tHtml.join(''));
+            aHtml = '暂无审稿意见';
+            $('.popup-edit').html(aHtml);
+            popup.popupEvent(function(){
+                $('.popup').remove();
+            });
+        }
+
 
 
     });
@@ -605,13 +658,13 @@ function contriDataModify(data,username) {
         {id: 'create_time', title: '投稿时间'},
         // {id: 'status', title: '稿件状态'},
         {id: 'view', title: '审稿意见'},
-        // {id: 'edit', title: '上传修稿'}
+        {id: 'edit', title: '上传修稿'}
     ];
     var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 15});
     var aHtml = [];
     aHtml.push(oNewTable.init());
     // aHtml.push('<div class="edit-btn"><span class="edit-btn-confirm contri-btn">提交</span> </div>');
-    $('.user-detail-contribution-modify').html(aHtml);
+    ele.html(aHtml);
 
     //点击某一个标题进入当前稿件的详情
     $('.user-detail-contribution-modify .contri-title').on('click', function () {
@@ -646,35 +699,45 @@ function contriDataModify(data,username) {
 
     });
 
-    // //点击上传修改稿件
-    // $('.edit-upload-btn').on('click', function () {
-    //     var fileSrc = ($(this).siblings())[0].files[0];
-    //     var cid = $(this).attr('data-id');
-    //     var data = new FormData();
-    //     data.append('username', username);
-    //     data.append('fileSrc', fileSrc);
-    //     data.append('docu_id', cid);
-    //     console.log(data);
-    //     $.ajax({
-    //         type: "POST",
-    //         url: url + "Document/resubmit",
-    //         data: data,
-    //         dataType: 'json',
-    //         processData: false,
-    //         contentType: false,
-    //         success: function (data) {
-    //             if(data.status==1){
-    //                 alert('上传成功');
-    //
-    //             }else {
-    //                 alert(data.info);
-    //             }
-    //         },
-    //         error: function () {
-    //             alert('服务器开小差，请稍候再试');
-    //         }
-    //     });
-    // });
+    //点击上传修改稿件
+    $('.edit-upload-btn').on('click', function () {
+        var fileSrc = ($(this).siblings())[0].files[0];
+        var cid = $(this).attr('data-id');
+        var data = new FormData();
+        data.append('username', username);
+        data.append('fileSrc', fileSrc);
+        data.append('docu_id', cid);
+        console.log(data);
+        $.ajax({
+            type: "POST",
+            url: url + "Document/resubmit",
+            data: data,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            beforeSend: function () {
+                $('.edit-upload-btn').attr('disabled', 'disabled');
+                $('.edit-upload-btn').css({"background": "#ccc"});
+            },
+            success: function (data) {
+
+                if(data.status==1){
+                    alert('上传成功');
+                    window.location.reload();
+
+                }else {
+                    alert(data.info);
+                }
+            },
+            complete: function () {
+                $('.edit-upload-btn').removeAttr('disabled');
+                $('.edit-upload-btn').css({"background": "#fff"});
+            },
+            error: function () {
+                alert('服务器开小差，请稍候再试');
+            }
+        });
+    });
 
 
     //点击查看审核意见
@@ -685,6 +748,7 @@ function contriDataModify(data,username) {
             type: "POST",
             url: url + "Document/showOpinion",
             data: {
+                username:username,
                 docu_id: cid
             },
             dataType: 'json',
@@ -707,7 +771,10 @@ function contriDataModify(data,username) {
                         aHtml = '暂无审稿意见';
                     }
                     $('.popup-edit').html(aHtml);
-                    popup.popupEvent();
+                    $('.popup-footer').html('');
+                    popup.popupEvent(function () {
+                        $('.popup').remove();
+                    });
                 }else {
                     alert(data.info);
                 }
@@ -798,17 +865,20 @@ function userInfo(username) {
         success: function (data) {
             if (data.status == 1) {
 
-                //权限逻辑管理
-                var identity = data.data[0].identity;
-                if(identity =='contribute'){
-
-                }else if(identity =='audit'){
-
-                }else if (identity == 'editor'){
-
-                }else if (identity == 'manager'){
-
-                }
+                // //权限逻辑管理
+                // var identity = data.data[0].identity;
+                // if('contribute'.indexOf(identity)>-1){
+                //     $('.title-contribute').addClass('user-block');
+                //
+                // }else if('audit'.indexOf(identity)>-1){
+                //     $('.title-audit').addClass('user-block').addClass('on').siblings().removeClass('on');
+                //
+                // }else if ('editor'.indexOf(identity)>-1){
+                //     $('.title-editor').addClass('user-block').addClass('on').siblings().removeClass('on');
+                //
+                // }else if ('manager'.indexOf(identity)>-1){
+                //     $('.title-manager').addClass('user-block').addClass('on').siblings().removeClass('on');
+                // }
 
                 if(data.data[0].info){
                     $('.right-title-img').attr('src','http://ndac.env.tsinghua.edu.cn/'+ data.data[0].info+'?t=' + Math.random());
@@ -817,7 +887,7 @@ function userInfo(username) {
                 $('.right-title-school').html(data.data[0].school);
 
                 perInfo(data.data[0]);
-                renderPwd();
+
             } else {
 
                 alert(data.info);
@@ -900,6 +970,9 @@ function perInfo(data) {
 
     $('.user-person-info').html(pHtml);
     $('.review-person-info').html(pHtml);
+    $('.edit-person-info').html(pHtml);
+
+
     if($('.val-sex').attr('data-sex')==1){
         $('.val-sex-girl').attr('selected', 'selected');
         $('.val-sex-boy').attr('selected', false);
@@ -1007,7 +1080,7 @@ function personModify() {
 }
 
 //渲染修改密码
-function renderPwd() {
+function renderPwd(username) {
     var rhtml = [];
     rhtml.push('<div class="user-detail-pwd-list">');
     rhtml.push('<p><label>旧密码</label><input type="password" class="user-old-pwd"/> <span class="old-pwd-error pwd-error"></span></p>');
@@ -1015,8 +1088,12 @@ function renderPwd() {
     rhtml.push(' <p> <label>确认密码</label><input type="password"  class="user-confirm-pwd"/> <span class="confirm-pwd-error pwd-error"></span></p>');
     rhtml.push('</div>');
     rhtml.push('<div class="pwd-edit-btn"> <span class="edit-btn-cancel">取消</span> <span class="edit-btn-confirm pwd-confirm">提交</span></div>');
+
     $('.user-person-pwd').html(rhtml);
     $('.review-person-pwd').html(rhtml);
+    $('.edit-person-pwd').html(rhtml);
+
+    modifyPwd(username);
 }
 
 //修改密码
@@ -1053,7 +1130,7 @@ function modifyPwd(username) {
                     alert('设置成功');
                     window.location.reload();
                 } else {
-                   $('.user-detail-pwd-list').append('<p class="pwd-error">'+data.info+'</p>')
+                   $('.user-detail-pwd-list').append('<p class="pwd-error">'+data.info+'</p>');
 
                     return false;
                 }
@@ -1068,7 +1145,7 @@ function modifyPwd(username) {
 }
 
 //申请成为审稿人
-function applyReview(){
+function applyReview(username){
     $('.user-person-apply').on('keydown', function () {
         $('pwd-error').html('');
     });
@@ -1083,6 +1160,7 @@ function applyReview(){
         var bank = $.trim($('.val-bank').val());
         var account = $.trim($('.val-account').val());
         var data ={
+            username: username,
             major: major,
             education: education,
             positio: positio,
@@ -1091,7 +1169,8 @@ function applyReview(){
             direction: direction,
             name: name,
             bank: bank,
-            account: account
+            account: account,
+            target: 'audit'
         };
         if(major==''){
             $('.major-error').html('请填写你的专业');
@@ -1120,7 +1199,7 @@ function applyReview(){
 
         $.ajax({
             type: "POST",
-            url: url +"Form/xx",
+            url: url +"Form/applyIdentity",
             data: data,
             dataType: 'json',
             success: function (data) {
@@ -1142,15 +1221,15 @@ function applyReview(){
 }
 
 //住宿登记
-function resHotel() {
+function resHotel(username) {
     var ok1=false;
     var ok2=false;
     var ok3=false;
     $('.val-hotel-name').focus(function(){
         $('.pwd-error').html('');
     }).blur(function(){
-        var userName = $.trim($('.val-hotel-name').val());
-        if(userName==''){
+        var name = $.trim($('.val-hotel-name').val());
+        if(name==''){
             $('.pwd-error').html('真实姓名');
 
         }else{
@@ -1190,9 +1269,10 @@ function resHotel() {
             var card = $.trim($('.val-card').val());
             $.ajax({
                 type: "POST",
-                url: url +"Form/modifyPassword",
+                url: url +"Manage/signForStay",
                 data: {
-                    username: name,
+                    username: username,
+                    name: name,
                     sex: sex,
                     phone: phone,
                     card: card
@@ -1222,10 +1302,10 @@ function noReviewData(data,username) {
     var ele= $('.already-review');
     var aTitles = [{id: 'docu_id', title: '稿件编号'},
         {id: 'chineseTitle', title: '标题'},
-        {id: 'version', title: '稿件状态'},
+        {id: 'status', title: '稿件状态'},
         {id: 'allocate_time', title: '送审时间'},
         {id: 'audit_time', title: '审回时间'},
-        // {id: 'view', title: '意见'},
+        {id: 'upload', title: '操作'},
     ];
 
     var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 15});
@@ -1235,35 +1315,61 @@ function noReviewData(data,username) {
     ele.html(aHtml);
 
     //点击某一个标题进入当前稿件的详情
-    $('.user-detail-contribution .contri-title').on('click', function () {
+    $('.already-review .contri-title').on('click', function () {
         var _this = $(this);
-        ele.addClass('hide');
+        // ele.addClass('hide');
         var id = _this.attr('data-id');
-        //请求当前稿件详情接口
-        $.ajax({
-            type: "POST",
-            url: url + "Document/showById",
-            data: {
-                username: username,
-                docu_id: id
-            },
-            dataType: 'json',
-            success: function (data) {
-                if(data.status==1){
-                    var data  =data.data[0];
-                    // personContri(data,ele,siblingEle)
-                }else {
-                    alert(data.info);
+        popup.init();
+        var tHtml = [],aHtml= [];
+        tHtml.push('<span class="popup-title">审稿评价</span><i class="popup-close">x</i>');
+        $('.popup-header').html(tHtml.join(''));
+        aHtml.push(' <p style="height: 26px;line-height: 26px;"> <label>创新型:</label> <input type="radio" name="creative" value="很高">很高 <input type="radio" name="creative" value="较高">较高 <input type="radio" name="creative" value="一般">一般 <input type="radio" name="creative" value="低">低 </p>');
+        aHtml.push('<p style="height: 26px;line-height: 26px;"><label>应用型:</label> <input type="radio" name="application" value="很高">很高<input type="radio" name="application" value="较高">较高 <input type="radio" name="application" value="一般">一般 <input type="radio" name="application" value="低">低 </p>');
+        aHtml.push('<p style="height: 26px;line-height: 26px;"> <label>中文摘要写作水平:</label> <input type="radio" name="chinese-level" value="很高">很高 <input type="radio" name="chinese-level" value="较高">较高 <input type="radio" name="chinese-level" value="一般">一般 <input type="radio" name="chinese-level" value="低">低 </p>');
+        aHtml.push('<p style="height: 26px;line-height: 26px;"> <label>英文摘要写作水平:</label> <input type="radio" name="english-level" value="很高">很高 <input type="radio" name="english-level" value="较高">较高 <input type="radio" name="english-level" value="一般">一般 <input type="radio" name="english-level" value="低">低 </p>');
+        aHtml.push('<p style="height: 26px;line-height: 26px;"><label>论文总体评价:</label><input type="radio" name="evaluate" value="很好">很好 <input type="radio" name="evaluate" value="较好">较好 <input type="radio" name="evaluate" value="一般">一般 <input type="radio" name="evaluate" value="差">差 </p>');
+        aHtml.push(' <p> <label>具体意见:</label> <textarea name="" id="" cols="40" rows="5"></textarea> </p>');
+        $('.popup-edit').html(aHtml);
+
+        popup.popupEvent(function() {
+            var _this = $('.popup-confirm');
+            var data =[];
+            $.ajax({
+                url: url + 'Document/audit',
+                data: data,
+                type: 'POST',
+                dataType: 'json',
+                before: function () {
+                    _this.attr("disabled", true);
+                    _this.css({"background": "#ccc"});
+                },
+                success: function (res) {
+                    _this.attr("disabled", false);
+                    _this.css({"background": "#20c2d2"});
+                    if (res.status == 0) {
+                        $('.popup').remove();
+                        $('.popup-confirm').removeClass('confirming');
+                        window.location.reload();
+                    } else {
+                        $('.red').html(res.msg);
+                    }
+                },
+                error: function () {
+                    _this.attr("disabled", false);
+                    _this.css({"background": "#20c2d2"});
+                    $('.red').html('服务器开小差，请重试');
                 }
-            },
-            error: function () {
-                alert('请重试');
-            }
-
+            });
         });
-
-
     });
+
+    //下载稿件
+    $('.contri-upload').on('click', function () {
+        var cid = $(this).attr('data-id');
+        // window.open('http://ndac.env.tsinghua.edu.cn' + '/app/data/'+cid);
+        window.open('http://yf-rdqa-dev064-sunxuebin.epc.baidu.com:8099' + '/app/data/'+cid);
+    });
+
 }
 
 
@@ -1272,7 +1378,7 @@ function alreadyReviewData(data,username) {
     var ele= $('.no-already-review');
     var aTitles = [{id: 'docu_id', title: '稿件编号'},
         {id: 'chineseTitle', title: '标题'},
-        {id: 'version', title: '稿件状态'},
+        {id: 'status', title: '稿件状态'},
         // {id: 'allocate_time', title: '送审时间'},
         {id: 'audit_time', title: '审回时间'},
         {id: 'view', title: '意见'},
@@ -1284,8 +1390,6 @@ function alreadyReviewData(data,username) {
     // aHtml.push('<div class="edit-btn"><span class="edit-btn-confirm contri-btn">提交</span> </div>');
     ele.html(aHtml);
 
-
-
     //点击查看审核意见
     $('.no-already-review .contri-see').on('click', function () {
         var _this = $(this);
@@ -1294,6 +1398,7 @@ function alreadyReviewData(data,username) {
             type: "POST",
             url: url + "Document/showOpinion",
             data: {
+                username:username,
                 docu_id: cid
             },
             dataType: 'json',
@@ -1316,8 +1421,9 @@ function alreadyReviewData(data,username) {
                         aHtml = '暂无审稿意见';
                     }
                     $('.popup-edit').html(aHtml);
+                    $('.popup-footer').html('');
                     popup.popupEvent();
-                }else {
+                } else {
                     alert(data.info);
                 }
             },
@@ -1330,42 +1436,57 @@ function alreadyReviewData(data,username) {
     });
 }
 
+//审稿名单数据获取
+function nameListData(adatas,username) {
+    $.ajax({
+        type: "POST",
+        url:  url +"Form/showAuditUser",
+        data: {
+            username: username,
+        },
+        dataType: 'json',
+        success: function (data) {
+            if (data.status == 1) {
+                var data = data.data;
+                if (data.length > 0) {
+                    for (var i = 0; i < data.length; i++) {
+                        var curData = data[i];
+                        curData.checkBox = '<input type="checkbox" class="contri-checkbox" name="namelist" value="'+curData.name+'"/>';
 
-//重要时间
-function importantDate() {
+                    }
+                    noAlreadyAllocateData(adatas,username,data);
+                    var ele= $('.name-list');
+                    var aTitles = [{id: 'name', title: '姓名'},
+                        {id: 'chineseTitle', title: '职称'},
+                        {id: 'school', title: '院校'},
+                        {id: 'theme', title: '研究主题'},
+                    ];
 
+                    var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 15});
+                    var aHtml = [];
+                    aHtml.push(oNewTable.init());
+                    // aHtml.push('<div class="edit-btn"><span class="edit-btn-confirm contri-btn">提交</span> </div>');
+                    ele.html(aHtml);
+                } else {
+                    console.log(data.info);
+
+                }
+            }
+        }
+    });
 }
 
-//最新消息
-
-function newsData() {
-
-}
 
 
-//审稿人名单
-function nameListData(data) {
-    var ele= $('.name-list');
-    var aTitles = [{id: 'docu_id', title: '姓名'},
-        {id: 'chineseTitle', title: '职称'},
-        {id: 'school', title: '院校'},
-        {id: 'theme', title: '研究主题'},
-    ];
-
-    var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 15});
-    var aHtml = [];
-    aHtml.push(oNewTable.init());
-    // aHtml.push('<div class="edit-btn"><span class="edit-btn-confirm contri-btn">提交</span> </div>');
-    ele.html(aHtml);
-}
 
 //待分配稿件
-function noAlreadyAllocateData(data,username) {
+function noAlreadyAllocateData(data,username,adatas) {
     var ele= $('.edit-no-allocate');
+    var siblingEle= $('.edit-no-allocate-detail');
     var aTitles = [{id: 'docu_id', title: '稿件编号'},
         {id: 'chineseTitle', title: '标题'},
-        {id: 'version', title: '投稿时间'},
-        {id: 'allocate_time', title: '稿件分配'},
+        {id: 'create_time', title: '投稿时间'},
+        {id: 'distribution', title: '稿件分配'},
         {id: 'operate', title: '稿件操作'},
     ];
 
@@ -1375,6 +1496,181 @@ function noAlreadyAllocateData(data,username) {
     // aHtml.push('<div class="edit-btn"><span class="edit-btn-confirm contri-btn">提交</span> </div>');
     ele.html(aHtml);
 
+    //点击某一个标题进入当前稿件的详情
+    $('.edit-no-allocate .contri-title').on('click', function () {
+        var _this = $(this);
+        ele.addClass('hide');
+        siblingEle.removeClass('hide');
+        var id = _this.attr('data-id');
+        //请求当前稿件详情接口
+        $.ajax({
+            type: "POST",
+            url: url + "Document/showById",
+            data: {
+                username: username,
+                docu_id: id
+            },
+            dataType: 'json',
+            success: function (data) {
+                if(data.status==1){
+                    var data  =data.data[0];
+                    personContri(data,ele,siblingEle)
+                }else {
+                    alert(data.info);
+                }
+            },
+            error: function () {
+                alert('请重试');
+            }
+
+        });
+
+
+    });
+
+    // //点击查看审核意见
+    // $('.edit-no-allocate .contri-see').on('click', function () {
+    //     var _this = $(this);
+    //     var cid = _this.attr('data-id');
+    //     $.ajax({
+    //         type: "POST",
+    //         url: url + "Document/showOpinion",
+    //         data: {
+    //             username:username,
+    //             docu_id: cid
+    //         },
+    //         dataType: 'json',
+    //         success: function (data) {
+    //             if(data.status==1){
+    //
+    //                 popup.init();
+    //                 var tHtml = [],aHtml= [];
+    //                 tHtml.push('<span class="popup-title">审稿意见</span><i class="popup-close">x</i>');
+    //                 $('.popup-header').html(tHtml.join(''));
+    //                 if(data.data && data.data.length>0){
+    //                     var aTitles = [{id: 'audit_user', title: '审批人'},
+    //                         {id: 'audit_opinion', title: '意见'},
+    //                         {id: 'version', title: '版本'}
+    //                     ];
+    //                     var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data.data, maxline: 15});
+    //
+    //                     aHtml.push(oNewTable.init());
+    //                 }else {
+    //                     aHtml = '暂无审稿意见';
+    //                 }
+    //                 $('.popup-edit').html(aHtml);
+    //                 $('.popup-footer').html('');
+    //                 popup.popupEvent();
+    //             } else {
+    //                 alert(data.info);
+    //             }
+    //         },
+    //         error: function () {
+    //             alert('服务器开小差，请稍候再试');
+    //         }
+    //     });
+    //
+    //
+    // });
+
+    //点击分配审稿人
+    $('.edit-no-allocate .contri-distribution').on('click', function () {
+        var _this = $(this);
+        // var cid = _this.attr('data-id');
+        var chineseTitle = _this.attr('data-title');
+        popup.init();
+        var tHtml = [],aHtml= [];
+        tHtml.push('<span class="popup-title">审稿人名单</span><i class="popup-close">x</i>');
+        $('.popup-header').html(tHtml.join(''));
+        if(adatas && adatas.length>1){
+            var aTitles = [{id: 'checkBox', title: '分配'},
+                {id: 'name', title: '姓名'},
+                {id: 'version', title: '职称'},
+                {id: 'school', title: '院校'}
+            ];
+            var oNewTable = new CreateTable({aTitles: aTitles, aDatas: adatas, maxline: 15});
+
+            aHtml.push(oNewTable.init());
+        } else {
+            aHtml = '缺少审稿人';
+        }
+        $('.popup-edit').html(aHtml);
+        popup.popupEvent(function () {
+            var target = [];
+            var num=0;
+            $('input[name="namelist"]:checked').each(function(i){
+                num++;
+                var item = {};
+                item.name = $(this).val();
+                target.push(item);
+            });
+            if(num==2){
+                $.ajax({
+                    type: "POST",
+                    url:  url +"Document/distribute",
+                    data: {
+                        username: username,
+                        document: chineseTitle,
+                        target: JSON.stringify(target)
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status == 1) {
+                            $('.popup').remove();
+                            window.location.reload();
+                        } else {
+                            alert(data.info);
+                        }
+                    },
+                    error: function () {
+                        alert('服务器开小差，请稍候再试');
+                    }
+                })
+            }else {
+                alert('有且仅能选择两个审稿人')
+            }
+        });
+
+    });
+
+
+    // 编辑操作
+    $('.edit-no-allocate .contri-operate').on('click', function () {
+        var _this = $(this);
+        // var cid = _this.attr('data-id');
+        var chineseTitle = _this.attr('data-title');
+        popup.init();
+        var tHtml = [],aHtml= [];
+        tHtml.push('<span class="popup-title">稿件审核</span><i class="popup-close">x</i>');
+        $('.popup-header').html(tHtml.join(''));
+        aHtml.push('<p><label>选择：</label><select><option>拒稿</option></select>');
+        $('.popup-edit').html(aHtml);
+        popup.popupEvent(function () {
+            $.ajax({
+                type: "POST",
+                url:  url +"Document/handle",
+                data: {
+                    username: username,
+                    document: chineseTitle,
+                    status: ''
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 1) {
+                        $('.popup').remove();
+                        window.location.reload();
+                    } else {
+                        alert(data.info);
+
+                    }
+                },
+                error: function () {
+                    alert('服务器开小差，请稍候再试');
+                }
+            })
+        });
+
+    });
 }
 
 //已分配稿件
@@ -1393,5 +1689,83 @@ function alreadyAllocateData(data,username) {
     // aHtml.push('<div class="edit-btn"><span class="edit-btn-confirm contri-btn">提交</span> </div>');
     ele.html(aHtml);
 
+    // 编辑操作
+    $('.edit-allocate .contri-operate').on('click', function () {
+        var _this = $(this);
+        // var cid = _this.attr('data-id');
+        var chineseTitle = _this.attr('data-title');
+        popup.init();
+        var tHtml = [],aHtml= [];
+        tHtml.push('<span class="popup-title">稿件审核</span><i class="popup-close">x</i>');
+        $('.popup-header').html(tHtml.join(''));
+        aHtml.push('<p><label>选择：</label><select><option>采纳</option><option>返修</option><option>拒稿</option></select>');
+        $('.popup-edit').html(aHtml);
+        popup.popupEvent(function () {
+            $.ajax({
+                type: "POST",
+                url:  url +"Document/handle",
+                data: {
+                    username: username,
+                    document: chineseTitle,
+                    status: ''
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 1) {
+                        $('.popup').remove();
+                        window.location.reload();
+                    } else {
+                        alert(data.info);
 
+                    }
+                },
+                error: function () {
+                    alert('服务器开小差，请稍候再试');
+                }
+            })
+        });
+
+    });
+}
+
+//管理员中心
+function dateEdit(username) {
+    var flag= false;
+    $('.date-edit-start').on('click', function () {
+        $('.manage-date input').attr('disabled', false);
+        flag = true;
+    });
+    $('.manage-date-confirm').on('click', function(){
+        if(flag){
+            var dateDatas = {};
+            dateDatas.paperEnd =$.trim($('.manage-date-paper-end').val());
+            dateDatas.paperHire =$.trim($('.manage-date-paper-hire').val());
+            dateDatas.allPaperEnd =$.trim($('.manage-date-allpaper-end').val());
+            dateDatas.allPaperDate =$.trim($('.manage-date-allpaper-day').val());
+            $.ajax({
+                type: "POST",
+                url: url + "Manage/modify",
+                data: {
+                    username: username,
+                    content: 'date',
+                    value: JSON.stringify(dateDatas)
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if(data.status==1){
+                        $('.manage-date input').attr('disabled', true);
+                        flag = false;
+                        window.location.reload();
+                    }else {
+                        console.log(data.info);
+                    }
+                }
+
+            });
+        }
+    });
+    $('.manage-date-cancel').on('click', function () {
+        $('.manage-date input').attr('disabled', true);
+        flag = false;
+    })
 }

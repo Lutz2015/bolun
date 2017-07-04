@@ -93,7 +93,8 @@ $(function() {
         '中国农业科学院', '中国人民大学',
         '中国石油大学(北京)', '中国石油大学(华东)', '中国药科大学',
         '中南财经政法大学', '中南大学', '中山大学', '中央财经大学', '中央民族大学', '重庆大学', '重庆工商大学',
-        '中国林业研究院'
+        '中国林业研究院', '中国林业科学院', '中国科学院大学'
+
     ];
     initData(schoolData);
     function initData(data) {
@@ -107,8 +108,8 @@ $(function() {
 
     }
     function bindEvent() {
-        //注册
 
+        //注册
         $('.doc-content-res-username').focus(function(){
             $('.res-username-error').html('');
         }).blur(function(){
@@ -337,6 +338,10 @@ $(function() {
 
         });
 
+        $('input').on('keydown', function () {
+            $('.login-error-text').html('')
+        });
+
     }
 
 
@@ -511,6 +516,7 @@ $(function() {
 
 
     });
+
 
 
     loginTab();

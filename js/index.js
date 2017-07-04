@@ -18,31 +18,6 @@ $(function () {
     });
 
 
-    //日期编辑
-    var dateDatas = {
-        "paperEnd": "2017年6月30号",
-        "paperHire": "2017年8月4号",
-        "allPaperEnd": "2017年9月1号",
-        "allPaperDate": "2017年10月19日－22日"
-    };
-    $.ajax({
-        type: "POST",
-        url: url + "Manage/modify",
-        data: {
-            username: username,
-            content: 'date',
-            value: JSON.stringify(dateDatas)
-        },
-        dataType: 'json',
-        success: function (data) {
-            if(data.status==1){
-
-            }else {
-                console.log(data.info);
-            }
-        }
-
-    });
     //日期获取
     $.ajax({
         type: "POST",

@@ -243,7 +243,7 @@
                                 <span class="pwd-error positio-error"></span>
                             </div>
                             <div class="user-person-apply-list">
-                                <label class="label-field">研究领域：</label>
+                                <label class="label-field">研究主题：</label>
                                 <select type="text" class="user-person-apply-val val-field">
                                     <option selected="selected">水污染控制与资源化</option>
                                     <option>大气污染与控制</option>
@@ -363,9 +363,9 @@
             <div class="user-detail">
                 <div class="user-detail-left">
                     <ul class="edit-center-menu">
-                        <li class="edit-center-item on"><a href="javascript:void(0);">审稿人名单</a></li>
-                        <li class="edit-center-item"><a href="javascript:void(0);">待分配稿件</a></li>
+                        <li class="edit-center-item on"><a href="javascript:void(0);">待分配稿件</a></li>
                         <li class="edit-center-item"><a href="javascript:void(0);">已分配稿件</a></li>
+                        <li class="edit-center-item"><a href="javascript:void(0);">审稿人名单</a></li>
                         <li class="edit-center-item"><a href="javascript:void(0);">全文审稿</a></li>
                         <li class="edit-center-item"><a href="javascript:void(0);">个人信息</a></li>
                         <li class="edit-center-item"><a href="javascript:void(0);">修改密码</a></li>
@@ -376,6 +376,7 @@
                 </div>
                 <div class="edit-center-right">
                     <div class="edit-no-allocate"></div>
+                    <div class="edit-no-allocate-detail hide"></div>
                 </div>
                 <div class="edit-center-right">
                     <div class="edit-allocate"></div>
@@ -390,7 +391,59 @@
                     <div class="edit-person-pwd user-detail-pwd"></div>
                 </div>
             </div>
-            <div class="user-detail"></div>
+            <div class="user-detail">
+                <div class="user-detail-left">
+                    <ul class="manage-center-menu">
+                        <li class="manage-center-item on"><a href="javascript:void(0);">稿件状态</a></li>
+                        <li class="manage-center-item"><a href="javascript:void(0);">审稿人审核</a></li>
+                        <li class="manage-center-item"><a href="javascript:void(0);">时间编辑</a></li>
+                        <li class="manage-center-item"><a href="javascript:void(0);">最新消息</a></li>
+                        <li class="manage-center-item"><a href="javascript:void(0);">住宿登记人员</a></li>
+                        <li class="manage-center-item"><a href="javascript:void(0);">编辑人员名单</a></li>
+                        <li class="manage-center-item"><a href="javascript:void(0);">轮播图片编辑</a></li>
+                    </ul>
+                </div>
+                <div class="manage-center-right active">
+                    <div class="manage-date">
+                        <p class="manage-date-edit"><span class="date-edit-start">编辑</span></p>
+                        <p class="manage-date-edit"><label>论文摘要截止日期：</label><input type="text" class="manage-date-paper-end" value="2017年6月30号" disabled="disabled"/></p>
+                        <p class="manage-date-edit"><label>论文摘要录用日期：</label><input type="text" class="manage-date-paper-hire" value="2017年8月4号" disabled="disabled"/></p>
+                        <p class="manage-date-edit"><label>论文全文截止日期：</label><input type="text" class="manage-date-allpaper-end" value="2017年9月1号" disabled="disabled"/></p>
+                        <p class="manage-date-edit"><label>会议日期：</label><input type="text" class="manage-date-allpaper-day" value="2017年10月19日－22日" disabled="disabled"/></p>
+                        <p class="date-info-common manage-error"></p>
+                        <p class="manage-btn-edit">
+                            <span class="manage-date-confirm manage-btn-confirm">提交</span>
+                            <span class="manage-date-cancel manage-btn-cancel">取消</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="manage-center-right">
+                    <div class="manage-news-edit">
+                        <p><label>地址(url)：</label><textarea cols="60" rows="2"></textarea></p>
+                        <p><label>标题：</label><textarea cols="60" rows="2"></textarea></p>
+                        <p class="manage-error"></p>
+                        <p class="manage-btn-edit">
+                            <span class="manage-edit-confirm">提交</span>
+                            <span class="manage-edit-cancel">取消</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="manage-center-right">
+
+                </div>
+                <div class="manage-center-right">
+
+                </div>
+                <div class="manage-center-right">
+
+                </div>
+                <div class="manage-center-right">
+
+                </div>
+                <div class="manage-center-right">
+
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -473,6 +526,12 @@
         var index = _this.index();
         _this.addClass('on').siblings().removeClass('on');
         $('.edit-center-right').eq(index).addClass('active').siblings().removeClass('active')
+    });
+    $('.manage-center-menu li').on('click', function () {
+        var _this = $(this);
+        var index = _this.index();
+        _this.addClass('on').siblings().removeClass('on');
+        $('.manage-center-right').eq(index).addClass('active').siblings().removeClass('active')
     });
 </script>
 </body>
