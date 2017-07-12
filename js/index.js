@@ -6,7 +6,7 @@
 $(function () {
     var url= "http://yf-rdqa-dev064-sunxuebin.epc.baidu.com:8099/app/index.php/";
     // var url= "http://ndac.env.tsinghua.edu.cn/app/index.php/";
-    var username =$.cookie('cookie_username');
+    var username =JSON.parse($.cookie('cookie_info')).username;
     var operations= $('.operation-item');
 
     operations.on('click',function () {
@@ -39,60 +39,6 @@ $(function () {
         }
 
     });
-    //最新消息编辑
-    var newsData = [
-        {
-            time: '20170110',
-            text: '水污染控制与资源化',
-            value: 'http://www.baidu.com'
-        },
-        {
-            time: '20170111',
-            text: '大气污染与控制',
-            value: 'http://www.jd.com'
-        },
-        {
-            time: '20170112',
-            text: '固体废物污染控制与资源化',
-            value: 'http://www.taobao.com'
-        },
-        {
-            time: '20170113',
-            text: '环境化学',
-            value: 'http://www.sina.com'
-        },
-        {
-            time: '20170114',
-            text: '环境经济、管理与政策',
-            value: 'http://www.taobao.com'
-        },
-        {
-            time: '20170115',
-            text: '环境生态健康',
-            value: 'http://www.163.com'
-        },
-        {
-            time: '20170115',
-            text: '能源与气候变化',
-            value: 'https://www.360.cn'
-        }
-    ];
-    // $.ajax({
-    //     type: "POST",
-    //     url: url + "Manage/setMessage",
-    //     data: {
-    //         username: username,
-    //         value: JSON.stringify(newsData)
-    //     },
-    //     dataType: 'json',
-    //     success: function (data) {
-    //         if(data.status==1){
-    //
-    //         }else {
-    //             console.log(data.info);
-    //         }
-    //     }
-    // });
     //最新消息获取
     $.ajax({
         type: "POST",
@@ -117,7 +63,7 @@ $(function () {
         var str='';
         for(var i=0;i<adatas.length;i++){
             str +='<p>';
-            str+='<a href="'+adatas[i].value+'">' +adatas[i].text+'</a>';
+            str+='<a href="'+adatas[i].value+'">' +adatas[i].title+'</a>';
             str +='</p>';
         }
 

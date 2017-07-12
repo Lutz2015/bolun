@@ -315,7 +315,11 @@ $(function() {
                     dataType: 'json',
                     success: function (data) {
                         if (data.status == 1) {
-                            $.cookie('cookie_username', data.data.username);
+                            var cookie_info = {
+                                username:data.data.username,
+                                identity: data.data.identity
+                            };
+                            $.cookie('cookie_info', JSON.stringify(cookie_info));
                             window.location.href = "../Form/home.html";
 
                         } else {
@@ -386,6 +390,8 @@ $(function() {
         eHtml.push('<div class="form-group"> <p class="three-text">密码重置成功！请用新密码登录：</p><p class="three-text"><span class="edit-btn-primary btn-login">立即登录</span> <a href="../From/home.html" class="home-callback-btn">返回首页</a></p></div>');
         eHtml.push('</div>');
         $('.popup-edit').html(eHtml.join(''));
+        $('.popup-footer').html('');
+
         popup.popupEvent();
         var verifyCode = $('.verify-code');
         verifyCode.html(getCode());

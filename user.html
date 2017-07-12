@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/datetimepicker.css" />
     <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/header.css" />
     <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/footer.css" />
+    <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/pagination.css" />
     <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/user.css" />
 
 </head>
@@ -52,7 +53,7 @@
             </p>
         </div>
         <div class="user-content">
-            <div class="user-detail active">
+            <div class="user-detail user-contribute active">
                 <div class="user-detail-left">
                     <ul class="user-detail-menu">
                         <li class="user-menu-one on" data-id="0"><a href="#abstract">投稿摘要</a></li>
@@ -192,23 +193,27 @@
 
                 </div>
                 <div class="user-detail-right">
-                    <div class="user-detail-contribution"></div>
+                    <div class="user-detail-contribution-default">
+                        <div class="user-detail-contribution"></div>
+                        <div class="page"><div class="all-contribution pagination"></div></div>
+                    </div>
                     <div class="user-detail-contribution-person hide">
                         <div class="contribute-upload"></div>
                         <div class="user-contribute-list"></div>
                         <div class="user-contribute-author"></div>
                         <div class="user-contribute-abstract"></div>
-                        <div class="user-contribute-full"></div>
                     </div>
                 </div>
                 <div class="user-detail-right">
-                    <div class="user-detail-contribution-modify"></div>
+                    <div class="user-detail-contribution-modify-default">
+                        <div class="user-detail-contribution-modify"></div>
+                        <div class="page"><div class="modify-contribution pagination"></div></div>
+                    </div>
                     <div class="user-detail-contribution-modify-person hide">
                         <div class="contribute-upload"></div>
                         <div class="user-contribute-list"></div>
                         <div class="user-contribute-author"></div>
                         <div class="user-contribute-abstract"></div>
-                        <div class="user-contribute-full"></div>
                     </div>
                 </div>
                 <div class="user-detail-right">
@@ -230,10 +235,10 @@
                             <div class="user-person-apply-list">
                                 <label class="label-education">学历：</label>
                                 <select class="user-person-apply-val val-education">
-                                    <option value="0" selected="selected">本科</option>
-                                    <option value="1">硕士</option>
-                                    <option value="2">博士</option>
-                                    <option value="3">其他</option>
+                                    <option selected="selected">本科</option>
+                                    <option>硕士</option>
+                                    <option>博士</option>
+                                    <option>其他</option>
                                 </select>
                             </div>
                             <div class="user-person-apply-list">
@@ -294,7 +299,7 @@
                             <div class="user-person-apply-list">
                                 <label>姓名：</label>
                                 <input type="text" class="user-person-apply-val val-hotel-name"/>
-                                <span class="pwd-error"></span>
+                                <span class="pwd-name-error pwd-error"></span>
                             </div>
                             <div class="user-person-apply-list">
                                 <label>性别：</label>
@@ -307,13 +312,13 @@
                                 <label>手机号：</label>
                                 <input type="text" class="user-person-apply-val
      val-hotel-phone"/>
-                                <span class="pwd-error"></span>
+                                <span class="pwd-phone-error pwd-error"></span>
                             </div>
                             <div class="user-person-apply-list">
                                 <label>身份证：</label>
                                 <input type="text" class="user-person-apply-val
     val-card"/>
-                                <span class="pwd-error"></span>
+                                <span class="pwd-card-error"></span>
                             </div>
                             <div class="user-person-apply-list hotel-confirm-error"></div>
                             <div class="apply-edit-btn">
@@ -325,7 +330,7 @@
                 </div>
 
             </div>
-            <div class="user-detail">
+            <div class="user-detail user-audit">
                 <div class="user-detail-left">
                     <ul class="review-center-menu">
                         <li class="review-center-item on"><a href="javascript:void(0);">未审稿件</a></li>
@@ -337,10 +342,12 @@
                     </ul>
                 </div>
                 <div class="review-center-right active">
-                    <div class="already-review"></div>
+                    <div class="no-already-review"></div>
+                    <div class="page"><div class="no-already-contribution pagination"></div></div>
                 </div>
                 <div class="review-center-right">
-                    <div class="no-already-review"></div>
+                    <div class="already-review"></div>
+                    <div class="page"><div class="already-contribution pagination"></div></div>
                 </div>
                 <div class="review-center-right">
                     <ul class="content-menu-contribution">
@@ -360,12 +367,12 @@
                     <div class="review-person-pwd user-detail-pwd"></div>
                 </div>
             </div>
-            <div class="user-detail">
+            <div class="user-detail user-editor">
                 <div class="user-detail-left">
                     <ul class="edit-center-menu">
-                        <li class="edit-center-item on"><a href="javascript:void(0);">待分配稿件</a></li>
+                        <li class="edit-center-item on"><a href="javascript:void(0);">审稿人名单</a></li>
+                        <li class="edit-center-item"><a href="javascript:void(0);">待分配稿件</a></li>
                         <li class="edit-center-item"><a href="javascript:void(0);">已分配稿件</a></li>
-                        <li class="edit-center-item"><a href="javascript:void(0);">审稿人名单</a></li>
                         <li class="edit-center-item"><a href="javascript:void(0);">全文审稿</a></li>
                         <li class="edit-center-item"><a href="javascript:void(0);">个人信息</a></li>
                         <li class="edit-center-item"><a href="javascript:void(0);">修改密码</a></li>
@@ -373,16 +380,27 @@
                 </div>
                 <div class="edit-center-right active">
                     <div class="name-list"></div>
+                    <div class="page"><div class="name-list-contribution pagination"></div></div>
                 </div>
                 <div class="edit-center-right">
-                    <div class="edit-no-allocate"></div>
-                    <div class="edit-no-allocate-detail hide"></div>
+                    <div class="edit-no-allocate-default">
+                        <div class="edit-no-allocate"></div>
+                        <div class="page"><div class="no-allocate-contribution pagination"></div></div>
+                    </div>
+                    <div class="edit-no-allocate-detail hide">
+                        <div class="contribute-upload"></div>
+                        <div class="user-contribute-list"></div>
+                        <div class="user-contribute-author"></div>
+                        <div class="user-contribute-abstract"></div>
+                    </div>
                 </div>
                 <div class="edit-center-right">
                     <div class="edit-allocate"></div>
+                    <div class="page"><div class="allocate-contribution pagination"></div></div>
                 </div>
                 <div class="edit-center-right">
                     <div class="all-review"></div>
+                    <!--<div class="page"><div class="all-review-contribution pagination"></div></div>-->
                 </div>
                 <div class="edit-center-right">
                     <div class="edit-person-info"></div>
@@ -391,58 +409,77 @@
                     <div class="edit-person-pwd user-detail-pwd"></div>
                 </div>
             </div>
-            <div class="user-detail">
+            <div class="user-detail user-manager">
                 <div class="user-detail-left">
                     <ul class="manage-center-menu">
                         <li class="manage-center-item on"><a href="javascript:void(0);">稿件状态</a></li>
                         <li class="manage-center-item"><a href="javascript:void(0);">审稿人审核</a></li>
-                        <li class="manage-center-item"><a href="javascript:void(0);">时间编辑</a></li>
-                        <li class="manage-center-item"><a href="javascript:void(0);">最新消息</a></li>
                         <li class="manage-center-item"><a href="javascript:void(0);">住宿登记人员</a></li>
                         <li class="manage-center-item"><a href="javascript:void(0);">编辑人员名单</a></li>
+                        <li class="manage-center-item"><a href="javascript:void(0);">时间编辑</a></li>
+                        <li class="manage-center-item"><a href="javascript:void(0);">最新消息</a></li>
                         <li class="manage-center-item"><a href="javascript:void(0);">轮播图片编辑</a></li>
                     </ul>
                 </div>
                 <div class="manage-center-right active">
+                    <div class="manage-status-data">
+                        所有稿件:&nbsp;<span class="manage-status-data-all"></span>条<br>
+                        待修改稿件:&nbsp;<span class="manage-status-data-doing"></span>条<br>
+                        未审稿件:&nbsp;<span class="manage-status-data-not-audit"></span>条<br>
+                        已审稿件:&nbsp;<span class="manage-status-data-audit"></span>条<br>
+                        待分配稿件:&nbsp;<span class="manage-status-data-not-distribute"></span>条<br>
+                        已分配稿件:&nbsp;<span class="manage-status-data-distribute"></span>条<br>
+                    </div>
+                    <div class="manage-table-list">
+
+                    </div>
+                    <div class="page"><div class="manage-all-contribution pagination"></div></div>
+                </div>
+                <div class="manage-center-right">
+                    <div class="manage-edit-allocate"></div>
+                </div>
+                <div class="manage-center-right">
+                    <div class="manage-stay-list"></div>
+                </div>
+                <div class="manage-center-right">
+                    <div class="manage-editor-list"></div>
+                </div>
+                <div class="manage-center-right">
                     <div class="manage-date">
                         <p class="manage-date-edit"><span class="date-edit-start">编辑</span></p>
                         <p class="manage-date-edit"><label>论文摘要截止日期：</label><input type="text" class="manage-date-paper-end" value="2017年6月30号" disabled="disabled"/></p>
                         <p class="manage-date-edit"><label>论文摘要录用日期：</label><input type="text" class="manage-date-paper-hire" value="2017年8月4号" disabled="disabled"/></p>
                         <p class="manage-date-edit"><label>论文全文截止日期：</label><input type="text" class="manage-date-allpaper-end" value="2017年9月1号" disabled="disabled"/></p>
                         <p class="manage-date-edit"><label>会议日期：</label><input type="text" class="manage-date-allpaper-day" value="2017年10月19日－22日" disabled="disabled"/></p>
-                        <p class="date-info-common manage-error"></p>
+                        <p class="manage-error manage-date-error"></p>
                         <p class="manage-btn-edit">
-                            <span class="manage-date-confirm manage-btn-confirm">提交</span>
-                            <span class="manage-date-cancel manage-btn-cancel">取消</span>
+                            <span class="manage-date-confirm manage-edit-confirm">提交</span>
+                            <span class="manage-date-cancel manage-edit-cancel">取消</span>
                         </p>
                     </div>
                 </div>
                 <div class="manage-center-right">
                     <div class="manage-news-edit">
-                        <p><label>地址(url)：</label><textarea cols="60" rows="2"></textarea></p>
-                        <p><label>标题：</label><textarea cols="60" rows="2"></textarea></p>
-                        <p class="manage-error"></p>
+                        <p><label>链接(url)：</label><textarea cols="60" rows="3" class="manage-news-edit-url"></textarea></p>
+                        <p><label>标题：</label><textarea cols="60" rows="3" class="manage-news-edit-title"></textarea></p>
+                        <p class="manage-error manage-news-error"></p>
                         <p class="manage-btn-edit">
-                            <span class="manage-edit-confirm">提交</span>
-                            <span class="manage-edit-cancel">取消</span>
+                            <span class="manage-news-confirm manage-edit-confirm">提交</span>
+                            <span class="manage-news-cancel manage-edit-cancel">取消</span>
                         </p>
                     </div>
                 </div>
                 <div class="manage-center-right">
-
+                    <div class="manage-banner-edit">
+                        <div class="manage-banner-table"></div>
+                        <p class="manage-banner-text"><label>图片地址(url)：</label><input cols="60" rows="3" class="manage-banner-edit-url"><span class="manage-banner-add">添加</span></p>
+                        <p class="manage-btn-edit">
+                            <span class="manage-banner-confirm manage-edit-confirm">提交</span>
+                            <span class="manage-banner-cancel manage-edit-cancel">取消</span>
+                        </p>
+                    </div>
                 </div>
-                <div class="manage-center-right">
 
-                </div>
-                <div class="manage-center-right">
-
-                </div>
-                <div class="manage-center-right">
-
-                </div>
-                <div class="manage-center-right">
-
-                </div>
             </div>
         </div>
     </div>
@@ -500,6 +537,7 @@
 <script src="/app/Tpl/Form/js/jquery.js"></script>
 <script src="/app/Tpl/Form/js/cookie.js"></script>
 <script src="/app/Tpl/Form/js/datetimepicker.min.js"></script>
+<script src="/app/Tpl/Form/js/pagination.js"></script>
 <script src="/app/Tpl/Form/js/header.js"></script>
 <script src="/app/Tpl/Form/js/createTable.js"></script>
 <script src="/app/Tpl/Form/js/popup.js"></script>

@@ -4,7 +4,8 @@ var url = "http://yf-rdqa-dev064-sunxuebin.epc.baidu.com:8099/app/index.php/";
 // var url = "http://ndac.env.tsinghua.edu.cn/app/index.php/";
 $(function () {
     // var username= $('.web-nametext').html();
-    var username =$.cookie('cookie_username');
+    var username =JSON.parse($.cookie('cookie_info')).username;
+    var identity =JSON.parse($.cookie('cookie_info')).identity;
 
 
     var hash;
@@ -13,47 +14,103 @@ $(function () {
     hash=(!window.location.hash) ? "#contribute" : window.location.hash;
     window.location.hash=hash;
 
-    var oLis = $('.user-title-list a');
-    var one = $('.title-contribute');
-    var two = $('.title-audit');
-    var three = $('.title-editor');
-    var four = $('.title-manager');
-    var content = $('.user-detail');
 
-    switch(hash){
-        case "#contribute":
-            one.addClass('on').siblings().removeClass('on');
-            index = one.attr('data-id');
-            content.eq(index).addClass('active').siblings().removeClass('active');
-            break;
-        case "#audit":
-            two.addClass('on').siblings().removeClass('on');
-            index = two.attr('data-id');
-            content.eq(index).addClass('active').siblings().removeClass('active');
-            break;
-        case "#editor":
-            three.addClass('on').siblings().removeClass('on');
-            index = three.attr('data-id');
-            content.eq(index).addClass('active').siblings().removeClass('active');
-            break;
-        case "#manager":
-            four.addClass('on').siblings().removeClass('on');
-            index = four.attr('data-id');
-            content.eq(index).addClass('active').siblings().removeClass('active');
-            break;
-        default:
-            one.addClass('on').siblings().removeClass('on');
-            index = one.attr('data-id');
-            content.eq(index).addClass('active').siblings().removeClass('active');
+    // 权限逻辑管理
+    if(identity.indexOf('contribute')>-1){
+
+        if(identity.indexOf('contribute')==0){
+            $('.title-contribute').addClass('user-block').addClass('on').siblings().removeClass('on');
+
+        }else if(identity.indexOf('contribute')>0){
+            $('.title-contribute').addClass('user-block').addClass('on').siblings().removeClass('on');
+            $('.title-audit').addClass('user-block');
+
+        }
+        hash = "#contribute";
+        $('.user-contribute').addClass('active').siblings().removeClass('active');
+        // $('.user-audit').addClass('active').siblings().removeClass('active')
+        var one = $('.user-menu-one');
+        var two = $('.user-menu-two');
+        var three = $('.user-menu-three');
+        var four = $('.user-menu-four');
+        var five = $('.user-menu-five');
+        var six = $('.user-menu-six');
+        var seven = $('.user-menu-seven');
+        var eight = $('.user-menu-eight');
+        var oRights = $('.user-detail-right');
+        switch(hash){
+            case "#abstract":
+                one.addClass('on').siblings().removeClass('on');
+                index = one.attr('data-id');
+                oRights.eq(index).addClass('active').siblings().removeClass('active');
+                break;
+            case "#submission":
+                two.addClass('on').siblings().removeClass('on');
+                index = two.attr('data-id');
+                oRights.eq(index).addClass('active').siblings().removeClass('active');
+                break;
+            case "#allcontri":
+                three.addClass('on').siblings().removeClass('on');
+                index = three.attr('data-id');
+                oRights.eq(index).addClass('active').siblings().removeClass('active');
+                break;
+            case "#doingcontri":
+                four.addClass('on').siblings().removeClass('on');
+                index = four.attr('data-id');
+                oRights.eq(index).addClass('active').siblings().removeClass('active');
+                break;
+            case "#info":
+                five.addClass('on').siblings().removeClass('on');
+                index = five.attr('data-id');
+                oRights.eq(index).addClass('active').siblings().removeClass('active');
+                break;
+            case "#modify":
+                six.addClass('on').siblings().removeClass('on');
+                index =six.attr('data-id');
+                oRights.eq(index).addClass('active').siblings().removeClass('active');
+                break;
+            case "#apply":
+                seven.addClass('on').siblings().removeClass('on');
+                index =seven.attr('data-id');
+                oRights.eq(index).addClass('active').siblings().removeClass('active');
+                break;
+            case "#hotel":
+                eight.addClass('on').siblings().removeClass('on');
+                index =eight.attr('data-id');
+                oRights.eq(index).addClass('active').siblings().removeClass('active');
+                break;
+            default:
+                one.addClass('on').siblings().removeClass('on');
+                index = one.attr('data-id');
+                oRights.eq(index).addClass('active').siblings().removeClass('active');
+        }
+
+    } else if (identity.indexOf('editor')>-1){
+        hash = "#editor";
+        $('.title-editor').addClass('user-block').addClass('on').siblings().removeClass('on');
+        $('.user-editor').addClass('active').siblings().removeClass('active')
+
+    } else if (identity.indexOf('manager')>-1){
+        hash = "#manager";
+        $('.title-manager').addClass('user-block').addClass('on').siblings().removeClass('on');
+        $('.user-manager').addClass('active').siblings().removeClass('active')
     }
 
 
+    // var one = $('.title-contribute');
+    // var two = $('.title-audit');
+    // var three = $('.title-editor');
+    // var four = $('.title-manager');
+    var oLis = $('.user-title-list a');
+    var content = $('.user-detail');
     oLis.on('click', function () {
         var _this = $(this);
         var index = _this.index();
         _this.addClass('on').siblings().removeClass('on');
         content.eq(index).addClass('active').siblings().removeClass('active')
     });
+
+
 
     userInfo(username);
 
@@ -66,7 +123,388 @@ $(function () {
     // nameListData(username);
 
     dateEdit(username);
+    newsEdit(username);
+    manageReview(username);
+    checkStay(username);
+    showEditor(username);
+
 });
+
+
+
+
+//用户信息中心--稿件查询
+function contribution(username) {
+    var page = 1;
+    var pagesize = 5;
+    //请求稿件查询列表
+    $.ajax({
+        type: "POST",
+        url:  url +"Document/show",
+        data: {
+            username: username,
+            pagesize: pagesize || '5',
+            page: page || '1',
+            type: 'all'
+        },
+        dataType: 'json',
+        success: function (res) {
+            if(res.status==1){
+                var data = res.data;
+                var ele =$('.page .all-contribution');
+                // var manageEle = $('.page .manage-all-contribution');
+                if(data.length>0) {
+                    var flag = 1;
+                    renderList(res, username,flag);
+                    initPagination(ele, res.info, pagesize, username, flag, 'all');
+                    // initPagination(manageEle, res.info, pagesize, username, flag, 'all');
+                }else {
+                    ele.html('暂无此类数据');
+                    // manageEle.html('暂无此类数据');
+                }
+            }else {
+                console.log(res.info);
+            }
+        }
+
+    });
+
+    //待修改稿件查询列表
+    $.ajax({
+        type: "POST",
+        url:  url +"Document/show",
+        data: {
+            username: username,
+            pagesize: pagesize || '5',
+            page: page || '1',
+            type: 'doing'
+        },
+        dataType: 'json',
+        success: function (res) {
+            if(res.status==1){
+                var data = res.data;
+                var ele =$('.page .modify-contribution');
+                if(data.length>0) {
+                    var flag =2;
+                    renderList(res, username,flag);
+                    initPagination(ele, res.info, pagesize, username, flag, 'doing');
+                }else {
+                    ele.html('暂无此类数据');
+                }
+            }else {
+                console.log(res.info);
+            }
+        }
+
+    });
+
+    //未审件查询列表
+    $.ajax({
+        type: "POST",
+        url:  url +"Document/show",
+        data: {
+            username: username,
+            pagesize: pagesize || '5',
+            page: page || '1',
+            type: 'not_audit'
+        },
+        dataType: 'json',
+        success: function (res) {
+            if(res.status==1){
+                var data = res.data;
+                var ele =$('.page .no-already-contribution');
+                if(data.length>0) {
+                    var flag =3;
+                    renderList(res, username,flag);
+                    initPagination(ele, res.info, pagesize, username, flag, 'not_audit')
+                }else {
+                    ele.html('暂无此类数据')
+                }
+            }else {
+                console.log(res.info);
+            }
+        }
+
+    });
+
+    //已审稿件查询列表
+    $.ajax({
+        type: "POST",
+        url:  url +"Document/show",
+        data: {
+            username: username,
+            pagesize: pagesize || '5',
+            page: page || '1',
+            type: 'audit'
+        },
+        dataType: 'json',
+        success: function (res) {
+            if(res.status==1){
+                var data = res.data;
+                var ele =$('.page .already-contribution');
+                if(data.length>0) {
+                    var flag =4;
+                    renderList(res, username, flag);
+                    initPagination(ele, res.info, pagesize, username, flag, 'audit')
+                }else {
+                    ele.html('暂无此类数据')
+                }
+            }else {
+                console.log(res.info);
+            }
+        }
+
+    });
+
+    //待分配稿件查询列表
+    $.ajax({
+        type: "POST",
+        url:  url +"Document/show",
+        data: {
+            username: username,
+            pagesize: pagesize || '5',
+            page: page || '1',
+            type: 'not_distribute'
+        },
+        dataType: 'json',
+        success: function (res) {
+            if(res.status==1){
+                var data = res.data;
+                var ele =$('.page .no-allocate-contribution');
+                if(data.length>0) {
+                    var flag =5;
+                    renderList(res, username,flag);
+                    initPagination(ele, res.info, pagesize, username, flag, 'not_distribute')
+                }else {
+                    ele.html('暂无此类数据')
+                }
+            }else {
+                console.log(res.info);
+            }
+        }
+
+    });
+
+    //已分配稿件查询列表
+    $.ajax({
+        type: "POST",
+        url:  url +"Document/show",
+        data: {
+            username: username,
+            pagesize: pagesize || '5',
+            page: page || '1',
+            type: 'distribute'
+        },
+        dataType: 'json',
+        success: function (res) {
+            if(res.status==1){
+                var data = res.data;
+                var ele =$('.page .allocate-contribution');
+                if(data.length>0) {
+                    var flag =6;
+                    renderList(res, username, flag);
+                    initPagination(ele, res.info, pagesize, username, flag, 'distribute')
+                }else {
+                    ele.html('暂无此类数据');
+                }
+            }else {
+                console.log(res.info);
+            }
+        }
+
+    });
+
+    //日期获取
+    $.ajax({
+        type: "POST",
+        url: url + "Manage/get",
+        data: {
+            content: 'date'
+        },
+        dataType: 'json',
+        success: function (res) {
+            if(res.status==1){
+                var date =JSON.parse(res.data.date[0].value);
+                $('.date-paper-end').html(date.paperEnd);
+                $('.date-paper-hire').html(date.paperHire);
+                $('.date-allpaper-end').html(date.allPaperEnd);
+                $('.date-allpaper-day').html(date.allPaperDate);
+            }else {
+                console.log(res.info);
+            }
+        }
+
+    });
+
+    //最新消息获取
+    $.ajax({
+        type: "POST",
+        url: url + "Manage/getMessage",
+        dataType: 'json',
+        success: function (res) {
+            if(res.status==1){
+                var adatas=res.data;
+                if(adatas.length>5){
+                    adatas=adatas.slice(0,5);
+
+                }
+                initNews(adatas);
+
+            }else {
+                console.log(res.info);
+            }
+        }
+    });
+
+    //轮播
+    $.ajax({
+        type: "POST",
+        url: url + "Manage/get",
+        data: {
+            content: 'banner'
+        },
+        dataType: 'json',
+        success: function (res) {
+            if (res.status == 1) {
+                var data = JSON.parse(res.data.banner[0].value);
+                bannerEdit(data,username);
+                imgAdd(data,username)
+            } else {
+                console.log(res.info);
+            }
+        }
+    });
+}
+function renderList(res,username,flag) {
+
+    var data = res.data;
+    var total = res.info;
+    var titleData, titleEditData;
+    // //待修改稿件，未审稿件，已审稿件，待分配稿件，已分配稿件
+    // var noAlreadyEdit  =[],
+    //     noAlreadyReview =[],
+    //     alreadyReview =[],
+    //     noAlreadyAllocate =[],
+    //     alreadyAllocate =[];
+    if(data.length>0){
+        for(var i=0;i<data.length;i++){
+            var curData = data[i];
+            curData.audit_opinion = curData.audit_opinion || '暂无任何意见';
+
+            curData.allocate_time = curData.allocate_time ? String(curData.allocate_time).substring(0, 10) : '—';
+            curData.audit_time = curData.audit_time ? String(curData.audit_time).substring(0,10) : '—';
+            curData.repair_over_time = curData.repair_over_time ? String(curData.repair_over_time).substring(0,10) : '——';
+            curData.repair_time = curData.repair_time ? String(curData.repair_time).substring(0,10) : '—';
+
+            curData.view = '<span class="contri-see" data-id="'+curData.docu_id+'">查看审稿意见</span>';
+            curData.upload = '<span class="contri-upload" data-id="'+curData.docu_id+'">下载稿件</span>';
+
+            curData.look = '<span class="contri-look" data-id="'+curData .docu_id+'" data-title="'+curData.chineseTitle+'">审稿人</span>';
+            curData.operate = '<span class="contri-operate" data-id="'+curData .docu_id+'" data-title="'+curData.chineseTitle+'" data-status="'+curData.status+'">稿件操作</span>';
+            curData.distribution = '<span class="contri-distribution" data-id="'+curData.docu_id+'" data-title="'+curData.chineseTitle+'">稿件分配</span>';
+
+            curData.chineseTitle ='<span class="contri-title" data-id="'+curData.docu_id+'">'+curData.chineseTitle+'</span>';
+            curData.edit = '<input class="contri-edit-upload" type="file" name="file'+curData.id+'" value="上传修改稿"/><button class="edit-upload-btn" data-id="'+curData.docu_id+'">上传</button>';
+
+            if(curData.status==0){
+                curData.status = '待提交';
+            }else if (curData.status==1){
+                curData.status = '已提交';
+
+            } else if (curData.status==2 || curData.status==3){
+                curData.status = '审稿中';
+            } else if (curData.status==4){
+                curData.status = '已采纳';
+            } else if (curData.status==5){
+                curData.status = '不宜采纳';
+            } else if (curData.status==6){
+                curData.status = '待修改';
+            }else {
+                curData.status = '已提交';
+            }
+            // noAlreadyEdit.push(curData);
+            // //未审稿件，已审稿件
+            // if(curData.status==2||curData.status==3){
+            //     noAlreadyReview.push(curData);
+            // }else if(curData.status==4||curData.status==5||curData.status==6) {
+            //     alreadyReview.push(curData);
+            // }
+            // //待分配稿件，已分配稿件
+            // if(curData.status==1||curData.status==7){
+            //     noAlreadyAllocate.push(curData);
+            // }else if(curData.status==2||curData.status==3||curData.status==4||curData.status==5||curData.status==6) {
+            //     alreadyAllocate.push(curData);
+            // }
+            // noAlreadyReview.push(curData);
+            // alreadyReview.push(curData);
+            // noAlreadyAllocate.push(curData);
+            // alreadyAllocate.push(curData);
+
+
+        }
+
+        var alContribution =$('.al-contribution');
+        var noContribution =$('.no-contribution');
+        if(data.length>5){
+            titleData=data.slice(0,5);
+        }else {
+            titleData=data;
+        }
+        if(flag ==1){
+            bindData(titleData, alContribution);
+            contriData(data,username);
+
+        }else if(flag ==2){
+            bindData(titleData, noContribution);
+            contriDataModify(data,username);
+        }else if(flag ==3){
+            noReviewData(data,username);
+        }else if(flag ==4){
+            alreadyReviewData(data,username);
+        }else if(flag ==5){
+            // noAlreadyAllocateData(noAlreadyAllocate,username);
+            nameListData(data,username);
+        } else if(flag ==6){
+            alreadyAllocateData(data,username);
+        }
+
+        statusData(data, total, flag);
+        // if(data.length>5){
+        //     titleEditData=noAlreadyEdit.slice(0,5);
+        // }else {
+        //     titleEditData=noAlreadyEdit;
+        // }
+        // var alContribution =$('.al-contribution');
+        // var noContribution =$('.no-contribution');
+        // bindData(titleEditData, noContribution);
+
+    }
+}
+
+//数据绑定
+function bindData(data,ele) {
+    var str='';
+    for(var i=0;i<data.length;i++){
+        data[i].create_time = String(data[i].create_time).substring(0,10);
+        str +='<li class="content-menu-contribution-item">';
+        str+='<span class="contribution-title">' +data[i].chineseTitle+'</span>';
+        str+='<span>' +data[i].create_time+'</span>';
+        str +='</li>';
+    }
+    ele.append(str);
+}
+//最新消息
+function initNews(adatas) {
+    var str='';
+    for(var i=0;i<adatas.length;i++){
+        str +='<li class="content-menu-contribution-item">';
+        str+='<a href="'+adatas[i].value+'">' +adatas[i].title+'</a>';
+        str +='</li>';
+    }
+
+    $('.content-menu-contribution-news').append(str);
+    $('.review-news').append(str);
+}
 
 //投稿
 function submission(username) {
@@ -316,197 +754,9 @@ function submission(username) {
     })
 }
 
-
-//用户信息中心--稿件查询
-function contribution(username) {
-    //待修改稿件，未审稿件，已审稿件，待分配稿件，已分配稿件
-    var noAlreadyEdit  =[],
-        noAlreadyReview =[],
-        alreadyReview =[],
-        noAlreadyAllocate =[],
-        alreadyAllocate =[];
-
-    //请求稿件查询列表
-    $.ajax({
-        type: "POST",
-        url:  url +"Document/show",
-        data: {
-            username: username,
-            type: 'all'
-        },
-        dataType: 'json',
-        success: function (data) {
-            if(data.status==1){
-                var data = data.data;
-                var titleData, titleEditData;
-                if(data.length>0){
-
-                    for(var i=0;i<data.length;i++){
-                        var curData = data[i];
-                        curData.audit_opinion = curData.audit_opinion || '暂无任何意见';
-
-                        curData.allocate_time = curData.allocate_time ? String(curData.allocate_time).substring(0, 10) : '—';
-                        curData.audit_time = curData.audit_time ? String(curData.audit_time).substring(0,10) : '—';
-                        curData.repair_over_time = curData.repair_over_time ? String(curData.repair_over_time).substring(0,10) : '——';
-                        curData.repair_time = curData.repair_time ? String(curData.repair_time).substring(0,10) : '—';
-
-                        curData.view = '<span class="contri-see" data-id="'+curData.docu_id+'">查看审稿意见</span>';
-                        curData.upload = '<span class="contri-upload" data-id="'+curData.docu_id+'">下载稿件</span>';
-
-                        curData.look = '<span class="contri-look" data-id="'+curData .docu_id+'" data-title="'+curData.chineseTitle+'">审稿人</span>';
-                        curData.operate = '<span class="contri-operate" data-id="'+curData .docu_id+'" data-title="'+curData.chineseTitle+'">稿件操作</span>';
-                        curData.distribution = '<span class="contri-distribution" data-id="'+curData.docu_id+'" data-title="'+curData.chineseTitle+'">稿件分配</span>';
-
-                        curData.chineseTitle ='<span class="contri-title" data-id="'+curData.docu_id+'">'+curData.chineseTitle+'</span>';
-                        curData.edit = '<input class="contri-edit-upload" type="file" name="file'+curData.id+'" value="上传修改稿"/><button class="edit-upload-btn" data-id="'+curData.docu_id+'">上传</button>';
-
-                        if(curData.status==0){
-                            curData.status = '待提交';
-                        }else if (curData.status==1){
-                            curData.status = '已提交';
-
-                        } else if (curData.status==2 || curData.status==3){
-                            curData.status = '审稿中';
-                        } else if (curData.status==4){
-                            curData.status = '已采纳';
-                        } else if (curData.status==5){
-                            curData.status = '不宜采纳';
-                        } else if (curData.status==6){
-                            curData.status = '待修改';
-                            noAlreadyEdit.push(curData);
-                        }else {
-                            curData.status = '已提交';
-                        }
-
-                        // //未审稿件，已审稿件
-                        // if(curData.status==2||curData.status==3){
-                        //     noAlreadyReview.push(curData);
-                        // }else if(curData.status==4||curData.status==5||curData.status==6) {
-                        //     alreadyReview.push(curData);
-                        // }
-                        // //待分配稿件，已分配稿件
-                        // if(curData.status==1||curData.status==7){
-                        //     noAlreadyAllocate.push(curData);
-                        // }else if(curData.status==2||curData.status==3||curData.status==4||curData.status==5||curData.status==6) {
-                        //     alreadyAllocate.push(curData);
-                        // }
-                        noAlreadyReview.push(curData);
-                        alreadyReview.push(curData);
-                        noAlreadyAllocate.push(curData);
-                        alreadyAllocate.push(curData);
-
-
-                    }
-
-                    var alContribution =$('.al-contribution');
-                    var noContribution =$('.no-contribution');
-                    if(data.length>5){
-                        titleData=data.slice(0,5);
-                    }else {
-                        titleData=data;
-                    }
-                    bindData(titleData, alContribution);
-                    if(noAlreadyEdit.length>5){
-                        titleEditData=noAlreadyEdit.slice(0,5);
-                    }else {
-                        titleEditData=noAlreadyEdit;
-                    }
-                    // var alContribution =$('.al-contribution');
-                    // var noContribution =$('.no-contribution');
-                    bindData(titleEditData, noContribution);
-                    contriData(data,username);
-                    contriDataModify(noAlreadyEdit,username);
-
-                    noReviewData(noAlreadyReview,username);
-                    alreadyReviewData(alreadyReview,username);
-
-                    // noAlreadyAllocateData(noAlreadyAllocate,username);
-                    nameListData(noAlreadyAllocate,username);
-                    alreadyAllocateData(alreadyAllocate,username);
-
-
-                }
-
-            }else {
-                console.log(data.info);
-            }
-        }
-
-    });
-
-
-    //日期获取
-    $.ajax({
-        type: "POST",
-        url: url + "Manage/get",
-        data: {
-            content: 'date'
-        },
-        dataType: 'json',
-        success: function (data) {
-            if(data.status==1){
-                var date =JSON.parse(data.data.date[0].value);
-                $('.date-paper-end').html(date.paperEnd);
-                $('.date-paper-hire').html(date.paperHire);
-                $('.date-allpaper-end').html(date.allPaperEnd);
-                $('.date-allpaper-day').html(date.allPaperDate);
-            }else {
-                console.log(data.info);
-            }
-        }
-
-    });
-
-    //最新消息获取
-    $.ajax({
-        type: "POST",
-        url: url + "Manage/getMessage",
-        dataType: 'json',
-        success: function (data) {
-            if(data.status==1){
-                var adatas=data.data;
-                if(adatas.length>5){
-                    adatas=adatas.slice(0,5);
-
-                }
-                initNews(adatas);
-
-            }else {
-                console.log(data.info);
-            }
-        }
-    });
-
-
-
-}
-//数据绑定
-function bindData(data,ele) {
-    var str='';
-    for(var i=0;i<data.length;i++){
-        data[i].create_time = String(data[i].create_time).substring(0,10);
-        str +='<li class="content-menu-contribution-item">';
-        str+='<span class="contribution-title">' +data[i].chineseTitle+'</span>';
-        str+='<span>' +data[i].create_time+'</span>';
-        str +='</li>';
-    }
-    ele.append(str);
-}
-//最新消息
-function initNews(adatas) {
-    var str='';
-    for(var i=0;i<adatas.length;i++){
-        str +='<li class="content-menu-contribution-item">';
-        str+='<a href="'+adatas[i].value+'">' +adatas[i].text+'</a>';
-        str +='</li>';
-    }
-
-    $('.content-menu-contribution-news').append(str);
-    $('.review-news').append(str);
-}
-
 //稿件查询
 function contriData(data,username) {
+    var defaultEle =$('.user-detail-contribution-modify-default');
     var ele= $('.user-detail-contribution');
     var siblingEle= $('.user-detail-contribution-person');
     var aTitles = [{id: 'docu_id', title: '稿件编号'},
@@ -516,16 +766,15 @@ function contriData(data,username) {
         {id: 'view', title: '审稿意见'},
         // {id: 'edit', title: '上传修稿'}
     ];
-    var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 20});
+    var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 5});
     var aHtml = [];
     aHtml.push(oNewTable.init());
-    // aHtml.push('<div class="edit-btn"><span class="edit-btn-confirm contri-btn">提交</span> </div>');
-    ele.html(aHtml);
 
+    ele.html(aHtml);
     //点击某一个标题进入当前稿件的详情
     $('.user-detail-contribution .contri-title').on('click', function () {
         var _this = $(this);
-        ele.addClass('hide');
+        defaultEle.addClass('hide');
         siblingEle.removeClass('hide');
         var id = _this.attr('data-id');
         //请求当前稿件详情接口
@@ -540,7 +789,7 @@ function contriData(data,username) {
             success: function (data) {
                 if(data.status==1){
                     var data  =data.data[0];
-                    personContri(data,ele,siblingEle)
+                    personContri(data,defaultEle,siblingEle)
                 }else {
                     alert(data.info);
                 }
@@ -649,8 +898,11 @@ function contriData(data,username) {
     });
 
 }
+
 //待修改稿件查询
 function contriDataModify(data,username) {
+
+    var defaultEle =$('.user-detail-contribution-modify-default');
     var ele= $('.user-detail-contribution-modify');
     var siblingEle= $('.user-detail-contribution-modify-person');
     var aTitles = [{id: 'docu_id', title: '稿件编号'},
@@ -660,16 +912,15 @@ function contriDataModify(data,username) {
         {id: 'view', title: '审稿意见'},
         {id: 'edit', title: '上传修稿'}
     ];
-    var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 15});
+    var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 10});
     var aHtml = [];
     aHtml.push(oNewTable.init());
-    // aHtml.push('<div class="edit-btn"><span class="edit-btn-confirm contri-btn">提交</span> </div>');
     ele.html(aHtml);
 
     //点击某一个标题进入当前稿件的详情
     $('.user-detail-contribution-modify .contri-title').on('click', function () {
         var _this = $(this);
-        ele.addClass('hide');
+        defaultEle.addClass('hide');
         siblingEle.removeClass('hide');
         var id = _this.attr('data-id');
         //请求当前稿件详情接口
@@ -685,7 +936,7 @@ function contriDataModify(data,username) {
                 if(data.status==1){
                     var data  =data.data[0];
 
-                    personContri(data, ele,siblingEle);
+                    personContri(data, defaultEle,siblingEle);
                 }else {
                     alert(data.info);
                 }
@@ -794,13 +1045,13 @@ function personContri(data, ele, siblingEle) {
     bHtml.push('<span class="contri-callback">返回</span> <span class="contribute-upload-single upload-on" data-id="'+ data.docu_id+'"><i class="iconfont icon-download upload-icon"></i>下载原始摘要</span><span class="contribute-upload-all upload-on"><i class="iconfont icon-download upload-icon"></i>下载原始全文</span>');
     $('.contribute-upload').html(bHtml);
 
-    cHtml.push('<p> <span class="user-contribute-list-title">稿件编号</span> <span>'+ data.docu_id+'</span></p>');
-    cHtml.push('<p> <span class="user-contribute-list-title">中文标题</span> <span>'+data.chineseTitle+'</span></p>');
-    cHtml.push('<p> <span class="user-contribute-list-title">英文标题</span> <span>'+data.englishTitle+'</span></p>');
-    cHtml.push('<p> <span class="user-contribute-list-title">中文关键字</span> <span>'+data.keyChinese+'</span></p>');
-    cHtml.push('<p><span class="user-contribute-list-title">英文关键字</span> <span>'+data.keyEnglish+'</span></p>');
-    cHtml.push('<p> <span class="user-contribute-list-title">主题</span> <span>'+data.theme+'</span></p>');
-    cHtml.push('<p> <span class="user-contribute-list-title">投稿日期</span> <span>'+String(data.create_time).substring(0,10)+'</span></p>');
+    cHtml.push('<p> <span class="user-contribute-list-title">稿件编号</span> <a title='+ data.docu_id+'>'+ data.docu_id+'</a></p>');
+    cHtml.push('<p> <span class="user-contribute-list-title">中文标题</span> <a title='+ data.chineseTitle+'>'+data.chineseTitle+'</a></p>');
+    cHtml.push('<p> <span class="user-contribute-list-title">英文标题</span> <a title='+ data.englishTitle+'>'+data.englishTitle+'</a></p>');
+    cHtml.push('<p> <span class="user-contribute-list-title">中文关键字</span> <a title='+ data.keyChinese+'>'+data.keyChinese+'</a></p>');
+    cHtml.push('<p><span class="user-contribute-list-title">英文关键字</span> <a title='+ data.keyEnglish+'>'+data.keyEnglish+'</a></p>');
+    cHtml.push('<p> <span class="user-contribute-list-title">主题</span> <a title='+ data.theme+'>'+data.theme+'</a></p>');
+    cHtml.push('<p> <span class="user-contribute-list-title">投稿日期</span> <a>'+String(data.create_time).substring(0,10)+'</a></p>');
     $('.user-contribute-list').html(cHtml);
 
     //点击返回
@@ -815,10 +1066,12 @@ function personContri(data, ele, siblingEle) {
         window.open('http://ndac.env.tsinghua.edu.cn' + '/app/data/'+cid);
     });
     var authorData = JSON.parse(data.author)|| 0;
+    var versionData = JSON.parse(data.version) || 0;
     if(authorData.length>0){
-        var versionData = data.version;
         contriAuthor(authorData);
-        // contriStage(versionData)
+    }
+    if(versionData.length>0){
+        contriStage(versionData);
     }
 }
 
@@ -850,6 +1103,7 @@ function contriStage(data) {
     var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 15});
     var aHtml = [];
     aHtml.push(oNewTable.init());
+    $('.user-contribute-abstract').html(aHtml);
 }
 
 //展示个人信息
@@ -864,22 +1118,6 @@ function userInfo(username) {
         dataType: 'json',
         success: function (data) {
             if (data.status == 1) {
-
-                // //权限逻辑管理
-                // var identity = data.data[0].identity;
-                // if('contribute'.indexOf(identity)>-1){
-                //     $('.title-contribute').addClass('user-block');
-                //
-                // }else if('audit'.indexOf(identity)>-1){
-                //     $('.title-audit').addClass('user-block').addClass('on').siblings().removeClass('on');
-                //
-                // }else if ('editor'.indexOf(identity)>-1){
-                //     $('.title-editor').addClass('user-block').addClass('on').siblings().removeClass('on');
-                //
-                // }else if ('manager'.indexOf(identity)>-1){
-                //     $('.title-manager').addClass('user-block').addClass('on').siblings().removeClass('on');
-                // }
-
                 if(data.data[0].info){
                     $('.right-title-img').attr('src','http://ndac.env.tsinghua.edu.cn/'+ data.data[0].info+'?t=' + Math.random());
                 }
@@ -1230,10 +1468,10 @@ function resHotel(username) {
     }).blur(function(){
         var name = $.trim($('.val-hotel-name').val());
         if(name==''){
-            $('.pwd-error').html('真实姓名');
+            $('.pwd-name-error').html('真实姓名');
 
         }else{
-            $('.pwd-error').html('输入成功').addClass('res-success');
+            $('.pwd-name-error').html('输入成功').addClass('res-success');
             ok1=true
         }
     });
@@ -1242,10 +1480,10 @@ function resHotel(username) {
     }).blur(function(){
         var phone = $.trim($('.val-hotel-phone').val());
         if(!(/^1[3456789]\d{9}$/.test(phone))){
-            $('.pwd-error').html('请填写11位数字的电话号码');
+            $('.pwd-phone-error').html('请填写11位数字的电话号码');
 
         }else{
-            $('.pwd-error').html('输入成功').addClass('res-success');
+            $('.pwd-phone-error').html('输入成功').addClass('res-success');
             ok2=true
         }
     });
@@ -1254,10 +1492,10 @@ function resHotel(username) {
     }).blur(function(){
         var card = $.trim($('.val-card').val());
         if(card){
-            $('.pwd-error').html('请填写你的身份证号');
+            $('.pwd-card-error').html('请填写你的身份证号');
 
         }else{
-            $('.pwd-error').html('输入成功').addClass('res-success');
+            $('.pwd-card-error').html('输入成功').addClass('res-success');
             ok3=true
         }
         });
@@ -1280,7 +1518,7 @@ function resHotel(username) {
                 dataType: 'json',
                 success: function (data) {
                     if (data.status == 1) {
-                        alert('设置成功');
+                        alert('登记成功');
                         window.location.reload();
                     } else {
                         $('.hotel-confirm-error').html(data.info);
@@ -1292,14 +1530,18 @@ function resHotel(username) {
                 }
 
             })
+        }else {
+
         }
     })
 }
 
 
+//审稿中心
+
 //未审稿件
 function noReviewData(data,username) {
-    var ele= $('.already-review');
+    var ele= $('.no-already-review');
     var aTitles = [{id: 'docu_id', title: '稿件编号'},
         {id: 'chineseTitle', title: '标题'},
         {id: 'status', title: '稿件状态'},
@@ -1311,14 +1553,14 @@ function noReviewData(data,username) {
     var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 15});
     var aHtml = [];
     aHtml.push(oNewTable.init());
-    // aHtml.push('<div class="edit-btn"><span class="edit-btn-confirm contri-btn">提交</span> </div>');
     ele.html(aHtml);
 
     //点击某一个标题进入当前稿件的详情
-    $('.already-review .contri-title').on('click', function () {
+    $('.no-already-review .contri-title').on('click', function () {
         var _this = $(this);
         // ele.addClass('hide');
         var id = _this.attr('data-id');
+        var title = _this.attr('data-title');
         popup.init();
         var tHtml = [],aHtml= [];
         tHtml.push('<span class="popup-title">审稿评价</span><i class="popup-close">x</i>');
@@ -1328,15 +1570,34 @@ function noReviewData(data,username) {
         aHtml.push('<p style="height: 26px;line-height: 26px;"> <label>中文摘要写作水平:</label> <input type="radio" name="chinese-level" value="很高">很高 <input type="radio" name="chinese-level" value="较高">较高 <input type="radio" name="chinese-level" value="一般">一般 <input type="radio" name="chinese-level" value="低">低 </p>');
         aHtml.push('<p style="height: 26px;line-height: 26px;"> <label>英文摘要写作水平:</label> <input type="radio" name="english-level" value="很高">很高 <input type="radio" name="english-level" value="较高">较高 <input type="radio" name="english-level" value="一般">一般 <input type="radio" name="english-level" value="低">低 </p>');
         aHtml.push('<p style="height: 26px;line-height: 26px;"><label>论文总体评价:</label><input type="radio" name="evaluate" value="很好">很好 <input type="radio" name="evaluate" value="较好">较好 <input type="radio" name="evaluate" value="一般">一般 <input type="radio" name="evaluate" value="差">差 </p>');
-        aHtml.push(' <p> <label>具体意见:</label> <textarea name="" id="" cols="40" rows="5"></textarea> </p>');
+        aHtml.push(' <p> <label style="float:left;">具体意见:</label> <textarea class="opinoin-text" name="" id="" cols="40" rows="5"></textarea> </p>');
         $('.popup-edit').html(aHtml);
 
         popup.popupEvent(function() {
+            ////审稿人评价操作
             var _this = $('.popup-confirm');
-            var data =[];
+            var document = title;
+            var creative = $("input[name='creative']:checked").val();
+            var application = $("input[name='application']:checked").val();
+            var chineseLevel = $("input[name='chinese-level']:checked").val();
+            var englishEevel = $("input[name='english-level']:checked").val();
+            var evaluateRadio = $("input[name='evaluate']:checked").val();
+            var evaluate = {
+                creative: creative,
+                application: application,
+                chineseLevel: chineseLevel,
+                englishEevel: englishEevel,
+                evaluateRadio: evaluateRadio
+            };
+            var opinion = $('.opinoin-text').val();
             $.ajax({
                 url: url + 'Document/audit',
-                data: data,
+                data: {
+                    username: username,
+                    document: document,
+                    evaluate: JSON.stringify(evaluate),
+                    opinion: opinion
+                },
                 type: 'POST',
                 dataType: 'json',
                 before: function () {
@@ -1346,7 +1607,7 @@ function noReviewData(data,username) {
                 success: function (res) {
                     _this.attr("disabled", false);
                     _this.css({"background": "#20c2d2"});
-                    if (res.status == 0) {
+                    if (res.status == 1) {
                         $('.popup').remove();
                         $('.popup-confirm').removeClass('confirming');
                         window.location.reload();
@@ -1363,6 +1624,8 @@ function noReviewData(data,username) {
         });
     });
 
+
+
     //下载稿件
     $('.contri-upload').on('click', function () {
         var cid = $(this).attr('data-id');
@@ -1373,9 +1636,10 @@ function noReviewData(data,username) {
 }
 
 
+
 //已审稿件
 function alreadyReviewData(data,username) {
-    var ele= $('.no-already-review');
+    var ele= $('.already-review');
     var aTitles = [{id: 'docu_id', title: '稿件编号'},
         {id: 'chineseTitle', title: '标题'},
         {id: 'status', title: '稿件状态'},
@@ -1384,14 +1648,14 @@ function alreadyReviewData(data,username) {
         {id: 'view', title: '意见'},
     ];
 
-    var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 15});
+    var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 10});
     var aHtml = [];
     aHtml.push(oNewTable.init());
     // aHtml.push('<div class="edit-btn"><span class="edit-btn-confirm contri-btn">提交</span> </div>');
     ele.html(aHtml);
 
     //点击查看审核意见
-    $('.no-already-review .contri-see').on('click', function () {
+    $('.already-review .contri-see').on('click', function () {
         var _this = $(this);
         var cid = _this.attr('data-id');
         $.ajax({
@@ -1412,11 +1676,12 @@ function alreadyReviewData(data,username) {
                     if(data.data && data.data.length>0){
                         var aTitles = [{id: 'audit_user', title: '审批人'},
                             {id: 'audit_opinion', title: '意见'},
+                            {id: 'audit_type', title: '类型'},
                             {id: 'version', title: '版本'}
                         ];
-                        var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data.data, maxline: 15});
-
+                        var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data.data, maxline: 10});
                         aHtml.push(oNewTable.init());
+
                     }else {
                         aHtml = '暂无审稿意见';
                     }
@@ -1436,6 +1701,9 @@ function alreadyReviewData(data,username) {
     });
 }
 
+
+//编辑中心
+
 //审稿名单数据获取
 function nameListData(adatas,username) {
     $.ajax({
@@ -1448,6 +1716,7 @@ function nameListData(adatas,username) {
         success: function (data) {
             if (data.status == 1) {
                 var data = data.data;
+                var ele= $('.name-list');
                 if (data.length > 0) {
                     for (var i = 0; i < data.length; i++) {
                         var curData = data[i];
@@ -1455,22 +1724,23 @@ function nameListData(adatas,username) {
 
                     }
                     noAlreadyAllocateData(adatas,username,data);
-                    var ele= $('.name-list');
-                    var aTitles = [{id: 'name', title: '姓名'},
+
+                    var aTitles = [{id: 'stuName', title: '姓名'},
                         {id: 'chineseTitle', title: '职称'},
                         {id: 'school', title: '院校'},
                         {id: 'theme', title: '研究主题'},
                     ];
 
-                    var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 15});
+                    var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 10});
                     var aHtml = [];
                     aHtml.push(oNewTable.init());
-                    // aHtml.push('<div class="edit-btn"><span class="edit-btn-confirm contri-btn">提交</span> </div>');
                     ele.html(aHtml);
                 } else {
-                    console.log(data.info);
+                    ele.html('暂无数据');
 
                 }
+            }else {
+                console.log(data.info);
             }
         }
     });
@@ -1643,16 +1913,17 @@ function noAlreadyAllocateData(data,username,adatas) {
         var tHtml = [],aHtml= [];
         tHtml.push('<span class="popup-title">稿件审核</span><i class="popup-close">x</i>');
         $('.popup-header').html(tHtml.join(''));
-        aHtml.push('<p><label>选择：</label><select><option>拒稿</option></select>');
+        aHtml.push('<p><label>选择：</label><select class="operate-status"><option value="5">拒稿</option></select>');
         $('.popup-edit').html(aHtml);
         popup.popupEvent(function () {
+            var status = $('.operate-status option:selected').val();
             $.ajax({
                 type: "POST",
                 url:  url +"Document/handle",
                 data: {
                     username: username,
                     document: chineseTitle,
-                    status: ''
+                    status: status
                 },
                 dataType: 'json',
                 success: function (data) {
@@ -1698,16 +1969,17 @@ function alreadyAllocateData(data,username) {
         var tHtml = [],aHtml= [];
         tHtml.push('<span class="popup-title">稿件审核</span><i class="popup-close">x</i>');
         $('.popup-header').html(tHtml.join(''));
-        aHtml.push('<p><label>选择：</label><select><option>采纳</option><option>返修</option><option>拒稿</option></select>');
+        aHtml.push('<p><label>选择：</label><select><option value="4">采纳</option><option value="6">返修</option><option value="5">拒稿</option></select>');
         $('.popup-edit').html(aHtml);
         popup.popupEvent(function () {
+            var status = $('.operate-status option:selected').val();
             $.ajax({
                 type: "POST",
                 url:  url +"Document/handle",
                 data: {
                     username: username,
                     document: chineseTitle,
-                    status: ''
+                    status: status
                 },
                 dataType: 'json',
                 success: function (data) {
@@ -1729,6 +2001,40 @@ function alreadyAllocateData(data,username) {
 }
 
 //管理员中心
+
+//稿件状态
+function statusData(data,total, flag) {
+    if(flag==1){
+        $('.manage-status-data-all').html(total);
+        var ele= $('.manage-table-list');
+        var aTitles = [{id: 'docu_id', title: '稿件编号'},
+            {id: 'chineseTitle', title: '标题'},
+            {id: 'status', title: '稿件状态'},
+            {id: 'create_time', title: '投稿时间'},
+        ];
+
+        var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 15});
+        var aHtml = [];
+        aHtml.push(oNewTable.init());
+        // aHtml.push('<div class="edit-btn"><span class="edit-btn-confirm contri-btn">提交</span> </div>');
+        ele.html(aHtml);
+    }else if(flag==2){
+        $('.manage-status-data-doing').html(total);
+    }else if(flag==3){
+        $('.manage-status-data-not-audit').html(total);
+    }else if(flag==4){
+        $('.manage-status-data-audit').html(total);
+    }else if(flag==5){
+        $('.manage-status-data-not-distribute').html(total);
+    }else if(flag==6){
+        $('.manage-status-data-distribute').html(total);
+    }
+
+
+
+}
+
+//时间编辑
 function dateEdit(username) {
     var flag= false;
     $('.date-edit-start').on('click', function () {
@@ -1769,3 +2075,294 @@ function dateEdit(username) {
         flag = false;
     })
 }
+
+
+//news编辑
+function newsEdit(username) {
+    //最新消息编辑
+    $('.manage-news-confirm').on('click', function () {
+        var newUrl = $.trim($('.manage-news-edit-url').val());
+        var newTitle = $.trim($('.manage-news-edit-title').val());
+        var newsData = [
+            {
+                value: newUrl,
+                title: newTitle,
+            }
+        ];
+        if(newUrl==''){
+            $('.manage-news-error').html('请填写地址');
+            return false
+        }
+        if(newTitle==''){
+            $('.manage-news-error').html('请填写名称');
+            return false
+        }
+        $.ajax({
+            type: "POST",
+            url: url + "Manage/setMessage",
+            data: {
+                username: username,
+                value: JSON.stringify(newsData)
+            },
+            dataType: 'json',
+            success: function (data) {
+                if(data.status==1){
+                    window.location.reload();
+                }else {
+                    $('.manage-news-error').html(data.info);
+                    // console.log(data.info);
+                }
+            }
+        });
+    });
+    $('.manage-news-edit input').on('keydown', function () {
+        $('.manage-news-error').html('');
+    })
+
+}
+
+
+//轮播图片编辑
+function bannerEdit(data,username) {
+    var ele= $('.manage-banner-table');
+    var aTitles = [{id: 'img_title', title: '图片名'},
+        {id: '_imgSrc', title: '图片地址'},
+        // {id: 'imgEdit', title: '图片编辑'}
+    ];
+    for(var i = 0; i<data.length;i++){
+        var curImg = data[i];
+        curImg.img_title = '图片'+(i+1);
+        // curImg.imgSrc = curImg.imgSrc;
+        curImg._imgSrc = '<input type="text" class="manage-banner-src" value="'+ curImg.imgSrc+'"/>';
+        // curImg.imgEdit = '<span class="manage-banner-imgEdit" data-src="'+ curImg.imgSrc+'"></span> ';
+    }
+    var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 15});
+    var aHtml = [];
+    aHtml.push(oNewTable.init());
+    // aHtml.push('<div class="edit-btn"><span class="edit-btn-confirm contri-btn">提交</span> </div>');
+    ele.html(aHtml);
+    $('.manage-banner-confirm').on('click',function () {
+        var imgDatas = [];
+        $('.manage-banner-src').each(function (i) {
+            var _this = $(this).val();
+            var item = {
+                imgSrc: _this,
+
+            };
+            imgDatas.push(item);
+        });
+        $.ajax({
+            type: "POST",
+            url: url + "Manage/modify",
+            data: {
+                username: username,
+                content: 'banner',
+                value: JSON.stringify(imgDatas)
+            },
+            dataType: 'json',
+            success: function (data) {
+                if(data.status==1){
+
+                }else {
+
+                }
+            }
+        });
+    });
+}
+
+function imgAdd(data,username) {
+    $('.manage-banner-add').on('click', function () {
+        var imgItemSrc =  {
+            imgSrc: $('.manage-banner-edit-url').val(),
+            text: "111"
+        };
+        data.push(imgItemSrc);
+        $('.manage-banner-edit-url').val('');
+        bannerEdit(data,username);
+    });
+}
+
+//住宿人员名单
+function checkStay(username) {
+    var ele =$('.manage-stay-list');
+    $.ajax({
+        type: "POST",
+        url: url + "Manage/checkStay",
+        data: {
+            username: username,
+        },
+        dataType: 'json',
+        success: function (data) {
+            if(data.status==1){
+                var data = data.data;
+                var aTitles = [{id: 'name', title: '姓名'},
+                    {id: 'sex', title: '性别'},
+                    {id: 'phone', title: '电话'},
+                    {id: 'card', title: '身份证号'},
+
+                ];
+                var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 20});
+                var aHtml = [];
+                aHtml.push(oNewTable.init());
+                // aHtml.push('<div class="edit-btn"><span class="edit-btn-confirm contri-btn">提交</span> </div>');
+                ele.html(aHtml);
+
+            }else {
+                console.log(data.info);
+            }
+        }
+
+    });
+}
+
+//编辑人员名单
+function showEditor(username) {
+    var ele =$('.manage-editor-list');
+    $.ajax({
+        type: "POST",
+        url: url + "Form/showEditor",
+        data: {
+            username: username,
+        },
+        dataType: 'json',
+        success: function (data) {
+            if(data.status==1){
+                var data = data.data;
+                var aTitles = [{id: 'username', title: '用户名'},
+                    {id: 'email', title: '邮箱'},
+
+                ];
+                var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 20});
+                var aHtml = [];
+                aHtml.push(oNewTable.init());
+                // aHtml.push('<div class="edit-btn"><span class="edit-btn-confirm contri-btn">提交</span> </div>');
+                ele.html(aHtml);
+
+            }else {
+                console.log(data.info);
+            }
+        }
+
+    });
+}
+
+//管理员审核审稿人
+function manageReview(username) {
+
+    var ele= $('.manage-edit-allocate');
+    $.ajax({
+        type: "POST",
+        url: url + "Manage/showApply",
+        data: {
+            username: username,
+        },
+        dataType: 'json',
+        success: function (data) {
+            if(data.status==1){
+                var data = data.data;
+                var aTitles = [{id: 'username', title: '用户名'},
+                    {id: 'education', title: '学历'},
+                    {id: 'field', title: '研究主题'},
+                    {id: 'gain', title: '研究方向'},
+                    {id: 'operate', title: '操作'},
+                ];
+                for(var i=0;i<data.length;i++){
+                    var curItem = data[i];
+                    curItem.operate = '<span class="manage-operate">操作</span>';
+                    curItem.gain = curItem.gain || '暂无';
+                    curItem.field =  curItem.field || '暂无';
+                }
+                var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 15});
+                var aHtml = [];
+                aHtml.push(oNewTable.init());
+                // aHtml.push('<div class="edit-btn"><span class="edit-btn-confirm contri-btn">提交</span> </div>');
+                ele.html(aHtml);
+
+                $('.manage-operate').on('click', function () {
+                    var _this = $(this);
+                    popup.init();
+                    var tHtml = [],aHtml= [];
+                    tHtml.push('<span class="popup-title">审核</span><i class="popup-close">x</i>');
+                    $('.popup-header').html(tHtml.join(''));
+                    aHtml.push('<p><label>选择：</label><select class="operate-auth"><option value="4">采纳</option><option value="6">拒绝</option></select>');
+                    $('.popup-edit').html(aHtml);
+                    popup.popupEvent(function () {
+                        var value = $('.operate-auth option:selected').val();
+                        $.ajax({
+                            type: "POST",
+                            url:  url +"Manage/auth",
+                            data: {
+                                username: username,
+                                value: value,
+                                target: ''
+                            },
+                            dataType: 'json',
+                            success: function (data) {
+                                if (data.status == 1) {
+                                    $('.popup').remove();
+                                    window.location.reload();
+                                } else {
+                                    alert(data.info);
+
+                                }
+                            },
+                            error: function () {
+                                alert('服务器开小差，请稍候再试');
+                            }
+                        })
+                    });
+
+                })
+            }else {
+                console.log(data.info);
+            }
+        }
+
+    });
+
+}
+
+//稿件查询分页
+function initPagination(ele,total, pagesize,username,flag,type) {
+    ele.pagination(total, {
+        num_edge_entries: 1, //两侧首尾分页条目数
+        num_display_entries: 4, //连续分页主体部分分页条目数
+        items_per_page: pagesize, //每页显示条数
+        // current_page: page, //当前页索引
+        //callback: home.clickPaination  //翻页回调
+        callback: function () {
+            var page = 1;
+            if (ele.find(".current.prev").length == 1) {
+                page = 1;
+            } else if (ele.find(".current.next").length == 1) {
+                page = Math.ceil(total / 5);
+            } else {
+                page = ele.find(".current").text();
+            }
+            $.ajax({
+                url: url + "Document/show",
+                type: "POST",
+                data: {
+                    username: username,
+                    pagesize: 5,
+                    page: page,
+                    type: type
+                },
+
+                dataType: 'json',
+                success: function (res) {
+                    if (res.status == 1) {
+                        if(res.data.length>0){
+                            renderList(res, username, flag);
+                        }
+
+                    } else {
+                        console.log(res.info);
+                    }
+                }
+            });
+        }
+    });
+}
+

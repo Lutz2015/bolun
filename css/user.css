@@ -35,7 +35,7 @@
     cursor: pointer;
     color: #fff;
     text-align: center;
-    /*display: none;*/
+    display: none;
 }
 .user-title-list .user-block {
     display: block;
@@ -264,7 +264,8 @@
 }
 
 .user-contribute-list-title {
-    display: inline-block;
+    /*display: inline-block;*/
+    float: left;
     width: 120px;
     height: 30px;
     line-height: 30px;
@@ -272,7 +273,17 @@
     text-align: center;
     margin-right: 8px;
 }
-
+.user-contribute-list p a {
+    display: inline-block;
+    width: 610px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    color: #666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 
 .date-info-common {
     padding:  0 10px;
@@ -561,6 +572,7 @@
 }
 
 
+
 /*管理员中心*/
 
 .manage-center-menu {
@@ -626,8 +638,8 @@
 .manage-edit-cancel, .manage-edit-confirm {
     display: inline-block;
     width: 80px;
-    /*height: 35px;*/
-    /*line-height: 35px;*/
+    height: 35px;
+    line-height: 35px;
     font-size: 16px;
     text-align: center;
     cursor: pointer;
@@ -649,4 +661,33 @@
     text-align: left;
     font-weight: 600;
     /*display: inline-block;*/
+}
+
+.manage-error {
+    color: #f00;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.manage-banner-src {
+    min-width: 400px;
+}
+.manage-banner-text {
+    margin: 10px 0;
+}
+
+.manage-banner-add {
+    padding: 0 6px;
+    background: #ccc;
+    margin-left: 10px;
+}
+.manage-operate {
+    color: #006dcc;
+}
+.page {
+    margin-top: 20px;
+}
+
+.user-contribute-abstract {
+    margin-top: 20px;
 }
