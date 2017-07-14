@@ -46,10 +46,10 @@
             <a class="user-callback-home" href="../Form/home.html"><i class="icon-homeback iconfont icon-shouye-shouye"></i>返回首页</a>
             <!--<a class="manage-center">管理中心</a>-->
             <p class="user-title-list">
-                <a class="title-contribute on" data-id="0" href="#contribute">作者中心</a>
-                <a class="title-audit" data-id="1" href="#audit">审稿中心</a>
-                <a class="title-editor" data-id="2" href="#editor">编辑中心</a>
-                <a class="title-manager" data-id="3" href="#manager">管理中心</a>
+                <a class="title-contribute on" data-id="0" href="javascript:void(0);">作者中心</a>
+                <a class="title-audit" data-id="1" href="javascript:void(0);">审稿中心</a>
+                <a class="title-editor" data-id="2" href="javascript:void(0);">编辑中心</a>
+                <a class="title-manager" data-id="3" href="javascript:void(0);">管理中心</a>
             </p>
         </div>
         <div class="user-content">
@@ -295,6 +295,7 @@
                 <div class="user-detail-right">
                     <div class="user-detail-hotel">
                         <p class="hotel-res-date">截止日期为：<span class="closing-date">2017年9月1号</span>请需要住宿的同学尽快登记！</p>
+                        <p class="hotel-res-date-down" style="padding: 0 20px 10px;"></p>
                         <form class="user-person-hotel">
                             <div class="user-person-apply-list">
                                 <label>姓名：</label>
@@ -323,7 +324,7 @@
                             <div class="user-person-apply-list hotel-confirm-error"></div>
                             <div class="apply-edit-btn">
                                 <span class="edit-btn-cancel">取消</span>
-                                <span class="edit-btn-confirm hotel-btn-confirm">提交</span>
+                                <button class="edit-btn-confirm hotel-btn-confirm" style="border: none">提交</button>
                             </div>
                         </form>
                     </div>
@@ -333,12 +334,12 @@
             <div class="user-detail user-audit">
                 <div class="user-detail-left">
                     <ul class="review-center-menu">
-                        <li class="review-center-item on"><a href="javascript:void(0);">未审稿件</a></li>
-                        <li class="review-center-item"><a href="javascript:void(0);">已审稿件</a></li>
-                        <li class="review-center-item"><a href="javascript:void(0);">重要时间</a></li>
-                        <li class="review-center-item"><a href="javascript:void(0);">最新消息</a></li>
-                        <li class="review-center-item"><a href="javascript:void(0);">个人信息</a></li>
-                        <li class="review-center-item"><a href="javascript:void(0);">修改密码</a></li>
+                        <li class="review-center-item review-one on"><a href="javascript:void(0);">未审稿件</a></li>
+                        <li class="review-center-item review-two"><a href="javascript:void(0);">已审稿件</a></li>
+                        <li class="review-center-item review-three"><a href="javascript:void(0);">重要时间</a></li>
+                        <li class="review-center-item review-four"><a href="javascript:void(0);">最新消息</a></li>
+                        <li class="review-center-item review-five hide"><a href="javascript:void(0);">个人信息</a></li>
+                        <li class="review-center-item review-six hide"><a href="javascript:void(0);">修改密码</a></li>
                     </ul>
                 </div>
                 <div class="review-center-right active">
@@ -370,12 +371,12 @@
             <div class="user-detail user-editor">
                 <div class="user-detail-left">
                     <ul class="edit-center-menu">
-                        <li class="edit-center-item on"><a href="javascript:void(0);">审稿人名单</a></li>
-                        <li class="edit-center-item"><a href="javascript:void(0);">待分配稿件</a></li>
-                        <li class="edit-center-item"><a href="javascript:void(0);">已分配稿件</a></li>
-                        <li class="edit-center-item"><a href="javascript:void(0);">全文审稿</a></li>
-                        <li class="edit-center-item"><a href="javascript:void(0);">个人信息</a></li>
-                        <li class="edit-center-item"><a href="javascript:void(0);">修改密码</a></li>
+                        <li class="edit-center-item edit-one on" data-id="0"><a href="#edit1">审稿人名单</a></li>
+                        <li class="edit-center-item edit-two" data-id="1"><a href="#edit2">待分配稿件</a></li>
+                        <li class="edit-center-item edit-three" data-id="2"><a href="#edit3">已分配稿件</a></li>
+                        <li class="edit-center-item edit-four" data-id="3"><a href="#edit4">全文审稿</a></li>
+                        <li class="edit-center-item edit-five" data-id="4"><a href="#edit5">个人信息</a></li>
+                        <li class="edit-center-item edit-six" data-id="5"><a href="#edit6">修改密码</a></li>
                     </ul>
                 </div>
                 <div class="edit-center-right active">
@@ -412,16 +413,16 @@
             <div class="user-detail user-manager">
                 <div class="user-detail-left">
                     <ul class="manage-center-menu">
-                        <li class="manage-center-item on"><a href="javascript:void(0);">稿件状态</a></li>
-                        <li class="manage-center-item"><a href="javascript:void(0);">审稿人审核</a></li>
-                        <li class="manage-center-item"><a href="javascript:void(0);">住宿登记人员</a></li>
-                        <li class="manage-center-item"><a href="javascript:void(0);">编辑人员名单</a></li>
-                        <li class="manage-center-item"><a href="javascript:void(0);">时间编辑</a></li>
-                        <li class="manage-center-item"><a href="javascript:void(0);">最新消息</a></li>
-                        <li class="manage-center-item"><a href="javascript:void(0);">轮播图片编辑</a></li>
+                        <li class="manage-center-item manage-one hide" data-id="0"><a href="#manage1">稿件状态</a></li>
+                        <li class="manage-center-item manage-two on" data-id="1"><a href="#manage2">申请审稿人名单</a></li>
+                        <li class="manage-center-item manage-three" data-id="2"><a href="#manage3">住宿登记人员</a></li>
+                        <li class="manage-center-item manage-four" data-id="3"><a href="#manage4">编辑人员名单</a></li>
+                        <li class="manage-center-item manage-five" data-id="4"><a href="#manage5">时间编辑</a></li>
+                        <li class="manage-center-item manage-six" data-id="5"><a href="#manage6">最新消息</a></li>
+                        <li class="manage-center-item manage-seven" data-id="6"><a href="#manage7">轮播图片编辑</a></li>
                     </ul>
                 </div>
-                <div class="manage-center-right active">
+                <div class="manage-center-right hide">
                     <div class="manage-status-data">
                         所有稿件:&nbsp;<span class="manage-status-data-all"></span>条<br>
                         待修改稿件:&nbsp;<span class="manage-status-data-doing"></span>条<br>
@@ -435,11 +436,13 @@
                     </div>
                     <div class="page"><div class="manage-all-contribution pagination"></div></div>
                 </div>
-                <div class="manage-center-right">
+                <div class="manage-center-right active">
                     <div class="manage-edit-allocate"></div>
+                    <div class="page"><div class="manage-allocate-contribution pagination"></div></div>
                 </div>
                 <div class="manage-center-right">
                     <div class="manage-stay-list"></div>
+                    <div class="page"><div class="stay-contribution pagination"></div></div>
                 </div>
                 <div class="manage-center-right">
                     <div class="manage-editor-list"></div>

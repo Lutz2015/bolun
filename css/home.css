@@ -33,7 +33,7 @@
 
 }
 .center-title span {
-    display: block;
+    display: inline-block;
     width: 90px;
     height: 61px;
     border-bottom: 3px solid #388e3b;

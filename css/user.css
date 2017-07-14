@@ -683,6 +683,7 @@
 }
 .manage-operate {
     color: #006dcc;
+    cursor: pointer;
 }
 .page {
     margin-top: 20px;
@@ -690,4 +691,19 @@
 
 .user-contribute-abstract {
     margin-top: 20px;
+}
+
+.opinion-evaluate {
+    position: relative;
+}
+.opinion-evaluate-detail {
+    position: absolute;
+    padding: 10px;
+    bottom: -5px;
+    right: -5px;
+    background: #fff;
+}
+.opinion-evaluate-detail p {
+    height: 24px;
+    line-height: 24px;
 }

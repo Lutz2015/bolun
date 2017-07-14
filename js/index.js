@@ -47,11 +47,15 @@ $(function () {
         success: function (data) {
             if(data.status==1){
                 var adatas=data.data;
-                if(adatas.length>5){
-                    adatas=adatas.slice(0,5);
+                if(adatas.length>0){
+                    if(adatas.length>5){
+                        adatas=adatas.slice(0,5);
 
+                    }
+                    initNews(adatas);
+                }else {
+                    $('.news-info-list').append('<p>暂无数据</p>');
                 }
-                initNews(adatas);
 
             }else {
                 console.log(data.info);
@@ -63,11 +67,11 @@ $(function () {
         var str='';
         for(var i=0;i<adatas.length;i++){
             str +='<p>';
-            str+='<a href="'+adatas[i].value+'">' +adatas[i].title+'</a>';
+            str+='<a href="'+adatas[i].value+'">' +adatas[i].text+'</a>';
             str +='</p>';
         }
 
-        $('.news-info-list').before(str);
+        $('.news-info-list').append(str);
     }
 
 });

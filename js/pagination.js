@@ -13,7 +13,7 @@ jQuery.fn.pagination = function(maxentries, opts){
 		num_display_entries:10,
 		current_page:0,
 		num_edge_entries:0,
-		link_to:"#",
+		link_to:"javascript:void(0);",
 		prev_text:"上一页",
 		next_text:"下一页",
 		ellipse_text:"...",

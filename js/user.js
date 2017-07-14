@@ -10,25 +10,25 @@ $(function () {
 
     var hash;
     var index=0;
-
-    hash=(!window.location.hash) ? "#contribute" : window.location.hash;
-    window.location.hash=hash;
-
-
+    var showFlag;
+    var page = 1;
+    var pagesize = 5;
     // 权限逻辑管理
     if(identity.indexOf('contribute')>-1){
-
-        if(identity.indexOf('contribute')==0){
+        if( identity=='contribute'){
             $('.title-contribute').addClass('user-block').addClass('on').siblings().removeClass('on');
 
-        }else if(identity.indexOf('contribute')>0){
+        }else{
             $('.title-contribute').addClass('user-block').addClass('on').siblings().removeClass('on');
             $('.title-audit').addClass('user-block');
 
         }
-        hash = "#contribute";
+        showFlag = 1;
         $('.user-contribute').addClass('active').siblings().removeClass('active');
-        // $('.user-audit').addClass('active').siblings().removeClass('active')
+        // $('.user-audit').addClass('active').siblings().removeClass('active');
+
+        hash=(!window.location.hash) ? "#abstract" : window.location.hash;
+        window.location.hash=hash;
         var one = $('.user-menu-one');
         var two = $('.user-menu-two');
         var three = $('.user-menu-three');
@@ -37,70 +37,194 @@ $(function () {
         var six = $('.user-menu-six');
         var seven = $('.user-menu-seven');
         var eight = $('.user-menu-eight');
-        var oRights = $('.user-detail-right');
+        var contributeRights = $('.user-detail-right');
         switch(hash){
             case "#abstract":
                 one.addClass('on').siblings().removeClass('on');
                 index = one.attr('data-id');
-                oRights.eq(index).addClass('active').siblings().removeClass('active');
+                contributeRights.eq(index).addClass('active').siblings().removeClass('active');
                 break;
             case "#submission":
                 two.addClass('on').siblings().removeClass('on');
                 index = two.attr('data-id');
-                oRights.eq(index).addClass('active').siblings().removeClass('active');
+                contributeRights.eq(index).addClass('active').siblings().removeClass('active');
                 break;
             case "#allcontri":
                 three.addClass('on').siblings().removeClass('on');
                 index = three.attr('data-id');
-                oRights.eq(index).addClass('active').siblings().removeClass('active');
+                contributeRights.eq(index).addClass('active').siblings().removeClass('active');
                 break;
             case "#doingcontri":
                 four.addClass('on').siblings().removeClass('on');
                 index = four.attr('data-id');
-                oRights.eq(index).addClass('active').siblings().removeClass('active');
+                contributeRights.eq(index).addClass('active').siblings().removeClass('active');
                 break;
             case "#info":
                 five.addClass('on').siblings().removeClass('on');
                 index = five.attr('data-id');
-                oRights.eq(index).addClass('active').siblings().removeClass('active');
+                contributeRights.eq(index).addClass('active').siblings().removeClass('active');
                 break;
             case "#modify":
                 six.addClass('on').siblings().removeClass('on');
                 index =six.attr('data-id');
-                oRights.eq(index).addClass('active').siblings().removeClass('active');
+                contributeRights.eq(index).addClass('active').siblings().removeClass('active');
                 break;
             case "#apply":
                 seven.addClass('on').siblings().removeClass('on');
                 index =seven.attr('data-id');
-                oRights.eq(index).addClass('active').siblings().removeClass('active');
+                contributeRights.eq(index).addClass('active').siblings().removeClass('active');
                 break;
             case "#hotel":
                 eight.addClass('on').siblings().removeClass('on');
                 index =eight.attr('data-id');
-                oRights.eq(index).addClass('active').siblings().removeClass('active');
+                contributeRights.eq(index).addClass('active').siblings().removeClass('active');
                 break;
             default:
                 one.addClass('on').siblings().removeClass('on');
                 index = one.attr('data-id');
-                oRights.eq(index).addClass('active').siblings().removeClass('active');
+                contributeRights.eq(index).addClass('active').siblings().removeClass('active');
         }
+        userInfo(username, showFlag);
+        renderPwd(username, showFlag);
+
+        contribution(username,page,pagesize);
+        noAlreadyModify(username,page,pagesize);
+        noAlreadyReview(username,page,pagesize);
+        alreadyReview(username,page,pagesize);
+
+        // modifyPwd(username);
+        applyReview(username);
+        submission(username);
+        resHotel(username);
+
+        window.setInterval(function () {
+            showCountDown(2017, 9, 1);
+        }, 1000);
 
     } else if (identity.indexOf('editor')>-1){
-        hash = "#editor";
+        showFlag = 2;
         $('.title-editor').addClass('user-block').addClass('on').siblings().removeClass('on');
-        $('.user-editor').addClass('active').siblings().removeClass('active')
+        $('.user-editor').addClass('active').siblings().removeClass('active');
+
+        hash=(!window.location.hash) ? "#edit1" : window.location.hash;
+        window.location.hash=hash;
+        var one = $('.edit-one');
+        var two = $('.edit-two');
+        var three = $('.edit-three');
+        var four = $('.edit-four');
+        var five = $('.edit-five');
+        var six = $('.edit-six');
+        var editorRights = $('.edit-center-right');
+
+        switch(hash){
+            case "#edit1":
+                one.addClass('on').siblings().removeClass('on');
+                index = one.attr('data-id');
+                editorRights.eq(index).addClass('active').siblings().removeClass('active');
+                break;
+            case "#edit2":
+                two.addClass('on').siblings().removeClass('on');
+                index = two.attr('data-id');
+                editorRights.eq(index).addClass('active').siblings().removeClass('active');
+                break;
+            case "#edit3":
+                three.addClass('on').siblings().removeClass('on');
+                index = three.attr('data-id');
+                editorRights.eq(index).addClass('active').siblings().removeClass('active');
+                break;
+            case "#edit4":
+                four.addClass('on').siblings().removeClass('on');
+                index = four.attr('data-id');
+                editorRights.eq(index).addClass('active').siblings().removeClass('active');
+                break;
+            case "#edit5":
+                five.addClass('on').siblings().removeClass('on');
+                index = five.attr('data-id');
+                editorRights.eq(index).addClass('active').siblings().removeClass('active');
+                break;
+            case "#edit6":
+                six.addClass('on').siblings().removeClass('on');
+                index =six.attr('data-id');
+                editorRights.eq(index).addClass('active').siblings().removeClass('active');
+                break;
+            default:
+                one.addClass('on').siblings().removeClass('on');
+                index = one.attr('data-id');
+                editorRights.eq(index).addClass('active').siblings().removeClass('active');
+        }
+        nameListData(username);
+        userInfo(username, showFlag);
+        renderPwd(username, showFlag);
+        noAlreadyAllocate(username,page,pagesize);
+        alreadyAllocate(username,page,pagesize)
 
     } else if (identity.indexOf('manager')>-1){
-        hash = "#manager";
         $('.title-manager').addClass('user-block').addClass('on').siblings().removeClass('on');
-        $('.user-manager').addClass('active').siblings().removeClass('active')
+        $('.user-manager').addClass('active').siblings().removeClass('active');
+        hash=(!window.location.hash) ? "#manage1" : window.location.hash;
+        window.location.hash=hash;
+        var one = $('.manager-one');
+        var two = $('.manager-two');
+        var three = $('.manager-three');
+        var four = $('.manager-four');
+        var five = $('.manager-five');
+        var six = $('.manager-six');
+        var seven = $('.manager-seven');
+        var managerRights = $('.manager-center-right');
+        switch(hash){
+            case "#manage1":
+                one.addClass('on').siblings().removeClass('on');
+                index = one.attr('data-id');
+                managerRights.eq(index).addClass('active').siblings().removeClass('active');
+                break;
+            case "#manage2":
+                two.addClass('on').siblings().removeClass('on');
+                index = two.attr('data-id');
+                managerRights.eq(index).addClass('active').siblings().removeClass('active');
+                break;
+            case "#manage3":
+                three.addClass('on').siblings().removeClass('on');
+                index = three.attr('data-id');
+                managerRights.eq(index).addClass('active').siblings().removeClass('active');
+                break;
+            case "#manage4":
+                four.addClass('on').siblings().removeClass('on');
+                index = four.attr('data-id');
+                managerRights.eq(index).addClass('active').siblings().removeClass('active');
+                break;
+            case "#manage5":
+                five.addClass('on').siblings().removeClass('on');
+                index = five.attr('data-id');
+                managerRights.eq(index).addClass('active').siblings().removeClass('active');
+                break;
+            case "#manage6":
+                six.addClass('on').siblings().removeClass('on');
+                index =six.attr('data-id');
+                managerRights.eq(index).addClass('active').siblings().removeClass('active');
+                break;
+            case "#manage7":
+                seven.addClass('on').siblings().removeClass('on');
+                index =seven.attr('data-id');
+                managerRights.eq(index).addClass('active').siblings().removeClass('active');
+                break;
+
+            default:
+                one.addClass('on').siblings().removeClass('on');
+                index = one.attr('data-id');
+                managerRights.eq(index).addClass('active').siblings().removeClass('active');
+        }
+
+        dateEdit(username);
+        newsEdit(username);
+        manageReview(username);
+        checkStay(username);
+        showEditor(username);
+        bannerData(username);
     }
+    dateData();
+    newsData();
 
 
-    // var one = $('.title-contribute');
-    // var two = $('.title-audit');
-    // var three = $('.title-editor');
-    // var four = $('.title-manager');
     var oLis = $('.user-title-list a');
     var content = $('.user-detail');
     oLis.on('click', function () {
@@ -110,33 +234,14 @@ $(function () {
         content.eq(index).addClass('active').siblings().removeClass('active')
     });
 
-
-
-    userInfo(username);
-
-    contribution(username);
-    // modifyPwd(username);
-    renderPwd(username);
-    applyReview(username);
-    submission(username);
-    resHotel(username);
-    // nameListData(username);
-
-    dateEdit(username);
-    newsEdit(username);
-    manageReview(username);
-    checkStay(username);
-    showEditor(username);
-
 });
 
 
 
 
 //用户信息中心--稿件查询
-function contribution(username) {
-    var page = 1;
-    var pagesize = 5;
+function contribution(username,page,pagesize) {
+
     //请求稿件查询列表
     $.ajax({
         type: "POST",
@@ -169,6 +274,8 @@ function contribution(username) {
 
     });
 
+}
+function noAlreadyModify(username,page,pagesize){
     //待修改稿件查询列表
     $.ajax({
         type: "POST",
@@ -197,7 +304,8 @@ function contribution(username) {
         }
 
     });
-
+}
+function noAlreadyReview(username,page,pagesize){
     //未审件查询列表
     $.ajax({
         type: "POST",
@@ -226,7 +334,8 @@ function contribution(username) {
         }
 
     });
-
+}
+function alreadyReview(username,page,pagesize){
     //已审稿件查询列表
     $.ajax({
         type: "POST",
@@ -255,7 +364,8 @@ function contribution(username) {
         }
 
     });
-
+}
+function noAlreadyAllocate(username,page,pagesize){
     //待分配稿件查询列表
     $.ajax({
         type: "POST",
@@ -284,6 +394,8 @@ function contribution(username) {
         }
 
     });
+}
+function alreadyAllocate(username,page,pagesize){
 
     //已分配稿件查询列表
     $.ajax({
@@ -313,84 +425,18 @@ function contribution(username) {
         }
 
     });
-
-    //日期获取
-    $.ajax({
-        type: "POST",
-        url: url + "Manage/get",
-        data: {
-            content: 'date'
-        },
-        dataType: 'json',
-        success: function (res) {
-            if(res.status==1){
-                var date =JSON.parse(res.data.date[0].value);
-                $('.date-paper-end').html(date.paperEnd);
-                $('.date-paper-hire').html(date.paperHire);
-                $('.date-allpaper-end').html(date.allPaperEnd);
-                $('.date-allpaper-day').html(date.allPaperDate);
-            }else {
-                console.log(res.info);
-            }
-        }
-
-    });
-
-    //最新消息获取
-    $.ajax({
-        type: "POST",
-        url: url + "Manage/getMessage",
-        dataType: 'json',
-        success: function (res) {
-            if(res.status==1){
-                var adatas=res.data;
-                if(adatas.length>5){
-                    adatas=adatas.slice(0,5);
-
-                }
-                initNews(adatas);
-
-            }else {
-                console.log(res.info);
-            }
-        }
-    });
-
-    //轮播
-    $.ajax({
-        type: "POST",
-        url: url + "Manage/get",
-        data: {
-            content: 'banner'
-        },
-        dataType: 'json',
-        success: function (res) {
-            if (res.status == 1) {
-                var data = JSON.parse(res.data.banner[0].value);
-                bannerEdit(data,username);
-                imgAdd(data,username)
-            } else {
-                console.log(res.info);
-            }
-        }
-    });
 }
 function renderList(res,username,flag) {
 
     var data = res.data;
     var total = res.info;
-    var titleData, titleEditData;
-    // //待修改稿件，未审稿件，已审稿件，待分配稿件，已分配稿件
-    // var noAlreadyEdit  =[],
-    //     noAlreadyReview =[],
-    //     alreadyReview =[],
-    //     noAlreadyAllocate =[],
-    //     alreadyAllocate =[];
+    var titleData;
     if(data.length>0){
         for(var i=0;i<data.length;i++){
             var curData = data[i];
             curData.audit_opinion = curData.audit_opinion || '暂无任何意见';
 
+            curData.create_time = curData.create_time ? String(curData.create_time).substring(0, 10) : '—';
             curData.allocate_time = curData.allocate_time ? String(curData.allocate_time).substring(0, 10) : '—';
             curData.audit_time = curData.audit_time ? String(curData.audit_time).substring(0,10) : '—';
             curData.repair_over_time = curData.repair_over_time ? String(curData.repair_over_time).substring(0,10) : '——';
@@ -399,9 +445,10 @@ function renderList(res,username,flag) {
             curData.view = '<span class="contri-see" data-id="'+curData.docu_id+'">查看审稿意见</span>';
             curData.upload = '<span class="contri-upload" data-id="'+curData.docu_id+'">下载稿件</span>';
 
-            curData.look = '<span class="contri-look" data-id="'+curData .docu_id+'" data-title="'+curData.chineseTitle+'">审稿人</span>';
-            curData.operate = '<span class="contri-operate" data-id="'+curData .docu_id+'" data-title="'+curData.chineseTitle+'" data-status="'+curData.status+'">稿件操作</span>';
-            curData.distribution = '<span class="contri-distribution" data-id="'+curData.docu_id+'" data-title="'+curData.chineseTitle+'">稿件分配</span>';
+            // curData.look = '<span class="contri-look" data-id="'+curData .docu_id+'" data-title="'+curData.chineseTitle+'">审稿人</span>';
+            curData.audit_user = curData.audit_user || '暂无';
+            curData.operate = '<span class="contri-operate" data-id="'+curData.docu_id+'" data-title="'+curData.chineseTitle+'" data-status="'+curData.status+'" data-target="'+curData.username+'">稿件操作</span>';
+            curData.distribution = '<span class="contri-distribution" data-id="'+curData.docu_id+'">稿件分配</span>';
 
             curData.chineseTitle ='<span class="contri-title" data-id="'+curData.docu_id+'">'+curData.chineseTitle+'</span>';
             curData.edit = '<input class="contri-edit-upload" type="file" name="file'+curData.id+'" value="上传修改稿"/><button class="edit-upload-btn" data-id="'+curData.docu_id+'">上传</button>';
@@ -422,25 +469,6 @@ function renderList(res,username,flag) {
             }else {
                 curData.status = '已提交';
             }
-            // noAlreadyEdit.push(curData);
-            // //未审稿件，已审稿件
-            // if(curData.status==2||curData.status==3){
-            //     noAlreadyReview.push(curData);
-            // }else if(curData.status==4||curData.status==5||curData.status==6) {
-            //     alreadyReview.push(curData);
-            // }
-            // //待分配稿件，已分配稿件
-            // if(curData.status==1||curData.status==7){
-            //     noAlreadyAllocate.push(curData);
-            // }else if(curData.status==2||curData.status==3||curData.status==4||curData.status==5||curData.status==6) {
-            //     alreadyAllocate.push(curData);
-            // }
-            // noAlreadyReview.push(curData);
-            // alreadyReview.push(curData);
-            // noAlreadyAllocate.push(curData);
-            // alreadyAllocate.push(curData);
-
-
         }
 
         var alContribution =$('.al-contribution');
@@ -462,22 +490,13 @@ function renderList(res,username,flag) {
         }else if(flag ==4){
             alreadyReviewData(data,username);
         }else if(flag ==5){
-            // noAlreadyAllocateData(noAlreadyAllocate,username);
-            nameListData(data,username);
+            noAlreadyAllocateData(data,username);
+
         } else if(flag ==6){
             alreadyAllocateData(data,username);
         }
 
-        statusData(data, total, flag);
-        // if(data.length>5){
-        //     titleEditData=noAlreadyEdit.slice(0,5);
-        // }else {
-        //     titleEditData=noAlreadyEdit;
-        // }
-        // var alContribution =$('.al-contribution');
-        // var noContribution =$('.no-contribution');
-        // bindData(titleEditData, noContribution);
-
+        // statusData(data, total, flag);
     }
 }
 
@@ -485,7 +504,7 @@ function renderList(res,username,flag) {
 function bindData(data,ele) {
     var str='';
     for(var i=0;i<data.length;i++){
-        data[i].create_time = String(data[i].create_time).substring(0,10);
+        // data[i].create_time = String(data[i].create_time).substring(0,10);
         str +='<li class="content-menu-contribution-item">';
         str+='<span class="contribution-title">' +data[i].chineseTitle+'</span>';
         str+='<span>' +data[i].create_time+'</span>';
@@ -498,7 +517,7 @@ function initNews(adatas) {
     var str='';
     for(var i=0;i<adatas.length;i++){
         str +='<li class="content-menu-contribution-item">';
-        str+='<a href="'+adatas[i].value+'">' +adatas[i].title+'</a>';
+        str+='<a href="'+adatas[i].value+'">' +adatas[i].text+'</a>';
         str +='</li>';
     }
 
@@ -506,6 +525,78 @@ function initNews(adatas) {
     $('.review-news').append(str);
 }
 
+function dateData(){
+    //日期获取
+    $.ajax({
+        type: "POST",
+        url: url + "Manage/get",
+        data: {
+            content: 'date'
+        },
+        dataType: 'json',
+        success: function (res) {
+            if(res.status==1){
+                var date =JSON.parse(res.data.date[0].value);
+                $('.date-paper-end').html(date.paperEnd);
+                $('.date-paper-hire').html(date.paperHire);
+                $('.date-allpaper-end').html(date.allPaperEnd);
+                $('.date-allpaper-day').html(date.allPaperDate);
+            }else {
+                console.log(res.info);
+            }
+        }
+
+    });
+}
+function newsData(){
+    //最新消息获取
+    $.ajax({
+        type: "POST",
+        url: url + "Manage/getMessage",
+        dataType: 'json',
+        success: function (res) {
+            if(res.status==1){
+                var adatas=res.data;
+                if(adatas.length>0){
+                    if(adatas.length>5){
+                        adatas=adatas.slice(0,5);
+
+                    }
+                    initNews(adatas);
+                }else {
+                    $('.content-menu-contribution-news').append('<li class="content-menu-contribution-item"></li>');
+                    $('.review-news').append('<li class="content-menu-contribution-item"></li>');
+                }
+
+
+            }else {
+                console.log(res.info);
+            }
+        }
+    });
+}
+
+function bannerData(username){
+
+    //轮播
+    $.ajax({
+        type: "POST",
+        url: url + "Manage/get",
+        data: {
+            content: 'banner'
+        },
+        dataType: 'json',
+        success: function (res) {
+            if (res.status == 1) {
+                var data = JSON.parse(res.data.banner[0].value);
+                bannerEdit(data,username);
+                imgAdd(data,username)
+            } else {
+                console.log(res.info);
+            }
+        }
+    });
+}
 //投稿
 function submission(username) {
 
@@ -754,9 +845,75 @@ function submission(username) {
     })
 }
 
+
+function showOpinion(cid){
+    if(cid>0){
+        $.ajax({
+            type: "POST",
+            url: url + "Document/showOpinion",
+            data: {
+
+                docu_id: cid
+            },
+            dataType: 'json',
+            success: function (res) {
+                if(res.status==1){
+                    var data = res.data;
+                    popup.init();
+                    var tHtml = [],aHtml= [];
+                    tHtml.push('<span class="popup-title">审稿意见</span><i class="popup-close">x</i>');
+                    $('.popup-header').html(tHtml.join(''));
+                    if(data && data.length>0){
+                        var aTitles = [
+                            {id: 'audit_user', title: '审批人'},
+                            {id: 'audit_opinion', title: '意见'},
+                            {id: 'evaluate_text', title:'评价'},
+                            // {id: 'version', title: '版本'}
+                        ];
+                        for(var i=0;i<data.length;i++){
+                            var cur =data[i];
+                            cur.evaluate = JSON.parse(cur.evaluate);
+                            cur.evaluate_text = '<a href="javascript:void(0);" class="opinion-evaluate">评价详情' + '<div class="opinion-evaluate-detail hide"><p> 创新型:'+cur.evaluate.creative+'</p><p> 应用型:'+cur.evaluate.application+'</p><p>中文摘要写作水平:'+cur.evaluate.chineseLevel+'</p><p> 英文摘要写作水平:'+cur.evaluate.englishEevel+'</p><p>论文总体评价:'+cur.evaluate.evaluateRadio+'</p></div></a>';
+                        }
+                        var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 10});
+
+                        aHtml.push(oNewTable.init());
+
+                    } else {
+                        aHtml = '暂无审稿意见';
+                    }
+                    $('.popup-edit').html(aHtml);
+                    $('.opinion-evaluate').hover(function(){
+                        $(this).find('.opinion-evaluate-detail').removeClass('hide');
+                    }, function(){
+                        $(this).find('.opinion-evaluate-detail').addClass('hide');
+                    })
+                    popup.popupEvent(function () {
+                        $('.popup').remove();
+                    });
+                }else {
+                    alert(res.info);
+                }
+            },
+            error: function () {
+                alert('服务器开小差，请稍候再试');
+            }
+        });
+    }else {
+        popup.init();
+        var tHtml = [],aHtml= [];
+        tHtml.push('<span class="popup-title">审稿意见</span><i class="popup-close">x</i>');
+        $('.popup-header').html(tHtml.join(''));
+        aHtml = '暂无审稿意见';
+        $('.popup-edit').html(aHtml);
+        popup.popupEvent(function(){
+            $('.popup').remove();
+        });
+    }
+}
 //稿件查询
 function contriData(data,username) {
-    var defaultEle =$('.user-detail-contribution-modify-default');
+    var defaultEle =$('.user-detail-contribution-default');
     var ele= $('.user-detail-contribution');
     var siblingEle= $('.user-detail-contribution-person');
     var aTitles = [{id: 'docu_id', title: '稿件编号'},
@@ -776,22 +933,22 @@ function contriData(data,username) {
         var _this = $(this);
         defaultEle.addClass('hide');
         siblingEle.removeClass('hide');
-        var id = _this.attr('data-id');
+        var cid = _this.attr('data-id');
         //请求当前稿件详情接口
         $.ajax({
             type: "POST",
             url: url + "Document/showById",
             data: {
                 username: username,
-                docu_id: id
+                docu_id: cid
             },
             dataType: 'json',
-            success: function (data) {
-                if(data.status==1){
-                    var data  =data.data[0];
+            success: function (res) {
+                if(res.status==1){
+                    var data  =res.data[0];
                     personContri(data,defaultEle,siblingEle)
                 }else {
-                    alert(data.info);
+                    alert(res.info);
                 }
             },
             error: function () {
@@ -807,9 +964,9 @@ function contriData(data,username) {
     $('.user-detail-contribution .edit-upload-btn').on('click', function () {
         var fileSrc = ($(this).siblings())[0].files[0];
         var fileAccept = fileSrc.name.split(".")[1];//获取上传文件的后缀
-        if( fileAccept!="doc" && fileAccept!="docx" ){
-            alert("只能上传.doc和.docx的文件！");
-        }
+        // if( fileAccept!="doc" && fileAccept!="docx" ){
+        //     alert("只能上传.doc和.docx的文件！");
+        // }
         var cid = $(this).attr('data-id');
         var data = new FormData();
         data.append('username', username);
@@ -842,62 +999,11 @@ function contriData(data,username) {
     $('.user-detail-contribution .contri-see').on('click', function () {
         var _this = $(this);
         var cid = _this.attr('data-id');
-        if(cid>0){
-            $.ajax({
-                type: "POST",
-                url: url + "Document/showOpinion",
-                data: {
-                    username: username,
-                    docu_id: cid
-                },
-                dataType: 'json',
-                success: function (data) {
-                    if(data.status==1){
-
-                        popup.init();
-                        var tHtml = [],aHtml= [];
-                        tHtml.push('<span class="popup-title">审稿意见</span><i class="popup-close">x</i>');
-                        $('.popup-header').html(tHtml.join(''));
-                        if(data.data && data.data.length>0){
-                            var aTitles = [{id: 'audit_user', title: '审批人'},
-                                {id: 'audit_opinion', title: '意见'},
-                                {id: 'version', title: '版本'}
-                            ];
-                            var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data.data, maxline: 15});
-
-                            aHtml.push(oNewTable.init());
-                        }else {
-                            aHtml = '暂无审稿意见';
-                        }
-                        $('.popup-edit').html(aHtml);
-                        popup.popupEvent(function () {
-                            $('.popup').remove();
-                        });
-                    }else {
-                        alert(data.info);
-                    }
-                },
-                error: function () {
-                    alert('服务器开小差，请稍候再试');
-                }
-            });
-        }else {
-            popup.init();
-            var tHtml = [],aHtml= [];
-            tHtml.push('<span class="popup-title">审稿意见</span><i class="popup-close">x</i>');
-            $('.popup-header').html(tHtml.join(''));
-            aHtml = '暂无审稿意见';
-            $('.popup-edit').html(aHtml);
-            popup.popupEvent(function(){
-                $('.popup').remove();
-            });
-        }
-
-
-
+        showOpinion(cid)
     });
 
 }
+
 
 //待修改稿件查询
 function contriDataModify(data,username) {
@@ -922,27 +1028,27 @@ function contriDataModify(data,username) {
         var _this = $(this);
         defaultEle.addClass('hide');
         siblingEle.removeClass('hide');
-        var id = _this.attr('data-id');
+        var cid = _this.attr('data-id');
         //请求当前稿件详情接口
         $.ajax({
             type: "POST",
             url: url + "Document/showById",
             data: {
                 username: username,
-                docu_id: id
+                docu_id: cid
             },
             dataType: 'json',
-            success: function (data) {
-                if(data.status==1){
+            success: function (res) {
+                if(res.status==1){
                     var data  =data.data[0];
 
                     personContri(data, defaultEle,siblingEle);
                 }else {
-                    alert(data.info);
+                    alert(res.info);
                 }
             },
             error: function () {
-                alert('请重试');
+                alert('服务器开小差，请稍候再试');
             }
 
         });
@@ -995,45 +1101,7 @@ function contriDataModify(data,username) {
     $('.user-detail-contribution-modify .contri-see').on('click', function () {
         var _this = $(this);
         var cid = _this.attr('data-id');
-        $.ajax({
-            type: "POST",
-            url: url + "Document/showOpinion",
-            data: {
-                username:username,
-                docu_id: cid
-            },
-            dataType: 'json',
-            success: function (data) {
-                if(data.status==1){
-
-                    popup.init();
-                    var tHtml = [],aHtml= [];
-                    tHtml.push('<span class="popup-title">审稿意见</span><i class="popup-close">x</i>');
-                    $('.popup-header').html(tHtml.join(''));
-                    if(data.data && data.data.length>0){
-                        var aTitles = [{id: 'audit_user', title: '审批人'},
-                            {id: 'audit_opinion', title: '意见'},
-                            {id: 'version', title: '版本'}
-                        ];
-                        var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data.data, maxline: 15});
-
-                        aHtml.push(oNewTable.init());
-                    }else {
-                        aHtml = '暂无审稿意见';
-                    }
-                    $('.popup-edit').html(aHtml);
-                    $('.popup-footer').html('');
-                    popup.popupEvent(function () {
-                        $('.popup').remove();
-                    });
-                }else {
-                    alert(data.info);
-                }
-            },
-            error: function () {
-                alert('服务器开小差，请稍候再试');
-            }
-        });
+        showOpinion(cid)
 
 
     });
@@ -1042,7 +1110,7 @@ function contriDataModify(data,username) {
 //渲染当前稿件详情
 function personContri(data, ele, siblingEle) {
     var bHtml = [], cHtml= [], dHtml=[], eHtml=[];
-    bHtml.push('<span class="contri-callback">返回</span> <span class="contribute-upload-single upload-on" data-id="'+ data.docu_id+'"><i class="iconfont icon-download upload-icon"></i>下载原始摘要</span><span class="contribute-upload-all upload-on"><i class="iconfont icon-download upload-icon"></i>下载原始全文</span>');
+    bHtml.push('<span class="contri-callback">返回</span> <span class="contribute-upload-single upload-on" data-id="'+ data.docu_id+'"><i class="iconfont icon-download upload-icon"></i>下载原始摘要</span><span class="contribute-upload-all upload-on hide"><i class="iconfont icon-download upload-icon"></i>下载原始全文</span>');
     $('.contribute-upload').html(bHtml);
 
     cHtml.push('<p> <span class="user-contribute-list-title">稿件编号</span> <a title='+ data.docu_id+'>'+ data.docu_id+'</a></p>');
@@ -1063,7 +1131,8 @@ function personContri(data, ele, siblingEle) {
     //点击稿件下载
     $('.contribute-upload-single').on('click', function () {
         var cid = $(this).attr('data-id');
-        window.open('http://ndac.env.tsinghua.edu.cn' + '/app/data/'+cid);
+        // window.open('http://ndac.env.tsinghua.edu.cn' + '/app/data/'+cid);
+         window.open('http://yf-rdqa-dev064-sunxuebin.epc.baidu.com:8099' + '/app/data/'+cid);
     });
     var authorData = JSON.parse(data.author)|| 0;
     var versionData = JSON.parse(data.version) || 0;
@@ -1107,7 +1176,7 @@ function contriStage(data) {
 }
 
 //展示个人信息
-function userInfo(username) {
+function userInfo(username, flag) {
     showNotice();
     $.ajax({
         type: "POST",
@@ -1124,7 +1193,7 @@ function userInfo(username) {
                 $('.right-title-name').html(data.data[0].stuName);
                 $('.right-title-school').html(data.data[0].school);
 
-                perInfo(data.data[0]);
+                perInfo(data.data[0], flag);
 
             } else {
 
@@ -1190,12 +1259,12 @@ function uploadImg(username) {
 }
 
 //渲染个人信息页面
-function perInfo(data) {
+function perInfo(data,flag) {
 
     var pHtml = [];
     pHtml.push('<div class="user-person-info-list"><label>用户名：</label><input type="text" class="user-person-info-val val-username" value="' + data.username + '"/> </div>');
     pHtml.push('<div class="user-person-info-list"><label>账号（电子邮箱）：</label><input type="text" class="user-person-info-val val-email" value="' + data.email + '" disabled="disabled"/></div>');
-    pHtml.push('<div class="user-person-info-list"><label>姓名：</label><input type="text"  class="user-person-info-val val-name" value="' + data.stuName + '"/></div>');
+    pHtml.push('<div class="user-person-info-list"><label>姓名：</label><input type="text"  class="user-person-info-val val-stuname" value="' + data.stuName + '"/></div>');
     pHtml.push('<div class="user-person-info-list person-info-sex"><label class="label-sex">性别：</label><select class="user-person-info-val val-sex" data-sex="'+data.sex+'"><option value="0" class="val-sex-boy">男</option><option value="1" class="val-sex-girl">女</option></select></div>');
     pHtml.push(' <div class="user-person-info-list"><label>出身年月：</label> <input size="16" type="text" class="user-person-info-val date form_datetime val-date"  placeholder="出生年月" value="' + data.birthDate + '" readonly> </div>');
     pHtml.push('<div class="user-person-info-list"> <label>所在院校：</label> <input type="text" class="user-person-info-val val-school" value="' + data.school + '"/></div>');
@@ -1206,9 +1275,15 @@ function perInfo(data) {
     pHtml.push('<div class="user-person-info-list pwd-error edit-info-error"></div>');
     pHtml.push('<div class="per-edit-btn"><span class="edit-btn-cancel">取消</span><span class="edit-btn-confirm person-info-btn">提交</span> </div>');
 
-    $('.user-person-info').html(pHtml);
-    $('.review-person-info').html(pHtml);
-    $('.edit-person-info').html(pHtml);
+    if(flag==1){
+        $('.user-person-info').html(pHtml);
+        // $('.review-person-info').html(pHtml);
+    }else if(flag==2){
+        $('.edit-person-info').html(pHtml);
+    }
+
+
+
 
 
     if($('.val-sex').attr('data-sex')==1){
@@ -1246,7 +1321,7 @@ function personModify() {
     var birthDate = $('.val-date').val();
     var school = $('.val-school').val();
     var userId = $.trim($('.val-userid').val());
-    var stuName = $.trim($('.val-name').val());
+    var stuName = $.trim($('.val-stuname').val());
     var docName = $.trim($('.val-docname').val());
     var phone = $.trim($('.val-phone').val());
     var address = $.trim($('.val-address').val());
@@ -1318,7 +1393,7 @@ function personModify() {
 }
 
 //渲染修改密码
-function renderPwd(username) {
+function renderPwd(username, flag) {
     var rhtml = [];
     rhtml.push('<div class="user-detail-pwd-list">');
     rhtml.push('<p><label>旧密码</label><input type="password" class="user-old-pwd"/> <span class="old-pwd-error pwd-error"></span></p>');
@@ -1327,9 +1402,13 @@ function renderPwd(username) {
     rhtml.push('</div>');
     rhtml.push('<div class="pwd-edit-btn"> <span class="edit-btn-cancel">取消</span> <span class="edit-btn-confirm pwd-confirm">提交</span></div>');
 
-    $('.user-person-pwd').html(rhtml);
-    $('.review-person-pwd').html(rhtml);
-    $('.edit-person-pwd').html(rhtml);
+    if(flag==1){
+        $('.user-person-pwd').html(rhtml);
+        //  $('.review-person-pwd').html(rhtml);
+    }else if(flag==2){
+        $('.edit-person-pwd').html(rhtml);
+    }
+
 
     modifyPwd(username);
 }
@@ -1537,7 +1616,7 @@ function resHotel(username) {
 }
 
 
-//审稿中心
+// 审稿中心
 
 //未审稿件
 function noReviewData(data,username) {
@@ -1559,8 +1638,7 @@ function noReviewData(data,username) {
     $('.no-already-review .contri-title').on('click', function () {
         var _this = $(this);
         // ele.addClass('hide');
-        var id = _this.attr('data-id');
-        var title = _this.attr('data-title');
+        var cid = _this.attr('data-id');
         popup.init();
         var tHtml = [],aHtml= [];
         tHtml.push('<span class="popup-title">审稿评价</span><i class="popup-close">x</i>');
@@ -1576,7 +1654,6 @@ function noReviewData(data,username) {
         popup.popupEvent(function() {
             ////审稿人评价操作
             var _this = $('.popup-confirm');
-            var document = title;
             var creative = $("input[name='creative']:checked").val();
             var application = $("input[name='application']:checked").val();
             var chineseLevel = $("input[name='chinese-level']:checked").val();
@@ -1594,7 +1671,7 @@ function noReviewData(data,username) {
                 url: url + 'Document/audit',
                 data: {
                     username: username,
-                    document: document,
+                    document: cid,
                     evaluate: JSON.stringify(evaluate),
                     opinion: opinion
                 },
@@ -1658,44 +1735,7 @@ function alreadyReviewData(data,username) {
     $('.already-review .contri-see').on('click', function () {
         var _this = $(this);
         var cid = _this.attr('data-id');
-        $.ajax({
-            type: "POST",
-            url: url + "Document/showOpinion",
-            data: {
-                username:username,
-                docu_id: cid
-            },
-            dataType: 'json',
-            success: function (data) {
-                if(data.status==1){
-
-                    popup.init();
-                    var tHtml = [],aHtml= [];
-                    tHtml.push('<span class="popup-title">审稿意见</span><i class="popup-close">x</i>');
-                    $('.popup-header').html(tHtml.join(''));
-                    if(data.data && data.data.length>0){
-                        var aTitles = [{id: 'audit_user', title: '审批人'},
-                            {id: 'audit_opinion', title: '意见'},
-                            {id: 'audit_type', title: '类型'},
-                            {id: 'version', title: '版本'}
-                        ];
-                        var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data.data, maxline: 10});
-                        aHtml.push(oNewTable.init());
-
-                    }else {
-                        aHtml = '暂无审稿意见';
-                    }
-                    $('.popup-edit').html(aHtml);
-                    $('.popup-footer').html('');
-                    popup.popupEvent();
-                } else {
-                    alert(data.info);
-                }
-            },
-            error: function () {
-                alert('服务器开小差，请稍候再试');
-            }
-        });
+        showOpinion(cid)
 
 
     });
@@ -1705,7 +1745,7 @@ function alreadyReviewData(data,username) {
 //编辑中心
 
 //审稿名单数据获取
-function nameListData(adatas,username) {
+function nameListData(username) {
     $.ajax({
         type: "POST",
         url:  url +"Form/showAuditUser",
@@ -1713,34 +1753,28 @@ function nameListData(adatas,username) {
             username: username,
         },
         dataType: 'json',
-        success: function (data) {
-            if (data.status == 1) {
-                var data = data.data;
+        success: function (res) {
+            if (res.status == 1) {
+                var nameDatas = res.data;
                 var ele= $('.name-list');
-                if (data.length > 0) {
-                    for (var i = 0; i < data.length; i++) {
-                        var curData = data[i];
-                        curData.checkBox = '<input type="checkbox" class="contri-checkbox" name="namelist" value="'+curData.name+'"/>';
-
-                    }
-                    noAlreadyAllocateData(adatas,username,data);
-
-                    var aTitles = [{id: 'stuName', title: '姓名'},
-                        {id: 'chineseTitle', title: '职称'},
+                if (nameDatas.length > 0) {
+                
+                    var aTitles = [{id: 'name', title: '姓名'},
+                        {id: 'positio', title: '职称'},
                         {id: 'school', title: '院校'},
-                        {id: 'theme', title: '研究主题'},
+                        {id: 'field', title: '研究主题'},
                     ];
-
-                    var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 10});
+                    var oNewTable = new CreateTable({aTitles: aTitles, aDatas: nameDatas, maxline: 10});
                     var aHtml = [];
                     aHtml.push(oNewTable.init());
                     ele.html(aHtml);
+
                 } else {
                     ele.html('暂无数据');
 
                 }
             }else {
-                console.log(data.info);
+                console.log(res.info);
             }
         }
     });
@@ -1750,198 +1784,199 @@ function nameListData(adatas,username) {
 
 
 //待分配稿件
-function noAlreadyAllocateData(data,username,adatas) {
+function noAlreadyAllocateData(adatas,username) {
+    var nameDatas=[];
+    var defaultEle = $('.edit-no-allocate-default');
     var ele= $('.edit-no-allocate');
     var siblingEle= $('.edit-no-allocate-detail');
-    var aTitles = [{id: 'docu_id', title: '稿件编号'},
-        {id: 'chineseTitle', title: '标题'},
-        {id: 'create_time', title: '投稿时间'},
-        {id: 'distribution', title: '稿件分配'},
-        {id: 'operate', title: '稿件操作'},
-    ];
+    if(adatas.length>0){
+        var aTitles = [
+            {id: 'docu_id', title: '稿件编号'},
+            {id: 'username', title: '用户名'},
+            {id: 'chineseTitle', title: '标题'},
+            {id: 'create_time', title: '投稿时间'},
+            // {id: 'status', title: '稿件状态'},
+            {id: 'distribution', title: '稿件分配'},
+            {id: 'operate', title: '稿件操作'},
+        ];
 
-    var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 15});
-    var aHtml = [];
-    aHtml.push(oNewTable.init());
-    // aHtml.push('<div class="edit-btn"><span class="edit-btn-confirm contri-btn">提交</span> </div>');
-    ele.html(aHtml);
+        var oNewTable = new CreateTable({aTitles: aTitles, aDatas: adatas, maxline: 10});
+        var aHtml = [];
+        aHtml.push(oNewTable.init());
+        // aHtml.push('<div class="edit-btn"><span class="edit-btn-confirm contri-btn">提交</span> </div>');
+        ele.html(aHtml);
 
-    //点击某一个标题进入当前稿件的详情
-    $('.edit-no-allocate .contri-title').on('click', function () {
-        var _this = $(this);
-        ele.addClass('hide');
-        siblingEle.removeClass('hide');
-        var id = _this.attr('data-id');
-        //请求当前稿件详情接口
+        // //点击某一个标题进入当前稿件的详情
+        // $('.edit-no-allocate .contri-title').on('click', function () {
+        //     var _this = $(this);
+        //     defaultEle.addClass('hide');
+        //     siblingEle.removeClass('hide');
+        //     var id = _this.attr('data-id');
+        //     //请求当前稿件详情接口
+        //     $.ajax({
+        //         type: "POST",
+        //         url: url + "Document/showById",
+        //         data: {
+        //             username: username,
+        //             docu_id: id
+        //         },
+        //         dataType: 'json',
+        //         success: function (data) {
+        //             if(data.status==1){
+        //                 var data  =data.data[0];
+        //                 personContri(data,ele,siblingEle)
+        //             }else {
+        //                 alert(data.info);
+        //             }
+        //         },
+        //         error: function () {
+        //             alert('请重试');
+        //         }
+        //
+        //     });
+        //
+        //
+        // });
+
+
         $.ajax({
             type: "POST",
-            url: url + "Document/showById",
+            url: url + "Form/showAuditUser",
             data: {
                 username: username,
-                docu_id: id
             },
             dataType: 'json',
-            success: function (data) {
-                if(data.status==1){
-                    var data  =data.data[0];
-                    personContri(data,ele,siblingEle)
-                }else {
-                    alert(data.info);
+            success: function (res) {
+                if (res.status == 1) {
+                    var data = res.data;
+                    if (data.length > 0) {
+                        nameDatas=data;
+                    }
                 }
-            },
-            error: function () {
-                alert('请重试');
             }
+        });
+        //点击分配审稿人
+        $('.edit-no-allocate .contri-distribution').on('click', function () {
+            var _this = $(this);
+            var cid = _this.attr('data-id');
+            popup.init();
+            var tHtml = [],aHtml= [];
+            tHtml.push('<span class="popup-title">审稿人名单</span><i class="popup-close">x</i>');
+            $('.popup-header').html(tHtml.join(''));
+            if(nameDatas.length>1){
+                var aTitles = [
+                    {id: 'checkBox', title: '分配'},
+                    {id: 'username', title: '姓名'},
+                    // {id: 'positio', title: '职称'},
+                    {id: 'school', title: '院校'}
+                ];
+                for(var i =0; i<nameDatas.length;i++){
+                    var curData = nameDatas[i];
+                    curData.checkBox = '<input type="checkbox" class="contri-checkbox" name="namelist" value="'+curData.username+'"/>';
+                }
+                var oNewTable = new CreateTable({aTitles: aTitles, aDatas: nameDatas, maxline: 30});
+
+                aHtml.push(oNewTable.init());
+            } else {
+                aHtml = '缺少审稿人';
+            }
+            $('.popup-edit').html(aHtml);
+            popup.popupEvent(function () {
+                var _this= $('.popup-confirm');
+                var target = [];
+                var num=0;
+                $('input[name="namelist"]:checked').each(function(i){
+                    num++;
+                    target.push($(this).val());
+                });
+                if(num==2){
+                    $.ajax({
+                        type: "POST",
+                        url:  url +"Document/distribute",
+                        data: {
+                            username: username,
+                            document: cid,
+                            target: target.join(',')
+                        },
+                        dataType: 'json',
+                        beforeSend: function () {
+                            _this.attr('disabled', 'disabled');
+                            _this.css({"background": "#ccc"});
+                        },
+                        success: function (data) {
+                            if (data.status == 1) {
+                                $('.popup').remove();
+                                window.location.reload();
+                            } else {
+                                alert(data.info);
+                            }
+                        },
+                        complete: function () {
+                            _this.removeAttr('disabled');
+                            _this.css({"background": "#388e3c"});
+                        },
+                        error: function () {
+                            alert('服务器开小差，请稍候再试');
+                        }
+                    })
+                }else {
+                    alert('有且仅能选择两个审稿人')
+                }
+            });
 
         });
 
 
-    });
-
-    // //点击查看审核意见
-    // $('.edit-no-allocate .contri-see').on('click', function () {
-    //     var _this = $(this);
-    //     var cid = _this.attr('data-id');
-    //     $.ajax({
-    //         type: "POST",
-    //         url: url + "Document/showOpinion",
-    //         data: {
-    //             username:username,
-    //             docu_id: cid
-    //         },
-    //         dataType: 'json',
-    //         success: function (data) {
-    //             if(data.status==1){
-    //
-    //                 popup.init();
-    //                 var tHtml = [],aHtml= [];
-    //                 tHtml.push('<span class="popup-title">审稿意见</span><i class="popup-close">x</i>');
-    //                 $('.popup-header').html(tHtml.join(''));
-    //                 if(data.data && data.data.length>0){
-    //                     var aTitles = [{id: 'audit_user', title: '审批人'},
-    //                         {id: 'audit_opinion', title: '意见'},
-    //                         {id: 'version', title: '版本'}
-    //                     ];
-    //                     var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data.data, maxline: 15});
-    //
-    //                     aHtml.push(oNewTable.init());
-    //                 }else {
-    //                     aHtml = '暂无审稿意见';
-    //                 }
-    //                 $('.popup-edit').html(aHtml);
-    //                 $('.popup-footer').html('');
-    //                 popup.popupEvent();
-    //             } else {
-    //                 alert(data.info);
-    //             }
-    //         },
-    //         error: function () {
-    //             alert('服务器开小差，请稍候再试');
-    //         }
-    //     });
-    //
-    //
-    // });
-
-    //点击分配审稿人
-    $('.edit-no-allocate .contri-distribution').on('click', function () {
-        var _this = $(this);
-        // var cid = _this.attr('data-id');
-        var chineseTitle = _this.attr('data-title');
-        popup.init();
-        var tHtml = [],aHtml= [];
-        tHtml.push('<span class="popup-title">审稿人名单</span><i class="popup-close">x</i>');
-        $('.popup-header').html(tHtml.join(''));
-        if(adatas && adatas.length>1){
-            var aTitles = [{id: 'checkBox', title: '分配'},
-                {id: 'name', title: '姓名'},
-                {id: 'version', title: '职称'},
-                {id: 'school', title: '院校'}
-            ];
-            var oNewTable = new CreateTable({aTitles: aTitles, aDatas: adatas, maxline: 15});
-
-            aHtml.push(oNewTable.init());
-        } else {
-            aHtml = '缺少审稿人';
-        }
-        $('.popup-edit').html(aHtml);
-        popup.popupEvent(function () {
-            var target = [];
-            var num=0;
-            $('input[name="namelist"]:checked').each(function(i){
-                num++;
-                var item = {};
-                item.name = $(this).val();
-                target.push(item);
-            });
-            if(num==2){
+        // 编辑操作
+        $('.edit-no-allocate .contri-operate').on('click', function () {
+            var _this = $(this);
+            var cid = _this.attr('data-id');
+            popup.init();
+            var tHtml = [],aHtml= [];
+            tHtml.push('<span class="popup-title">稿件审核</span><i class="popup-close">x</i>');
+            $('.popup-header').html(tHtml.join(''));
+            aHtml.push('<p><label>选择：</label><select class="operate-status"><option value="5">拒稿</option></select>');
+            $('.popup-edit').html(aHtml);
+            popup.popupEvent(function () {
+                var _this= $('.popup-confirm');
+                var status = $('.operate-status option:selected').val();
                 $.ajax({
                     type: "POST",
-                    url:  url +"Document/distribute",
+                    url:  url +"Document/handle",
                     data: {
                         username: username,
-                        document: chineseTitle,
-                        target: JSON.stringify(target)
+                        document: cid,
+                        status: status
                     },
                     dataType: 'json',
+                    beforeSend: function () {
+                        _this.attr('disabled', 'disabled');
+                        _this.css({"background": "#ccc"});
+                    },
                     success: function (data) {
                         if (data.status == 1) {
                             $('.popup').remove();
                             window.location.reload();
                         } else {
                             alert(data.info);
+
                         }
+                    },
+                    complete: function () {
+                        _this.removeAttr('disabled');
+                        _this.css({"background": "#388e3c"});
                     },
                     error: function () {
                         alert('服务器开小差，请稍候再试');
                     }
                 })
-            }else {
-                alert('有且仅能选择两个审稿人')
-            }
+            });
+
         });
+    }else {
+        ele.html('暂无数据')
+    }
 
-    });
-
-
-    // 编辑操作
-    $('.edit-no-allocate .contri-operate').on('click', function () {
-        var _this = $(this);
-        // var cid = _this.attr('data-id');
-        var chineseTitle = _this.attr('data-title');
-        popup.init();
-        var tHtml = [],aHtml= [];
-        tHtml.push('<span class="popup-title">稿件审核</span><i class="popup-close">x</i>');
-        $('.popup-header').html(tHtml.join(''));
-        aHtml.push('<p><label>选择：</label><select class="operate-status"><option value="5">拒稿</option></select>');
-        $('.popup-edit').html(aHtml);
-        popup.popupEvent(function () {
-            var status = $('.operate-status option:selected').val();
-            $.ajax({
-                type: "POST",
-                url:  url +"Document/handle",
-                data: {
-                    username: username,
-                    document: chineseTitle,
-                    status: status
-                },
-                dataType: 'json',
-                success: function (data) {
-                    if (data.status == 1) {
-                        $('.popup').remove();
-                        window.location.reload();
-                    } else {
-                        alert(data.info);
-
-                    }
-                },
-                error: function () {
-                    alert('服务器开小差，请稍候再试');
-                }
-            })
-        });
-
-    });
 }
 
 //已分配稿件
@@ -1949,8 +1984,9 @@ function alreadyAllocateData(data,username) {
     var ele= $('.edit-allocate');
     var aTitles = [{id: 'docu_id', title: '稿件编号'},
         {id: 'chineseTitle', title: '标题'},
-        {id: 'create_time', title: '投稿时间'},
-        {id: 'look', title: '查看审稿人'},
+        // {id: 'create_time', title: '投稿时间'},
+        {id: 'status', title: '稿件状态'},
+        {id: 'audit_user', title: '审稿人'},
         {id: 'operate', title: '稿件操作'},
     ];
 
@@ -1963,25 +1999,29 @@ function alreadyAllocateData(data,username) {
     // 编辑操作
     $('.edit-allocate .contri-operate').on('click', function () {
         var _this = $(this);
-        // var cid = _this.attr('data-id');
-        var chineseTitle = _this.attr('data-title');
+        var cid = _this.attr('data-id');
         popup.init();
         var tHtml = [],aHtml= [];
         tHtml.push('<span class="popup-title">稿件审核</span><i class="popup-close">x</i>');
         $('.popup-header').html(tHtml.join(''));
-        aHtml.push('<p><label>选择：</label><select><option value="4">采纳</option><option value="6">返修</option><option value="5">拒稿</option></select>');
+        aHtml.push('<p><label>选择：</label><select class="contri-operate-status"><option value="4">采纳</option><option value="6">返修</option><option value="5">拒稿</option></select>');
         $('.popup-edit').html(aHtml);
         popup.popupEvent(function () {
-            var status = $('.operate-status option:selected').val();
+            var _this= $('.popup-confirm');
+            var status = $('.contri-operate-status option:selected').val();
             $.ajax({
                 type: "POST",
                 url:  url +"Document/handle",
                 data: {
                     username: username,
-                    document: chineseTitle,
+                    document: cid,
                     status: status
                 },
                 dataType: 'json',
+                beforeSend: function () {
+                    _this.attr('disabled', 'disabled');
+                    _this.css({"background": "#ccc"});
+                },
                 success: function (data) {
                     if (data.status == 1) {
                         $('.popup').remove();
@@ -1990,6 +2030,10 @@ function alreadyAllocateData(data,username) {
                         alert(data.info);
 
                     }
+                },
+                complete: function () {
+                    _this.removeAttr('disabled');
+                    _this.css({"background": "#388e3c"});
                 },
                 error: function () {
                     alert('服务器开小差，请稍候再试');
@@ -2000,24 +2044,26 @@ function alreadyAllocateData(data,username) {
     });
 }
 
+
 //管理员中心
 
 //稿件状态
+
 function statusData(data,total, flag) {
     if(flag==1){
         $('.manage-status-data-all').html(total);
-        var ele= $('.manage-table-list');
-        var aTitles = [{id: 'docu_id', title: '稿件编号'},
-            {id: 'chineseTitle', title: '标题'},
-            {id: 'status', title: '稿件状态'},
-            {id: 'create_time', title: '投稿时间'},
-        ];
-
-        var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 15});
-        var aHtml = [];
-        aHtml.push(oNewTable.init());
-        // aHtml.push('<div class="edit-btn"><span class="edit-btn-confirm contri-btn">提交</span> </div>');
-        ele.html(aHtml);
+        // var ele= $('.manage-table-list');
+        // var aTitles = [{id: 'docu_id', title: '稿件编号'},
+        //     {id: 'chineseTitle', title: '标题'},
+        //     {id: 'status', title: '稿件状态'},
+        //     {id: 'create_time', title: '投稿时间'},
+        // ];
+        //
+        // var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 15});
+        // var aHtml = [];
+        // aHtml.push(oNewTable.init());
+        // // aHtml.push('<div class="edit-btn"><span class="edit-btn-confirm contri-btn">提交</span> </div>');
+        // ele.html(aHtml);
     }else if(flag==2){
         $('.manage-status-data-doing').html(total);
     }else if(flag==3){
@@ -2086,7 +2132,7 @@ function newsEdit(username) {
         var newsData = [
             {
                 value: newUrl,
-                title: newTitle,
+                text: newTitle,
             }
         ];
         if(newUrl==''){
@@ -2185,35 +2231,54 @@ function imgAdd(data,username) {
 
 //住宿人员名单
 function checkStay(username) {
-    var ele =$('.manage-stay-list');
+    var page = 1;
+    var pagesize = 5;
     $.ajax({
         type: "POST",
         url: url + "Manage/checkStay",
         data: {
             username: username,
+            pagesize: pagesize || '10',
+            page: '1'
         },
         dataType: 'json',
-        success: function (data) {
-            if(data.status==1){
-                var data = data.data;
-                var aTitles = [{id: 'name', title: '姓名'},
-                    {id: 'sex', title: '性别'},
-                    {id: 'phone', title: '电话'},
-                    {id: 'card', title: '身份证号'},
+        success: function (res) {
+            if(res.status==1){
+                var data = res.data;
+                if(data.length>0){
+                    var pageEle =$('.page .stay-contribution');
+                    renderStay(data);
+                    stayPagination(pageEle,res.info, pagesize,username)
 
-                ];
-                var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 20});
-                var aHtml = [];
-                aHtml.push(oNewTable.init());
-                // aHtml.push('<div class="edit-btn"><span class="edit-btn-confirm contri-btn">提交</span> </div>');
-                ele.html(aHtml);
+                }else {
+                    ('.manage-stay-list').html('暂无数据');
+                }
 
             }else {
-                console.log(data.info);
+                console.log(res.info);
             }
         }
 
     });
+}
+
+function renderStay(data){
+    var ele =$('.manage-stay-list');
+    var aTitles = [{id: 'name', title: '姓名'},
+        {id: 'sex', title: '性别'},
+        {id: 'phone', title: '电话'},
+        {id: 'card', title: '身份证号'},
+
+    ];
+    for(var i=0; i<data.length;i++){
+        var curStay = data[i];
+        curStay.sex = curStay.sex ? '男': '女';
+    }
+    var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 10});
+    var aHtml = [];
+    aHtml.push(oNewTable.init());
+
+    ele.html(aHtml);
 }
 
 //编辑人员名单
@@ -2247,80 +2312,103 @@ function showEditor(username) {
     });
 }
 
-//管理员审核审稿人
+//申请审稿人名单
 function manageReview(username) {
-
-    var ele= $('.manage-edit-allocate');
+    var page = 1;
+    var pagesize = 5;
     $.ajax({
         type: "POST",
         url: url + "Manage/showApply",
         data: {
             username: username,
+            pagesize: pagesize || '10',
+            page: '1'
         },
         dataType: 'json',
-        success: function (data) {
-            if(data.status==1){
-                var data = data.data;
-                var aTitles = [{id: 'username', title: '用户名'},
-                    {id: 'education', title: '学历'},
-                    {id: 'field', title: '研究主题'},
-                    {id: 'gain', title: '研究方向'},
-                    {id: 'operate', title: '操作'},
-                ];
-                for(var i=0;i<data.length;i++){
-                    var curItem = data[i];
-                    curItem.operate = '<span class="manage-operate">操作</span>';
-                    curItem.gain = curItem.gain || '暂无';
-                    curItem.field =  curItem.field || '暂无';
-                }
-                var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 15});
-                var aHtml = [];
-                aHtml.push(oNewTable.init());
-                // aHtml.push('<div class="edit-btn"><span class="edit-btn-confirm contri-btn">提交</span> </div>');
-                ele.html(aHtml);
-
-                $('.manage-operate').on('click', function () {
-                    var _this = $(this);
-                    popup.init();
-                    var tHtml = [],aHtml= [];
-                    tHtml.push('<span class="popup-title">审核</span><i class="popup-close">x</i>');
-                    $('.popup-header').html(tHtml.join(''));
-                    aHtml.push('<p><label>选择：</label><select class="operate-auth"><option value="4">采纳</option><option value="6">拒绝</option></select>');
-                    $('.popup-edit').html(aHtml);
-                    popup.popupEvent(function () {
-                        var value = $('.operate-auth option:selected').val();
-                        $.ajax({
-                            type: "POST",
-                            url:  url +"Manage/auth",
-                            data: {
-                                username: username,
-                                value: value,
-                                target: ''
-                            },
-                            dataType: 'json',
-                            success: function (data) {
-                                if (data.status == 1) {
-                                    $('.popup').remove();
-                                    window.location.reload();
-                                } else {
-                                    alert(data.info);
-
-                                }
-                            },
-                            error: function () {
-                                alert('服务器开小差，请稍候再试');
-                            }
-                        })
-                    });
-
-                })
+        success: function (res) {
+            if(res.status==1){
+                var data = res.data;
+               if(data.length>0){
+                   var ele = $('.page .manage-allocate-contribution');
+                   renderManageReview(data, username);
+                   reviewPagination(ele,res.info, pagesize,username)
+               }else {
+                   $('.manage-edit-allocate').html('暂无数据')
+               }
             }else {
-                console.log(data.info);
+                console.log(res.info);
             }
         }
 
     });
 
+}
+
+function renderManageReview(data, username){
+    var ele = $('.manage-edit-allocate');
+    var aTitles = [{id: 'username', title: '用户名'},
+        {id: 'education', title: '学历'},
+        {id: 'field', title: '研究主题'},
+        {id: 'gain', title: '研究方向'},
+        {id: 'operate', title: '操作'},
+    ];
+    for(var i=0;i<data.length;i++){
+        var curItem = data[i];
+        curItem.operate = '<span class="manage-operate" data-target="'+curItem.username+'">操作</span>';
+        curItem.gain = curItem.gain || '暂无';
+        curItem.field =  curItem.field || '暂无';
+    }
+    var oNewTable = new CreateTable({aTitles: aTitles, aDatas: data, maxline: 15});
+    var aHtml = [];
+    aHtml.push(oNewTable.init());
+    // aHtml.push('<div class="edit-btn"><span class="edit-btn-confirm contri-btn">提交</span> </div>');
+    ele.html(aHtml);
+
+    $('.manage-operate').on('click', function () {
+        var _this = $(this);
+        var target =_this.attr('data-target');
+        popup.init();
+        var tHtml = [],aHtml= [];
+        tHtml.push('<span class="popup-title">审核</span><i class="popup-close">x</i>');
+        $('.popup-header').html(tHtml.join(''));
+        aHtml.push('<p><label>选择：</label><select class="operate-auth"><option value="audit">采纳</option><option value="contribute">拒绝</option><option class="hide" value="editor">编辑</option><option class="hide" value="manager">管理员</option></select>');
+        $('.popup-edit').html(aHtml);
+        popup.popupEvent(function () {
+            var _this= $('.popup-confirm');
+            var value = $('.operate-auth option:selected').val();
+            $.ajax({
+                type: "POST",
+                url:  url +"Manage/auth",
+                data: {
+                    username: username,
+                    value: value,
+                    target: target
+                },
+                beforeSend: function () {
+                    _this.attr('disabled', 'disabled');
+                    _this.css({"background": "#ccc"});
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 1) {
+                        $('.popup').remove();
+                        window.location.reload();
+                    } else {
+                        alert(data.info);
+
+                    }
+                },
+                complete: function () {
+                    _this.removeAttr('disabled');
+                    _this.css({"background": "#388e3c"});
+                },
+                error: function () {
+                    alert('服务器开小差，请稍候再试');
+                }
+            })
+        });
+
+    })
 }
 
 //稿件查询分页
@@ -2366,3 +2454,108 @@ function initPagination(ele,total, pagesize,username,flag,type) {
     });
 }
 
+//审稿人审核分页
+function reviewPagination(ele,total, pagesize,username) {
+    ele.pagination(total, {
+        num_edge_entries: 1, //两侧首尾分页条目数
+        num_display_entries: 4, //连续分页主体部分分页条目数
+        items_per_page: pagesize, //每页显示条数
+        // current_page: page, //当前页索引
+        //callback: home.clickPaination  //翻页回调
+        callback: function () {
+            var page = 1;
+            if (ele.find(".current.prev").length == 1) {
+                page = 1;
+            } else if (ele.find(".current.next").length == 1) {
+                page = Math.ceil(total / 5);
+            } else {
+                page = ele.find(".current").text();
+            }
+            $.ajax({
+                url: url + "Manage/checkStay",
+                type: "POST",
+                data: {
+                    username: username,
+                    pagesize: 5,
+                    page: page,
+                },
+
+                dataType: 'json',
+                success: function (res) {
+                    if (res.status == 1) {
+                        if(res.data.length>0){
+                            renderManageReview(res.data);
+                        }
+
+                    } else {
+                        console.log(res.info);
+                    }
+                }
+            });
+        }
+    });
+}
+
+//住宿登记分页
+function stayPagination(ele,total, pagesize,username) {
+    ele.pagination(total, {
+        num_edge_entries: 1, //两侧首尾分页条目数
+        num_display_entries: 4, //连续分页主体部分分页条目数
+        items_per_page: pagesize, //每页显示条数
+        // current_page: page, //当前页索引
+        //callback: home.clickPaination  //翻页回调
+        callback: function () {
+            var page = 1;
+            if (ele.find(".current.prev").length == 1) {
+                page = 1;
+            } else if (ele.find(".current.next").length == 1) {
+                page = Math.ceil(total / 5);
+            } else {
+                page = ele.find(".current").text();
+            }
+            $.ajax({
+                url: url + "Manage/checkStay",
+                type: "POST",
+                data: {
+                    username: username,
+                    pagesize: 5,
+                    page: page,
+                },
+
+                dataType: 'json',
+                success: function (res) {
+                    if (res.status == 1) {
+                        if(res.data.length>0){
+                            renderStay(res.data);
+                        }
+
+                    } else {
+                        console.log(res.info);
+                    }
+                }
+            });
+        }
+    });
+}
+
+
+function showCountDown(year, month, day) {
+    var now = new Date();
+    var endDate = new Date(year, month - 1, day);
+    var leftTime = endDate.getTime() - now.getTime();
+    var leftsecond = parseInt(leftTime / 1000);
+    //var day1=parseInt(leftsecond/(24*60*60*6));
+    var day1 = Math.floor(leftsecond / (60 * 60 * 24));
+    var hour = Math.floor((leftsecond - day1 * 24 * 60 * 60) / 3600);
+    var minute = Math.floor((leftsecond - day1 * 24 * 60 * 60 - hour * 3600) / 60);
+    var show = $('.hotel-res-date-down');
+    var second = Math.floor(leftsecond - day1 * 24 * 60 * 60 - hour * 3600 - minute * 60);
+
+    if((day1 <0) && (hour<0) && (minute<0)&& (second<0)){
+        $('.hotel-btn-confirm').attr('disabled', 'disabled');
+        $('.hotel-btn-confirm').css({"background": "#388e3c"});
+        show.html("住宿登记已截止");
+    } else{
+        show.html("提示距离截止时间" + "还有：" + day1 + "天" + hour + "小时" + minute + "分" + second + "秒");
+    }
+}
