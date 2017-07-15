@@ -6,7 +6,7 @@ $(function () {
     // var url= "http://yf-rdqa-dev064-sunxuebin.epc.baidu.com:8099/app/index.php/";
     var url= "http://ndac.env.tsinghua.edu.cn/app/index.php/";
     //编辑
-    var username =$.cookie('cookie_username');
+    var username =JSON.parse($.cookie('cookie_info')).username;
 
     // if(!username){
     //     window.location.href = "../Form/login.html#login";
@@ -15,31 +15,7 @@ $(function () {
     //     cookietime.setTime(cookietime.getTime() + (60 * 60 * 1000));//coockie保存一小时
     //     $.cookie('username','1',{expires:cookietime});
     // }
-    var imgDatas = [
-        {imgSrc:"/app/Tpl/Form/images/banner1.jpg",text: "111"},
-        {imgSrc:"/app/Tpl/Form/images/banner2.jpg",text: "222"},
-        {imgSrc:"/app/Tpl/Form/images/banner3.jpg",text: "333"},
-        // {imgSrc:"/app/Tpl/Form/images/banner4.jpg",text: "444"},
-        {imgSrc:"/app/Tpl/Form/images/banner5.jpg",text: "555"},
-    ];
-    console.log(JSON.stringify(imgDatas));
-    $.ajax({
-        type: "POST",
-        url: url + "Manage/modify",
-        data: {
-            username: username,
-            content: 'banner',
-            value: JSON.stringify(imgDatas)
-        },
-        dataType: 'json',
-        success: function (data) {
-            if(data.status==1){
 
-            }else {
-
-            }
-        }
-    });
 
 
     $.ajax({

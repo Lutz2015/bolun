@@ -24,13 +24,14 @@ body {
     overflow-x: hidden;
 }
 
-ol, ul {
+ol, ul, li {
     list-style: none;
 }
 
 a {
     text-decoration: none;
     outline: 0;
+    color: #006dcc;
 }
 
 em, i {
@@ -77,7 +78,7 @@ html, body {
 }
 .tab-thead  th {
     border: 1px solid #ccc;
-    background-color: #ccc;
+    background-color: #fdd49a;
 }
 .tab-thead  th span {
     display: block;
@@ -187,6 +188,7 @@ html, body {
     font-size: 16px;
     text-align: center;
     cursor: pointer;
+    border: none;
 }
 .popup-confirm {
     margin-right: 20px;

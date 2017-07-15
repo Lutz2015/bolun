@@ -5,7 +5,7 @@ $(function () {
     //判断用户是否登录
     // var url = "http://yf-rdqa-dev064-sunxuebin.epc.baidu.com:8099/app/index.php/";
     var url = "http://ndac.env.tsinghua.edu.cn/app/index.php/";
-    var username= $.cookie('cookie_username');
+    var username =JSON.parse($.cookie('cookie_info')).username;
     if(!username){
         $.ajax({
             type: "POST",
