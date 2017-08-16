@@ -11,11 +11,10 @@ var popup= {
         popupHtml.push('<div class="popup-header"></div>');
         popupHtml.push('<div class="popup-edit"></div>');
         popupHtml.push('<div class="popup-footer">');
-        // popupHtml.push('<input type="button" class="popup-confirm" value="确认"/>');
-        // popupHtml.push('<input type="button" class="popup-cancel" value="取消"/>');
+        popupHtml.push('<input type="button" class="popup-confirm" value="确认"/>');
+        popupHtml.push('<input type="button" class="popup-cancel" value="取消"/>');
         // popupHtml.push('<span class="popup-confirm">确认</span>');
         // popupHtml.push('<span class="popup-cancel">取消</span>');
-        // popupHtml.push('</div></div></div>');
         popupHtml.push('</div></div></div>');
         $('.q-popup').html(popupHtml.join(''));
     },
@@ -47,7 +46,7 @@ var popup= {
             window.setTimeout(function () {
                 _this.attr("disabled", false);
                 _this.css({"background": "#20c2d2"});
-            }, 15000);
+            }, 1500);
             if (cb && $.isFunction(cb)) {
                 cb();
             }

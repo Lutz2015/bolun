@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/datetimepicker.css" />
     <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/header.css" />
     <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/footer.css" />
+    <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/pagination.css" />
     <link rel="stylesheet" type="text/css" href="/app/Tpl/Form/css/user.css" />
 
 </head>
@@ -43,271 +44,445 @@
 
         <div class="user-title">
             <a class="user-callback-home" href="../Form/home.html"><i class="icon-homeback iconfont icon-shouye-shouye"></i>返回首页</a>
-            <ul class="user-title-list">
-                <li class="active">作者中心</li>
-                <li>审稿中心</li>
-                <li>编辑中心</li>
-            </ul>
+            <!--<a class="manage-center">管理中心</a>-->
+            <p class="user-title-list">
+                <a class="title-contribute on" data-id="0" href="javascript:void(0);">作者中心</a>
+                <a class="title-audit" data-id="1" href="javascript:void(0);">审稿中心</a>
+                <a class="title-editor" data-id="2" href="javascript:void(0);">编辑中心</a>
+                <a class="title-manager" data-id="3" href="javascript:void(0);">管理中心</a>
+            </p>
         </div>
-        <div class="user-detail">
-            <div class="user-detail-left">
-                <ul class="user-detail-menu">
-                    <li class="user-menu-one on" data-id="0"><a href="#abstract">投稿摘要</a></li>
-                    <li class="user-menu-two" data-id="1"><a href="#submission">投稿</a></li>
-                    <li class="user-menu-three" data-id="2"><a href="#allcontri">稿件查询</a></li>
-                    <li class="user-menu-four" data-id="3"><a href="#doingcontri">待修改稿件</a></li>
-                    <li class="user-menu-five" data-id="4"><a href="#info">个人信息</a></li>
-                    <li class="user-menu-six" data-id="5"><a href="#modify">修改密码</a></li>
-                    <li class="user-menu-seven" data-id="6"><a href="#apply">申请成为审稿人</a></li>
-                    <li class="user-menu-eight" class="last" data-id="7"><a href="#">住宿登记</a></li>
-            </ul>
-            </div>
-            <div class="user-detail-right active">
-                <div class="user-detail-extra"></div>
-                <div class="detail-right-title">
-                    <div class="detail-right-title-img">
-                        <input type="file" value="" class="upload-img" id="upload-img" accept="image/jpg, image/png, image/gif, image/bmp, image/jpeg" name="uploading">
-                        <img src="/app/Tpl/Form/images/pic_bg.png" class="right-title-img" title="请上传不要超过2M的头像">
-                        <span class="upload-notice hide">请上传不超过4M的图片</span>
+        <div class="user-content">
+            <div class="user-detail user-contribute active">
+                <div class="user-detail-left">
+                    <ul class="user-detail-menu">
+                        <li class="user-menu-one on" data-id="0"><a href="#abstract">投稿摘要</a></li>
+                        <li class="user-menu-two" data-id="1"><a href="#submission">投稿</a></li>
+                        <li class="user-menu-three" data-id="2"><a href="#allcontri">稿件查询</a></li>
+                        <li class="user-menu-four" data-id="3"><a href="#doingcontri">待修改稿件</a></li>
+                        <li class="user-menu-five" data-id="4"><a href="#info">个人信息</a></li>
+                        <li class="user-menu-six" data-id="5"><a href="#modify">修改密码</a></li>
+                        <li class="user-menu-seven" data-id="6"><a href="#apply">申请成为审稿人</a></li>
+                        <li class="user-menu-eight last" data-id="7"><a href="#hotel">住宿登记</a></li>
+                    </ul>
+                </div>
+                <div class="user-detail-right active">
+                    <div class="user-detail-extra"></div>
+                    <div class="detail-right-title">
+                        <div class="detail-right-title-img">
+                            <input type="file" value="" class="upload-img" id="upload-img" accept="image/jpg, image/png, image/gif, image/bmp, image/jpeg" name="uploading">
+                            <img src="/app/Tpl/Form/images/pic_bg.png" class="right-title-img" title="请上传不要超过2M的头像">
+                            <span class="upload-notice hide">请上传不超过4M的图片</span>
+                        </div>
+                        <div class="detail-right-title-text">
+                            <p class="detail-right-title-name">姓名：<span class="right-title-name"></span></p>
+                            <p class="detail-right-title-school">院校：<span class="right-title-school"></span></p>
+                        </div>
                     </div>
-                    <div class="detail-right-title-text">
-                        <p class="detail-right-title-name">姓名：<span class="right-title-name"></span></p>
-                        <p class="detail-right-title-school">院校：<span class="right-title-school"></span></p>
+                    <div class="detail-right-content">
+                        <div class="detail-right-content-menu nowight">
+                            <h3>稿件查询</h3>
+                            <ul class="content-menu-contribution al-contribution">
+
+                            </ul>
+                        </div>
+                        <div class="detail-right-content-menu">
+                            <h3>待修改稿件查询</h3>
+                            <ul class="content-menu-contribution no-contribution">
+
+                            </ul>
+                        </div>
+                        <div class="detail-right-content-menu nowight">
+                            <h3>重要日期 <a class="contri-more news-more hide" href="javascript:void(0);">更多</a></h3>
+                            <ul class="content-menu-contribution">
+                                <li class="date-info-common"><span class="date-info-span">论文摘要截止：</span><span class="date-paper-end"></span></li>
+                                <li class="date-info-common"><span class="date-info-span">论文摘要录用：</span><span class="date-paper-hire"></span></li>
+                                <li class="date-info-common"><span class="date-info-span">论文全文截止日期：</span><span class="date-allpaper-end"></span></li>
+                                <li class="date-info-common"><span  class="date-info-span">会议日期：</span><span class="date-allpaper-day"></span></li>
+                            </ul>
+                        </div>
+                        <div class="detail-right-content-menu">
+                            <h3>最新消息 <a class="contri-more news-more" href="/app/Tpl/Form/introduce.html">更多</a></h3>
+                            <ul class=" content-menu-contribution-news">
+
+                            </ul>
+                        </div>
                     </div>
                 </div>
-                <div class="detail-right-content">
-                    <div class="detail-right-content-menu nowight">
-                        <h3>稿件查询</h3>
-                        <ul class="content-menu-contribution al-contribution">
-
-                        </ul>
-                    </div>
-                    <div class="detail-right-content-menu">
-                        <h3>待修改稿件查询</h3>
-                        <ul class="content-menu-contribution no-contribution">
-
-                        </ul>
-                    </div>
-                    <div class="detail-right-content-menu nowight">
-                        <h3>重要日期 <a class="contri-more news-more hide" href="javascript:void(0);">更多</a></h3>
-                        <ul class="content-menu-contribution">
-                            <li class="date-info-common"><span class="date-info-span">论文摘要截止：</span><span class="date-paper-end"></span></li>
-                            <li class="date-info-common"><span class="date-info-span">论文摘要录用：</span><span class="date-paper-hire"></span></li>
-                            <li class="date-info-common"><span class="date-info-span">论文全文截止日期：</span><span class="date-allpaper-end"></span></li>
-                            <li class="date-info-common"><span  class="date-info-span">会议日期：</span><span class="date-allpaper-day"></span></li>
-                        </ul>
-                    </div>
-                    <div class="detail-right-content-menu">
-                        <h3>最新消息 <a class="contri-more news-more" href="/app/Tpl/Form/introduce.html">更多</a></h3>
-                        <ul class=" content-menu-contribution-news">
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="user-detail-right">
-                <div class="user-detail-apply">
-                    <form class="user-contribute-deliver" enctype="multipart/form-data">
-                        <div class="user-person-apply-list">
-                            <label class="">摘要上传：</label>
-                            <input type="file" placeholder="" class="user-person-apply-val val-apply-file" name="fileString"  accept=".doc,.docx"/>
-                            <span class="pwd-error upload-error"></span>
-                        </div>
-                        <div class="user-person-apply-list">
-                            <label>中文标题：</label>
-                            <input type="text" class="user-person-apply-val val-chinese-tit" />
-                            <span class="pwd-error chinese-tit-error"></span>
-                        </div>
-                        <div class="user-person-apply-list">
-                            <label >英文标题：</label>
-                            <input type="text" placeholder="" class="user-person-apply-val val-english-tit"/>
-                            <span class="pwd-error english-tit-error"></span>
-                        </div>
-                        <div class="user-person-apply-list">
-                            <label class="label-chinese">中文关键字：</label>
-                            <input type="text" class="key-words chinese-keywords user-person-apply-val" placeholder="关键字以逗号隔开"/>
-                            <span class="pwd-error chinese-keywords-error"></span>
-                        </div>
-                        <div class="user-person-apply-list">
-                            <label class="label-english">英文关键字：</label>
-                            <input type="text" class="key-words english-keywords user-person-apply-val" placeholder="关键字以逗号隔开"/>
-                            <span class="pwd-error english-keywords-error"></span>
-                        </div>
-                        <div class="user-person-apply-list">
-                            <label>主题：</label>
-                            <select class="user-person-apply-val val-apply-theme">
-                                <option selected="selected">水污染控制与资源化</option>
-                                <option>大气污染与控制</option>
-                                <option>固体废物污染控制与资源化</option>
-                                <option>环境化学</option>
-                                <option>环境经济、管理与政策</option>
-                                <option>环境生态健康</option>
-                                <option>能源与气候变化</option>
-
-                            </select>
-                            <span class="pwd-error apply-theme-error"></span>
-                        </div>
-                        <div class="user-person-apply-list">
-                            <label>作者姓名：</label>
-                            <input type="text" class="user-person-apply-val val-apply-name" />
-                            <span class="pwd-error apply-name-error"></span>
-                        </div>
-                        <div class="user-person-apply-list">
-                            <label>作者拼音：</label>
-                            <input placeholder="" class="user-person-apply-val val-apply-ping"/>
-                            <span class="pwd-error apply-ping-error"></span>
-                        </div>
-                        <div class="user-person-apply-list">
-                            <label>邮箱地址：</label>
-                            <input placeholder="" class="user-person-apply-val val-apply-email"/>
-                            <span class="pwd-error apply-email-error"></span>
-                        </div>
-                        <div class="user-person-apply-list">
-                            <label>作者单位：</label>
-                            <textarea class="user-person-apply-val val-apply-company" rows="3" cols="30"></textarea>
-                            <span class="pwd-error apply-company-error"></span>
-                        </div>
-                        <div class="user-person-apply-list">
-                            <label>更多作者：</label>
-                            <div class="user-person-apply-val val-more-author">
-                                <p class="more-author-list"></p>
-                                <span class="more-author">+</span>
+                <div class="user-detail-right">
+                    <div class="user-detail-apply">
+                        <form class="user-contribute-deliver" enctype="multipart/form-data">
+                            <div class="user-person-apply-list">
+                                <label>摘要上传：</label>
+                                <input type="file" placeholder="" class="user-person-apply-val val-apply-file" name="fileString"  accept=".doc,.docx"/>
+                                <span class="pwd-error upload-error"></span>
                             </div>
-                        </div>
-                        <div class="user-person-apply-list">
-                            <label>备注：</label>
-                            <textarea class="user-person-apply-val val-apply-remarks" rows="3" cols="30"></textarea>
-                        </div>
+                            <div class="user-person-apply-list">
+                                <label>中文标题：</label>
+                                <input type="text" class="user-person-apply-val val-chinese-tit" />
+                                <span class="pwd-error chinese-tit-error"></span>
+                            </div>
+                            <div class="user-person-apply-list">
+                                <label >英文标题：</label>
+                                <input type="text" placeholder="" class="user-person-apply-val val-english-tit"/>
+                                <span class="pwd-error english-tit-error"></span>
+                            </div>
+                            <div class="user-person-apply-list">
+                                <label class="label-chinese">中文关键字：</label>
+                                <input type="text" class="key-words chinese-keywords user-person-apply-val" placeholder="关键字以逗号隔开"/>
+                                <span class="pwd-error chinese-keywords-error"></span>
+                            </div>
+                            <div class="user-person-apply-list">
+                                <label class="label-english">英文关键字：</label>
+                                <input type="text" class="key-words english-keywords user-person-apply-val" placeholder="关键字以逗号隔开"/>
+                                <span class="pwd-error english-keywords-error"></span>
+                            </div>
+                            <div class="user-person-apply-list">
+                                <label>主题：</label>
+                                <select class="user-person-apply-val val-apply-theme">
+                                    <option selected="selected">水污染控制与资源化</option>
+                                    <option>大气污染与控制</option>
+                                    <option>固体废物污染控制与资源化</option>
+                                    <option>环境化学</option>
+                                    <option>环境经济、管理与政策</option>
+                                    <option>环境生态健康</option>
+                                    <option>能源与气候变化</option>
 
-                        <div class="user-person-apply-list apply-edit-btn">
-                            <span class="edit-btn-temprorary save-btn-confirm">暂存</span>
-                            <span class="edit-btn-confirm upload-btn-confirm">提交</span>
-                        </div>
+                                </select>
+                                <span class="pwd-error apply-theme-error"></span>
+                            </div>
+                            <div class="user-person-apply-list">
+                                <label>作者姓名：</label>
+                                <input type="text" class="user-person-apply-val val-apply-name" />
+                                <span class="pwd-error apply-name-error"></span>
+                            </div>
+                            <div class="user-person-apply-list">
+                                <label>作者拼音：</label>
+                                <input placeholder="" class="user-person-apply-val val-apply-ping"/>
+                                <span class="pwd-error apply-ping-error"></span>
+                            </div>
+                            <div class="user-person-apply-list">
+                                <label>邮箱地址：</label>
+                                <input placeholder="" class="user-person-apply-val val-apply-email"/>
+                                <span class="pwd-error apply-email-error"></span>
+                            </div>
+                            <div class="user-person-apply-list">
+                                <label>作者单位：</label>
+                                <textarea class="user-person-apply-val val-apply-company" rows="3" cols="30"></textarea>
+                                <span class="pwd-error apply-company-error"></span>
+                            </div>
+                            <div class="user-person-apply-list">
+                                <label>更多作者：</label>
+                                <div class="user-person-apply-val val-more-author">
+                                    <p class="more-author-list"></p>
+                                    <span class="more-author">+</span>
+                                </div>
+                            </div>
+                            <div class="user-person-apply-list">
+                                <label>备注：</label>
+                                <textarea class="user-person-apply-val val-apply-remarks" rows="3" cols="30"></textarea>
+                            </div>
 
-                    </form>
+                            <div class="user-person-apply-list apply-edit-btn">
+                                <span class="edit-btn-temprorary save-btn-confirm">暂存</span>
+                                <span class="edit-btn-confirm upload-btn-confirm">提交</span>
+                            </div>
+
+                        </form>
+                    </div>
+
+                </div>
+                <div class="user-detail-right">
+                    <div class="user-detail-contribution-default">
+                        <div class="user-detail-contribution"></div>
+                        <div class="page"><div class="all-contribution pagination"></div></div>
+                    </div>
+                    <div class="user-detail-contribution-person hide">
+                        <div class="contribute-upload"></div>
+                        <div class="user-contribute-list"></div>
+                        <div class="user-contribute-author"></div>
+                        <div class="user-contribute-abstract"></div>
+                        <div class="user-contribute-full"></div>
+                    </div>
+                </div>
+                <div class="user-detail-right">
+                    <div class="user-detail-contribution-modify-default">
+                        <div class="user-detail-contribution-modify"></div>
+                        <div class="page"><div class="modify-contribution pagination"></div></div>
+                    </div>
+                    <div class="user-detail-contribution-modify-person hide">
+                        <div class="contribute-upload"></div>
+                        <div class="user-contribute-list"></div>
+                        <div class="user-contribute-author"></div>
+                        <div class="user-contribute-abstract"></div>
+                    </div>
+                </div>
+                <div class="user-detail-right">
+                    <div class="user-detail-person ">
+                        <div class="user-person-info"></div>
+                    </div>
+                </div>
+                <div class="user-detail-right">
+                    <form class="user-person-pwd user-detail-pwd"></form>
+                </div>
+                <div class="user-detail-right">
+                    <div class="user-detail-apply">
+                        <form class="user-person-apply">
+                            <div class="user-person-apply-list">
+                                <label class="label-major">专业：</label>
+                                <input type="text" placeholder="" class="user-person-apply-val val-major"/>
+                                <span class="pwd-error major-error"></span>
+                            </div>
+                            <div class="user-person-apply-list">
+                                <label class="label-education">学历：</label>
+                                <select class="user-person-apply-val val-education">
+                                    <option selected="selected">本科</option>
+                                    <option>硕士</option>
+                                    <option>博士</option>
+                                    <option>其他</option>
+                                </select>
+                            </div>
+                            <div class="user-person-apply-list">
+                                <label class="label-positio">职称：</label>
+                                <input type="text" placeholder="" class="user-person-apply-val
+    val-positio"/>
+                                <span class="pwd-error positio-error"></span>
+                            </div>
+                            <div class="user-person-apply-list">
+                                <label class="label-field">研究主题：</label>
+                                <select type="text" class="user-person-apply-val val-field">
+                                    <option selected="selected">水污染控制与资源化</option>
+                                    <option>大气污染与控制</option>
+                                    <option>固体废物污染控制与资源化</option>
+                                    <option>环境化学</option>
+                                    <option>环境经济、管理与政策</option>
+                                    <option>环境生态健康</option>
+                                    <option>能源与气候变化</option>
+                                </select>
+                            </div>
+                            <div class="user-person-apply-list">
+                                <label class="label-direction fl">研究方向：</label>
+                                <textarea placeholder="" class="user-person-apply-val val-direction" rows='3' cols='30'></textarea>
+                                <span class="pwd-error direction-error"></span>
+                            </div>
+                            <div class="user-person-apply-list">
+                                <label class="label-gain fl">研究成果：</label>
+                                <textarea placeholder="" class="user-person-apply-val val-gain"  rows='3' cols='30'></textarea><span class="pwd-error gain-error"></span>
+
+                            </div>
+                            <div class="user-person-apply-list">
+                                <label class="label-name">持卡人姓名：</label>
+                                <input placeholder="" class="user-person-apply-val val-name"/>
+                                <span class="pwd-error name-error"></span>
+                            </div>
+                            <div class="user-person-apply-list">
+                                <label class="label-bank">开户银行：</label>
+                                <input placeholder="" class="user-person-apply-val val-bank"/>
+                                <span class="pwd-error bank-error"></span>
+                            </div>
+                            <div class="user-person-apply-list">
+                                <label class="label-account">银行账号：</label>
+                                <input placeholder="" class="user-person-apply-val val-account"/><span class="pwd-error account-error"></span>
+
+                            </div>
+                            <div class="apply-edit-btn">
+                                <span class="edit-btn-cancel">取消</span>
+                                <span class="edit-btn-confirm apply-btn-confirm">提交</span>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+                <div class="user-detail-right">
+                    <div class="user-detail-hotel">
+                        <p class="hotel-res-date">截止日期为：<span class="closing-date">2017年9月1号</span>请需要住宿的同学尽快登记！</p>
+                        <p class="hotel-res-date-down" style="padding: 0 20px 10px;"></p>
+                        <form class="user-person-hotel">
+                            <div class="user-person-apply-list">
+                                <label>姓名：</label>
+                                <input type="text" class="user-person-apply-val val-hotel-name"/>
+                                <span class="pwd-name-error pwd-error"></span>
+                            </div>
+                            <div class="user-person-apply-list">
+                                <label>性别：</label>
+                                <select class="user-person-apply-val val-hotel-sex" style="width: 294px;">
+                                    <option value="0" selected="selected">男</option>
+                                    <option value="1">女</option>
+                                </select>
+                            </div>
+                            <div class="user-person-apply-list">
+                                <label>手机号：</label>
+                                <input type="text" class="user-person-apply-val
+     val-hotel-phone"/>
+                                <span class="pwd-phone-error pwd-error"></span>
+                            </div>
+                            <div class="user-person-apply-list">
+                                <label>身份证：</label>
+                                <input type="text" class="user-person-apply-val
+    val-card"/>
+                                <span class="pwd-card-error"></span>
+                            </div>
+                            <div class="user-person-apply-list hotel-confirm-error"></div>
+                            <div class="apply-edit-btn">
+                                <span class="edit-btn-cancel">取消</span>
+                                <button class="edit-btn-confirm hotel-btn-confirm" style="border: none">提交</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
 
             </div>
-            <div class="user-detail-right">
-                <div class="user-detail-contribution"></div>
-                <div class="user-detail-contribution-person hide">
-                    <div class="contribute-upload"></div>
-                    <div class="user-contribute-list"></div>
-                    <div class="user-contribute-author"></div>
-                    <div class="user-contribute-abstract"></div>
-                    <div class="user-contribute-full"></div>
+            <div class="user-detail user-audit">
+                <div class="user-detail-left">
+                    <ul class="review-center-menu">
+                        <li class="review-center-item review-one on"><a href="javascript:void(0);">未审稿件</a></li>
+                        <li class="review-center-item review-two"><a href="javascript:void(0);">已审稿件</a></li>
+                        <li class="review-center-item review-three"><a href="javascript:void(0);">重要时间</a></li>
+                        <li class="review-center-item review-four"><a href="javascript:void(0);">最新消息</a></li>
+                        <li class="review-center-item review-five hide"><a href="javascript:void(0);">个人信息</a></li>
+                        <li class="review-center-item review-six hide"><a href="javascript:void(0);">修改密码</a></li>
+                    </ul>
+                </div>
+                <div class="review-center-right active">
+                    <div class="no-already-review"></div>
+                    <div class="page"><div class="no-already-contribution pagination"></div></div>
+                </div>
+                <div class="review-center-right">
+                    <div class="already-review"></div>
+                    <div class="page"><div class="already-contribution pagination"></div></div>
+                </div>
+                <div class="review-center-right">
+                    <ul class="content-menu-contribution">
+                        <li class="date-info-common"><span class="date-info-span">论文摘要截止：</span><span class="date-paper-end"></span></li>
+                        <li class="date-info-common"><span class="date-info-span">论文摘要录用：</span><span class="date-paper-hire"></span></li>
+                        <li class="date-info-common"><span class="date-info-span">论文全文截止日期：</span><span class="date-allpaper-end"></span></li>
+                        <li class="date-info-common"><span  class="date-info-span">会议日期：</span><span class="date-allpaper-day"></span></li>
+                    </ul>
+                </div>
+                <div class="review-center-right">
+                    <ul class="review-news"></ul>
+                </div>
+                <div class="review-center-right">
+                    <div class="review-person-info"></div>
+                </div>
+                <div class="review-center-right">
+                    <div class="review-person-pwd user-detail-pwd"></div>
                 </div>
             </div>
-            <div class="user-detail-right">
-                <div class="user-detail-contribution-modify hide"></div>
-                <div class="user-detail-contribution-modify-person hide">
-                    <div class="contribute-upload"></div>
-                    <div class="user-contribute-list"></div>
-                    <div class="user-contribute-author"></div>
-                    <div class="user-contribute-abstract"></div>
-                    <div class="user-contribute-full"></div>
+            <div class="user-detail user-editor">
+                <div class="user-detail-left">
+                    <ul class="edit-center-menu">
+                        <li class="edit-center-item edit-one on" data-id="0"><a href="#edit1">审稿人名单</a></li>
+                        <li class="edit-center-item edit-two" data-id="1"><a href="#edit2">待分配稿件</a></li>
+                        <li class="edit-center-item edit-three" data-id="2"><a href="#edit3">已分配稿件</a></li>
+                        <li class="edit-center-item edit-four" data-id="3"><a href="#edit4">个人信息</a></li>
+                        <li class="edit-center-item edit-five" data-id="4"><a href="#edit5">修改密码</a></li>
+                        <!--<li class="edit-center-item edit-six" data-id="5"><a href="#edit6">全文审稿</a></li>-->
+                    </ul>
                 </div>
-            </div>
-            <div class="user-detail-right">
-                <div class="user-detail-person ">
-                    <div class="user-person-info"></div>
+                <div class="edit-center-right active">
+                    <div class="name-list"></div>
+                    <div class="page"><div class="name-list-contribution pagination"></div></div>
                 </div>
+                <div class="edit-center-right">
+                    <div class="edit-no-allocate-default">
+                        <div class="edit-no-allocate"></div>
+                        <div class="page"><div class="no-allocate-contribution pagination"></div></div>
+                    </div>
+                    <div class="edit-no-allocate-detail hide">
+                        <div class="contribute-upload"></div>
+                        <div class="user-contribute-list"></div>
+                        <div class="user-contribute-author"></div>
+                        <div class="user-contribute-abstract"></div>
+                    </div>
+                </div>
+                <div class="edit-center-right">
+                    <div class="edit-allocate"></div>
+                    <div class="page"><div class="allocate-contribution pagination"></div></div>
+                </div>
+                <div class="edit-center-right">
+                    <div class="edit-person-info"></div>
+                </div>
+                <div class="edit-center-right">
+                    <div class="edit-person-pwd user-detail-pwd"></div>
+                </div>
+                <!--<div class="edit-center-right">-->
+                    <!--<div class="all-review"></div>-->
+                <!--</div>-->
             </div>
-            <div class="user-detail-right">
-                <form class="user-detail-pwd">
-                    <div class="user-detail-pwd-list">
-                        <p>
-                            <label>旧密码</label>
-                            <input type="password" class="user-old-pwd"/>
-                            <span class="old-pwd-error pwd-error"></span>
-                        </p>
-                        <p>
-                            <label>新密码</label>
-                            <input type="password"  class="user-new-pwd"/>
-                            <span class="new-pwd-error pwd-error"></span>
-                        </p>
-                        <p>
-                            <label>确认密码</label>
-                            <input type="password"  class="user-confirm-pwd"/>
-                            <span class="confirm-pwd-error pwd-error"></span>
+            <div class="user-detail user-manager">
+                <div class="user-detail-left">
+                    <ul class="manage-center-menu">
+                        <li class="manage-center-item manage-one" data-id="0"><a href="#manage1">稿件状态</a></li>
+                        <li class="manage-center-item manage-two on" data-id="1"><a href="#manage2">申请审稿人名单</a></li>
+                        <li class="manage-center-item manage-three" data-id="2"><a href="#manage3">住宿登记人员</a></li>
+                        <li class="manage-center-item manage-four" data-id="3"><a href="#manage4">编辑人员名单</a></li>
+                        <li class="manage-center-item manage-five" data-id="4"><a href="#manage5">时间编辑</a></li>
+                        <li class="manage-center-item manage-six" data-id="5"><a href="#manage6">最新消息</a></li>
+                        <li class="manage-center-item manage-seven" data-id="6"><a href="#manage7">轮播图片编辑</a></li>
+                    </ul>
+                </div>
+                <div class="manage-center-right">
+                    <div class="manage-status-data">
+                        <span class="manage-status-data-all on">所有稿件</span>
+                        <span class="manage-status-data-not-audit"> 未审稿件</span>
+                       &nbsp;<span class="manage-status-data-audit"> 已审稿件</span>
+                        <span class="manage-status-data-not-distribute">待分配稿件</span>
+                        <span class="manage-status-data-distribute">分配稿件</span>
+                    </div>
+                    <div class="manage-table-list">
+
+                    </div>
+                    <div class="page"><div class="manage-all-contribution pagination"></div></div>
+                </div>
+                <div class="manage-center-right active">
+                    <div class="manage-edit-allocate"></div>
+                    <div class="page"><div class="manage-allocate-contribution pagination"></div></div>
+                </div>
+                <div class="manage-center-right">
+                    <div class="manage-stay-list"></div>
+                    <div class="page"><div class="stay-contribution pagination"></div></div>
+                </div>
+                <div class="manage-center-right">
+                    <div class="manage-editor-list"></div>
+                </div>
+                <div class="manage-center-right">
+                    <div class="manage-date">
+                        <p class="manage-date-edit"><span class="date-edit-start">编辑</span></p>
+                        <p class="manage-date-edit"><label>论文摘要截止日期：</label><input type="text" class="manage-date-paper-end" value="2017年6月30号" disabled="disabled"/></p>
+                        <p class="manage-date-edit"><label>论文摘要录用日期：</label><input type="text" class="manage-date-paper-hire" value="2017年8月4号" disabled="disabled"/></p>
+                        <p class="manage-date-edit"><label>论文全文截止日期：</label><input type="text" class="manage-date-allpaper-end" value="2017年9月1号" disabled="disabled"/></p>
+                        <p class="manage-date-edit"><label>会议日期：</label><input type="text" class="manage-date-allpaper-day" value="2017年10月19日－22日" disabled="disabled"/></p>
+                        <p class="manage-error manage-date-error"></p>
+                        <p class="manage-btn-edit">
+                            <span class="manage-date-confirm manage-edit-confirm">提交</span>
+                            <span class="manage-date-cancel manage-edit-cancel">取消</span>
                         </p>
                     </div>
-                    <div class="pwd-edit-btn">
-                        <span class="edit-btn-cancel">取消</span>
-                        <span class="edit-btn-confirm pwd-confirm">提交</span>
-                    </div>
-                </form>
-            </div>
-            <div class="user-detail-right">
-                <div class="user-detail-apply">
-                    <form class="user-person-apply">
-                        <div class="user-person-apply-list">
-                            <label class="label-major">专业：</label>
-                            <input type="text" placeholder="" class="user-person-apply-val val-major"/>
-                            <span class="pwd-error major-error"></span>
-                        </div>
-                        <div class="user-person-apply-list">
-                            <label class="label-education">学历：</label>
-                            <select class="user-person-apply-val val-education">
-                                <option value="0" selected="selected">本科</option>
-                                <option value="1">硕士</option>
-                                <option value="2">博士</option>
-                                <option value="3">其他</option>
-                            </select>
-                        </div>
-                        <div class="user-person-apply-list">
-                            <label class="label-positio">职称：</label>
-                            <input type="text" placeholder="" class="user-person-apply-val
-val-positio"/>
-                            <span class="pwd-error positio-error"></span>
-                        </div>
-                        <div class="user-person-apply-list">
-                            <label class="label-field">研究领域：</label>
-                            <select type="text" class="user-person-apply-val val-field">
-                                <option selected="selected">水污染控制与资源化</option>
-                                <option>大气污染与控制</option>
-                                <option>固体废物污染控制与资源化</option>
-                                <option>环境化学</option>
-                                <option>环境经济、管理与政策</option>
-                                <option>环境生态健康</option>
-                                <option>能源与气候变化</option>
-                            </select>
-                        </div>
-                        <div class="user-person-apply-list">
-                            <label class="label-direction fl">研究方向：</label>
-                            <textarea placeholder="" class="user-person-apply-val val-direction" rows='3' cols='30'></textarea>
-                            <span class="pwd-error direction-error"></span>
-                        </div>
-                        <div class="user-person-apply-list">
-                            <label class="label-gain fl">研究成果：</label>
-                            <textarea placeholder="" class="user-person-apply-val val-gain"  rows='3' cols='30'></textarea><span class="pwd-error gain-error"></span>
-
-                        </div>
-                        <div class="user-person-apply-list">
-                            <label class="label-name">持卡人姓名：</label>
-                            <input placeholder="" class="user-person-apply-val val-name"/>
-                            <span class="pwd-error name-error"></span>
-                        </div>
-                        <div class="user-person-apply-list">
-                            <label class="label-bank">开户银行：</label>
-                            <input placeholder="" class="user-person-apply-val val-bank"/>
-                            <span class="pwd-error bank-error"></span>
-                        </div>
-                        <div class="user-person-apply-list">
-                            <label class="label-account">银行账号：</label>
-                            <input placeholder="" class="user-person-apply-val val-account"/><span class="pwd-error account-error"></span>
-
-                        </div>
-                        <div class="apply-edit-btn">
-                            <span class="edit-btn-cancel">取消</span>
-                            <span class="edit-btn-confirm apply-btn-confirm">提交</span>
-                        </div>
-                    </form>
-
                 </div>
+                <div class="manage-center-right">
+                    <div class="manage-news-edit">
+                        <p><label>链接(url)：</label><textarea cols="60" rows="3" class="manage-news-edit-url"></textarea></p>
+                        <p><label>标题：</label><textarea cols="60" rows="3" class="manage-news-edit-title"></textarea></p>
+                        <p class="manage-error manage-news-error"></p>
+                        <p class="manage-btn-edit">
+                            <span class="manage-news-confirm manage-edit-confirm">提交</span>
+                            <span class="manage-news-cancel manage-edit-cancel">取消</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="manage-center-right">
+                    <div class="manage-banner-edit">
+                        <div class="manage-banner-table"></div>
+                        <p class="manage-banner-text"><label>图片地址(url)：</label><input cols="60" rows="3" class="manage-banner-edit-url"><span class="manage-banner-add">添加</span></p>
+                        <p class="manage-btn-edit">
+                            <span class="manage-banner-confirm manage-edit-confirm">提交</span>
+                            <span class="manage-banner-cancel manage-edit-cancel">取消</span>
+                        </p>
+                    </div>
+                </div>
+
             </div>
-            <div class="user-detail-right"></div>
-            <div class="user-detail-right"></div>
         </div>
     </div>
 </div>
@@ -318,17 +493,17 @@ val-positio"/>
             <div class="footer-info-list">
                 <h3 class="footer-info-list-title">主办单位</h3>
                 <ul class="footer-info-list-menu">
-                    <li><a href="http://www.tsinghua.edu.cn">清华大学</a></li>
-                    <li><a href="http://www.chinacses.org/">中国环境科学学会</a></li>
-                    <li><a href="http://www.2011-cicreq.com/">区域环境质量协同创新中心</a></li>
-                    <li><a href="http://www.skjlespc.net/">环境模拟与污染控制国家重点联合实验室</a></li>
+                    <li><a href="http://www.tsinghua.edu.cn" target="_blank">清华大学</a></li>
+                    <li><a href="http://www.chinacses.org/" target="_blank">中国环境科学学会</a></li>
+                    <li><a href="http://www.2011-cicreq.com/" target="_blank">区域环境质量协同创新中心</a></li>
+                    <li><a href="http://www.skjlespc.net/" target="_blank">环境模拟与污染控制国家重点联合实验室</a></li>
                 </ul>
             </div>
             <div class="footer-info-list">
                 <h3 class="footer-info-list-title">协同单位赞助单位</h3>
                 <ul class="footer-info-list-menu">
-                    <li><a href="http://www.xauat.edu.cn">西安建筑科学大学</a></li>
-                    <li><a href="http://www.springer.com/environment/journal/11783">Frontiers of Environmental Science & Engineering</a></li>
+                    <li><a href="http://www.xauat.edu.cn" target="_blank">西安建筑科学大学</a></li>
+                    <li><a href="http://www.springer.com/environment/journal/11783" target="_blank">Frontiers of Environmental Science & Engineering</a></li>
                 </ul>
             </div>
             <div class="footer-info-list">
@@ -364,10 +539,40 @@ val-positio"/>
 <script src="/app/Tpl/Form/js/jquery.js"></script>
 <script src="/app/Tpl/Form/js/cookie.js"></script>
 <script src="/app/Tpl/Form/js/datetimepicker.min.js"></script>
+<script src="/app/Tpl/Form/js/pagination.js"></script>
 <script src="/app/Tpl/Form/js/header.js"></script>
 <script src="/app/Tpl/Form/js/createTable.js"></script>
 <script src="/app/Tpl/Form/js/popup.js"></script>
 <script src="/app/Tpl/Form/js/user.js"></script>
+<script>
 
+    $('.user-detail-menu li').on('click', function () {
+        var _this = $(this);
+        var index = _this.index();
+        _this.addClass('on').siblings().removeClass('on');
+        $('.user-detail-right').eq(index).addClass('active').siblings().removeClass('active')
+    });
+
+   $('.review-center-menu li').on('click', function () {
+        var _this = $(this);
+        var index = _this.index();
+        _this.addClass('on').siblings().removeClass('on');
+        $('.review-center-right').eq(index).addClass('active').siblings().removeClass('active')
+    });
+
+
+    $('.edit-center-menu li').on('click', function () {
+        var _this = $(this);
+        var index = _this.index();
+        _this.addClass('on').siblings().removeClass('on');
+        $('.edit-center-right').eq(index).addClass('active').siblings().removeClass('active')
+    });
+    $('.manage-center-menu li').on('click', function () {
+        var _this = $(this);
+        var index = _this.index();
+        _this.addClass('on').siblings().removeClass('on');
+        $('.manage-center-right').eq(index).addClass('active').siblings().removeClass('active')
+    });
+</script>
 </body>
 </html>

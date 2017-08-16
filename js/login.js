@@ -6,8 +6,8 @@
 //登录 注册逻辑
 $(function() {
     //tab切换
-    // var url = "http://yf-rdqa-dev064-sunxuebin.epc.baidu.com:8099/app/index.php/";
-    var url = "http://ndac.env.tsinghua.edu.cn/app/index.php/";
+    var url = "http://yf-rdqa-dev064-sunxuebin.epc.baidu.com:8099/app/index.php/";
+    // var url = "http://ndac.env.tsinghua.edu.cn/app/index.php/";
     function loginTab() {
         var hash;
         //没有锚点默认为-->登录项
@@ -93,6 +93,7 @@ $(function() {
         '中国农业科学院', '中国人民大学',
         '中国石油大学(北京)', '中国石油大学(华东)', '中国药科大学',
         '中南财经政法大学', '中南大学', '中山大学', '中央财经大学', '中央民族大学', '重庆大学', '重庆工商大学',
+        '中国林业研究院', '中国林业科学院', '中国科学院大学'
 
     ];
     initData(schoolData);
@@ -107,8 +108,8 @@ $(function() {
 
     }
     function bindEvent() {
-        //注册
 
+        //注册
         $('.doc-content-res-username').focus(function(){
             $('.res-username-error').html('');
         }).blur(function(){
@@ -265,6 +266,10 @@ $(function() {
                             address: address
                         },
                         dataType: 'json',
+                        beforeSend: function () {
+                            $('.doc-content-restext a').attr('disabled', 'disabled');
+                            $('.doc-content-restext').css({"background": "#388e3c"});
+                        },
                         success: function (data) {
                             if (data.status == 1) {
                                 alert('注册成功，请进入到邮箱进行激活');
@@ -276,6 +281,10 @@ $(function() {
 
                             }
 
+                        },
+                        complete: function () {
+                            $('.doc-content-restext a').removeAttr('disabled');
+                            $('.doc-content-restext').css({"background": "#388e3c"});
                         },
                         error: function () {
                             alert('对不起，当前服务器开小差，请稍候再试')
@@ -299,10 +308,18 @@ $(function() {
                         username: uname,
                         password: upwd,
                     },
+                    beforeSend: function () {
+                        $('.doc-content-logintext a').attr('disabled', 'disabled');
+                        $('.doc-content-logintext').css({"background": "#ccc"});
+                    },
                     dataType: 'json',
                     success: function (data) {
                         if (data.status == 1) {
-                            $.cookie('cookie_username', data.data.username);
+                            var cookie_info = {
+                                username:data.data.username,
+                                identity: data.data.identity
+                            };
+                            $.cookie('cookie_info', JSON.stringify(cookie_info));
                             window.location.href = "../Form/home.html";
 
                         } else {
@@ -310,8 +327,11 @@ $(function() {
                             return false;
 
                         }
-
-                    }
+                    },
+                    complete: function () {
+                        $('.doc-content-logintext a').removeAttr('disabled');
+                        $('.doc-content-logintext').css({"background": "#388e3c"});
+                    },
 
                 })
 
@@ -320,6 +340,10 @@ $(function() {
                 return false;
             }
 
+        });
+
+        $('input').on('keydown', function () {
+            $('.login-error-text').html('')
         });
 
     }
@@ -366,6 +390,8 @@ $(function() {
         eHtml.push('<div class="form-group"> <p class="three-text">密码重置成功！请用新密码登录：</p><p class="three-text"><span class="edit-btn-primary btn-login">立即登录</span> <a href="../From/home.html" class="home-callback-btn">返回首页</a></p></div>');
         eHtml.push('</div>');
         $('.popup-edit').html(eHtml.join(''));
+        $('.popup-footer').html('');
+
         popup.popupEvent();
         var verifyCode = $('.verify-code');
         verifyCode.html(getCode());
@@ -388,7 +414,8 @@ $(function() {
             }
 
         });
-        $('.btn-step-one').on('click', function () {
+        var oneStep = $('.btn-step-one');
+        oneStep.on('click', function () {
             var email =$.trim($('.edit-form-email').val());
             var emailReg=/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
             if(!(emailReg.test(email)) || email == ''){
@@ -402,6 +429,10 @@ $(function() {
                 },
                 url: url + "Form/resetPassword",
                 dataType: 'json',
+                beforeSend: function () {
+                    oneStep.attr('disabled', 'disabled');
+                    oneStep.css({"background": "#ccc"});
+                },
                 success: function (data) {
                     if (data.status == 1) {
                         $('.form-step-two').addClass('active').siblings().removeClass('active');
@@ -412,6 +443,10 @@ $(function() {
                         return false;
                     }
 
+                },
+                complete: function () {
+                    oneStep.removeAttr('disabled');
+                    oneStep.css({"background": "#0275d8"});
                 },
                 error: function () {
                     alert('对不起，当前服务器开小差，请稍候再试')
@@ -437,6 +472,7 @@ $(function() {
             return str;
         }
         function bindTwoEvent(email) {
+            var twoStep = $('.btn-step-two');
             $('.btn-step-two').on('click', function () {
                 var code=$.trim($('.verify-code-confirm').val());
                 var pwd=$('.form-new-pwd').val();
@@ -454,6 +490,10 @@ $(function() {
                     },
                     url: url + "Form/confirmReset",
                     dataType: 'json',
+                    beforeSend: function () {
+                        twoStep.attr('disabled', 'disabled');
+                        twoStep.css({"background": "#ccc"});
+                    },
                     success: function (data) {
                         if (data.status == 1) {
                             $('.form-step-three').addClass('active').siblings().removeClass('active');
@@ -468,6 +508,10 @@ $(function() {
                         }
 
                     },
+                    complete: function () {
+                        twoStep.removeAttr('disabled');
+                        twoStep.css({"background": "#0275d8"});
+                    },
                     error: function () {
                         alert('对不起，当前服务器开小差，请稍候再试')
                     }
@@ -478,6 +522,7 @@ $(function() {
 
 
     });
+
 
 
     loginTab();

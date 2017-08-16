@@ -275,6 +275,8 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     transform: skew(-15deg);
     position: absolute;
 }
+
+
 .edit-title-step li:first-child {
     padding: 0 10px 0 15px;
 }
@@ -284,9 +286,16 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     background: #0275d8;
 }
 
+.edit-title-step li.active:after, .edit-title-step li.active:before {
+    background: #0275d8;
+}
+
 .edit-title-step li span {
     z-index: 1;
     position: relative;
+}
+.title-step-three {
+    padding: 0 40px;
 }
 
 .form-step {
@@ -398,5 +407,9 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     padding: 2px;
     color: #00f;
     cursor: pointer;
+}
+
+.doc-content-btn a {
+    color: #fff;
 }
 

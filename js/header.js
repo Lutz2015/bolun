@@ -3,9 +3,14 @@
  */
 $(function () {
     //判断用户是否登录
-    // var url = "http://yf-rdqa-dev064-sunxuebin.epc.baidu.com:8099/app/index.php/";
-    var url = "http://ndac.env.tsinghua.edu.cn/app/index.php/";
-    var username= $.cookie('cookie_username');
+    var url = "http://yf-rdqa-dev064-sunxuebin.epc.baidu.com:8099/app/index.php/";
+    // var url = "http://ndac.env.tsinghua.edu.cn/app/index.php/";
+    // var username =JSON.parse($.cookie('cookie_info')).username;
+    if($.cookie('cookie_info')){
+        var username =JSON.parse($.cookie('cookie_info')).username;
+    }else {
+        var username = ''
+    }
     if(!username){
         $.ajax({
             type: "POST",
@@ -13,7 +18,8 @@ $(function () {
             dataType: 'json',
             success: function (data) {
                 if(data.status==1){
-                    $.cookie('cookie_username', data.data);
+                    // $.cookie('cookie_username', data.data);
+                    $.cookie('cookie_info', data.data);
                     $('.web-nologin').addClass('hide');
                     $('.web-relogin').removeClass('hide');
                     $('.web-nametext').text(data.data);
@@ -42,7 +48,8 @@ $(function () {
                     if(data.status==1){
                         $('.web-nologin').removeClass('hide');
                         $('.web-relogin').addClass('hide');
-                        $.cookie('cookie_username', '');
+                        // $.cookie('cookie_username', '');
+                        $.cookie('cookie_info', '');
                         window.location.href = "../Form/login.html#login";
                     }else {
                         $('.web-nologin').addClass('hide');
