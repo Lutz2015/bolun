@@ -1,7 +1,7 @@
 
 //左侧导航条
-var url = "http://yf-rdqa-dev064-sunxuebin.epc.baidu.com:8099/app/index.php/";
-// var url = "http://ndac.env.tsinghua.edu.cn/app/index.php/";
+// var url = "http://yf-rdqa-dev064-sunxuebin.epc.baidu.com:8099/app/index.php/";
+var url = "http://ndac.env.tsinghua.edu.cn/app/index.php/";
 $(function () {
     // var username= $('.web-nametext').html();
     if($.cookie('cookie_info')){
@@ -1197,8 +1197,8 @@ function personContri(data, ele, siblingEle,status) {
     //点击稿件下载
     $('.contribute-upload-single').on('click', function () {
         // var cid = $(this).attr('data-id');
-        // window.open('http://ndac.env.tsinghua.edu.cn' + '/app/data/'+cid+'.tar.gz');
-         window.open('http://yf-rdqa-dev064-sunxuebin.epc.baidu.com:8099' + '/app/data/'+cid+'.tar.gz');
+        window.open('http://ndac.env.tsinghua.edu.cn' + '/app/data/'+cid+'.tar.gz');
+         // window.open('http://yf-rdqa-dev064-sunxuebin.epc.baidu.com:8099' + '/app/data/'+cid+'.tar.gz');
     });
 
     //点击全文下载
@@ -1908,8 +1908,8 @@ function noReviewData(data,username) {
     //下载稿件
     $('.contri-upload').on('click', function () {
         var cid = $(this).attr('data-id');
-        // window.open('http://ndac.env.tsinghua.edu.cn' + '/app/data/'+cid+'.tar.gz');
-        window.open('http://yf-rdqa-dev064-sunxuebin.epc.baidu.com:8099' + '/app/data/'+cid+'.tar.gz');
+        window.open('http://ndac.env.tsinghua.edu.cn' + '/app/data/'+cid+'.tar.gz');
+        // window.open('http://yf-rdqa-dev064-sunxuebin.epc.baidu.com:8099' + '/app/data/'+cid+'.tar.gz');
     });
 
 }

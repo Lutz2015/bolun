@@ -3,8 +3,8 @@
  */
 $(function () {
     //判断用户是否登录
-    var url = "http://yf-rdqa-dev064-sunxuebin.epc.baidu.com:8099/app/index.php/";
-    // var url = "http://ndac.env.tsinghua.edu.cn/app/index.php/";
+    // var url = "http://yf-rdqa-dev064-sunxuebin.epc.baidu.com:8099/app/index.php/";
+    var url = "http://ndac.env.tsinghua.edu.cn/app/index.php/";
     // var username =JSON.parse($.cookie('cookie_info')).username;
     if($.cookie('cookie_info')){
         var username =JSON.parse($.cookie('cookie_info')).username;
