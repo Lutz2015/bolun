@@ -3,8 +3,8 @@
  */
 
 $(function () {
-    // var url= "http://yf-rdqa-dev064-sunxuebin.epc.baidu.com:8099/app/index.php/";
-    var url= "http://ndac.env.tsinghua.edu.cn/app/index.php/";
+    var url= "http://yf-rdqa-dev064-sunxuebin.epc.baidu.com:8099/app/index.php/";
+    // var url= "http://ndac.env.tsinghua.edu.cn/app/index.php/";
     //编辑
     // var username =JSON.parse($.cookie('cookie_info')).username;
 

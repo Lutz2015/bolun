@@ -1,7 +1,7 @@
 
 //左侧导航条
-// var url = "http://yf-rdqa-dev064-sunxuebin.epc.baidu.com:8099/app/index.php/";
-var url = "http://ndac.env.tsinghua.edu.cn/app/index.php/";
+var url = "http://yf-rdqa-dev064-sunxuebin.epc.baidu.com:8099/app/index.php/";
+// var url = "http://ndac.env.tsinghua.edu.cn/app/index.php/";
 $(function () {
     // var username= $('.web-nametext').html();
     if($.cookie('cookie_info')){
